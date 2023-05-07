@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -44,8 +43,7 @@ class User extends Authenticatable
         'email',
         'password',
         'code',
-        'position_id',
-        'store_id',
+        'group_id',
         'phone',
         'gender',
         'address',
@@ -83,39 +81,29 @@ class User extends Authenticatable
     ];
 
     // relations
-    public function position()
+    public function group()
     {
-        return $this->hasOne(Positions::class, 'id', 'position_id');
-    }
-
-    public function store()
-    {
-        return $this->hasOne(Store::class, 'id', 'store_id');
+        return $this->hasOne(AdminGroup::class, 'id', 'group_id');
     }
 
     public function activity()
     {
-        return $this->hasMany(UserActivity::class, 'created_by', 'id');
+        return $this->hasMany(AdminActivity::class, 'created_by', 'id');
     }
 
     public function notification()
     {
-        return $this->hasMany(UserNotification::class, 'user_id', 'id');
+        return $this->hasMany(AdminNotification::class, 'admin_id', 'id');
     }
 
     public function device_token()
     {
-        return $this->hasMany(UserDeviceToken::class, 'user_id', 'id');
+        return $this->hasMany(AdminTokenDevice::class, 'created_by', 'id');
     }
 
-    public function shift_detail()
+    public function order()
     {
-        return $this->hasMany(ShiftDetail::class, 'user_id', 'id');
-    }
-
-    public function bill()
-    {
-        return $this->hasMany(Bills::class, 'created_by', 'id');
+        return $this->hasMany(AdminOrder::class, 'created_by', 'id');
     }
 
     // scope
@@ -135,14 +123,9 @@ class User extends Authenticatable
         return $query->where('code', $code);
     }
 
-    public function scopeStoreId($query, $store_id)
+    public function scopeGroupId($query, $group_id)
     {
-        return $query->where('store_id', $store_id);
-    }
-
-    public function scopePositionId($query, $position_id)
-    {
-        return $query->where('position_id', $position_id);
+        return $query->where('group_id', $group_id);
     }
 
     public function scopeStatus($query, $status)
