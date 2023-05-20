@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'vi',
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'vi',
 
     /*
     |--------------------------------------------------------------------------
@@ -109,7 +109,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'vi_VN',
 
     /*
     |--------------------------------------------------------------------------
@@ -159,7 +159,10 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        Laravolt\Avatar\ServiceProvider::class,
+        Milon\Barcode\BarcodeServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -183,7 +186,11 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+        'Avatar'    => Laravolt\Avatar\Facade::class,
+        'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
+        'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
 
 ];

@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('admin_group_role_samples', function (Blueprint $table) {
             $table->id();
+            $table->integer('group_id');
+            $table->integer('permission_id');
+            $table->integer('role_id')->nullable();
+            $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
+
+            $table->index(['id', 'group_id', 'permission_id', 'role_id']);
         });
     }
 

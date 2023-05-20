@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->primary();
+            $table->string('email');
             $table->string('token');
-            $table->string('type', 20);
+            $table->string('type', 20)->default('admin');
             $table->integer('store_id')->nullable();
+            $table->ipAddress('ip')->nullable();
+            $table->string('device')->nullable();
             $table->timestamp('created_at')->nullable();
+
+            $table->index(['id', 'store_id']);
         });
     }
 

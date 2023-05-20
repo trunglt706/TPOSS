@@ -36,6 +36,8 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->integer('deleted_by')->nullable();
+
+            $table->index(['id', 'position_id', 'store_id']);
         });
     }
 

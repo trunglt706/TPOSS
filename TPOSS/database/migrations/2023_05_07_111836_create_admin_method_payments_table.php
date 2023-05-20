@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('admin_method_payments', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('image')->nullable();
+            $table->integer('order')->nullable()->default(0);
+            $table->boolean('status')->nullable()->default(true);
+            $table->boolean('has_portal')->nullable()->default(false);
+            $table->integer('created_by');
             $table->timestamps();
+
+            $table->index(['id', 'created_by']);
         });
     }
 

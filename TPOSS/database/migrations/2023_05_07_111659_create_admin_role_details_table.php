@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('admin_role_details', function (Blueprint $table) {
             $table->id();
+            $table->integer('admin_id');
+            $table->integer('permission_id');
+            $table->integer('role_id')->nullable();
+            $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
+
+            $table->index(['id', 'admin_id', 'permission_id', 'role_id']);
         });
     }
 

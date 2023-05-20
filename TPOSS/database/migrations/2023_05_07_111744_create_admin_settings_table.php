@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('admin_settings', function (Blueprint $table) {
             $table->id();
+            $table->integer('group_id');
+            $table->string('code')->unique();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('type')->nullable();
+            $table->string('value');
+            $table->string('data')->nullable();
+            $table->integer('order')->nullable()->default(0);
             $table->timestamps();
+
+            $table->index(['id', 'group_id']);
         });
     }
 

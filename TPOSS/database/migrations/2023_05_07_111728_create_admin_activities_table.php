@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('admin_activities', function (Blueprint $table) {
             $table->id();
+            $table->integer('permission_id');
+            $table->integer('role_id');
+            $table->json('data_json')->nullable();
+            $table->string('description');
+            $table->ipAddress('ip')->nullable();
+            $table->string('device')->nullable();
+            $table->string('link')->nullable();
+            $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
+
+            $table->index(['id', 'permission_id', 'role_id']);
         });
     }
 
