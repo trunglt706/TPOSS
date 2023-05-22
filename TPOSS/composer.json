@@ -7,15 +7,18 @@
     "require": {
         "php": "^8.1",
         "anhskohbo/no-captcha": "^3.5",
+        "doctrine/dbal": "^3.6",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.8",
         "laravel/sanctum": "^3.2",
         "laravel/telescope": "^4.14",
         "laravel/tinker": "^2.8",
         "laravolt/avatar": "^5.0",
-        "milon/barcode": "*",
-        "qruto/laravel-wave": "^0.6.1",
+        "league/flysystem-aws-s3-v3": "3.0",
         "maatwebsite/excel": "^3.1",
+        "milon/barcode": "*",
+        "pusher/pusher-php-server": "^7.2",
+        "qruto/laravel-wave": "^0.6.1",
         "vanthao03596/laravel-hanhchinhvn": "^1.1"
     },
     "require-dev": {
