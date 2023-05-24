@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Request;
 
 class Handler extends ExceptionHandler
 {
@@ -24,7 +26,23 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            //
+            $this->renderable(function (AuthenticationException $exception, Request $request) {
+                if ($request->expectsJson()) {
+                    return response()->json(['message' => $exception->getMessage()], 401);
+                }
+                $guard = \Arr::get($exception->guards(), 0);
+                switch ($guard) {
+                    case 'api':
+                        return response()->json(['status' => 0, 'data' => 'Không có quyền truy cập!']);
+                    case 'admin':
+                        $login = 'admin.login';
+                    case 'user':
+                    default:
+                        $login = 'login';
+                        break;
+                }
+                return redirect()->guest(route($login));
+            });
         });
     }
 }

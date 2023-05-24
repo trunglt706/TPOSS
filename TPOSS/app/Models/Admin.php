@@ -125,11 +125,17 @@ class Admin extends Authenticatable
 
     public function scopeGroupId($query, $group_id)
     {
+        if (is_array($group_id)) {
+            return $query->whereIn('group_id', $group_id);
+        }
         return $query->where('group_id', $group_id);
     }
 
     public function scopeStatus($query, $status)
     {
+        if (is_array($status)) {
+            return $query->where('status', $status);
+        }
         return $query->where('status', $status);
     }
 
@@ -141,5 +147,24 @@ class Admin extends Authenticatable
     public function scopeRoot($query, $root)
     {
         return $query->where('root', $root);
+    }
+
+    public static function get_status($id = '')
+    {
+        $list = [
+            self::STATUS_NOT_ACTIVE => ['Chưa kích hoạt', COLORS['secondary'], 'slash'],
+            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => ['Bị khóa', COLORS['danger'], 'lock-on']
+        ];
+        return ($id == '') ? $list : $list[$id];
+    }
+
+    public static function get_supper($supper = '')
+    {
+        $list = [
+            self::NOT_SUPPER => 'Thường',
+            self::SUPPER => 'VIP'
+        ];
+        return ($supper == '') ? $list : $list[$supper];
     }
 }
