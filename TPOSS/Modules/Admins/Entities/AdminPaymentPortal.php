@@ -8,11 +8,48 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AdminPaymentPortal extends Model
 {
     use HasFactory;
+    protected $table = 'admin_payment_portals';
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
+    protected $fillable = ['code', 'name', 'description', 'image', 'order', 'version', 'status', 'created_by'];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_SUSPEND = 2;
+
+    public function createdBy()
     {
-        return \Modules\Admins\Database\factories\AdminPaymentPortalFactory::new();
+        return $this->hasOne(Admins::class, 'id', 'created_by');
+    }
+
+    public function scopeCreatedBy($query, $created_by)
+    {
+        return $query->where('created_by', $created_by);
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    public function scopeCode($query, $code)
+    {
+        return $query->where('code', $code);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public static function get_status($id = '')
+    {
+        $list = [
+            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+        ];
+        return ($id == '') ? $list : $list[$id];
     }
 }

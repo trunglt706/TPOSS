@@ -44,6 +44,11 @@ class AdminNotification extends Model
         return $query->where('status', $status);
     }
 
+    public function scopeViewed($query)
+    {
+        return $query->where('status', self::VIEWED);
+    }
+
     public function scopeLink($query, $link)
     {
         return $query->where('link', $link);

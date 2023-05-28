@@ -34,6 +34,11 @@ class AdminSettingGroup extends Model
         return $query->where('status', $status);
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
     public static function get_status($id = '')
     {
         $list = [

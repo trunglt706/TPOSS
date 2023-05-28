@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use \Maatwebsite\Excel\Sheet;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $locale = request()->header('locale') == 'en' ? 'en' : 'vi';
+        App::setLocale($locale);
+
         Schema::defaultStringLength(255);
         Paginator::useBootstrapFive();
         Sheet::macro('styleCells', function (Sheet $sheet, string $cellRange, array $style) {

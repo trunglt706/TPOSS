@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class BackupDB extends Model
 {
     use HasFactory;
-    protected $table = 'admin_groups';
+    protected $table = 'backup_dbs';
 
     protected $fillable = ['name', 'description', 'status', 'size', 'link', 'type', 'created_by'];
 
@@ -32,6 +32,11 @@ class BackupDB extends Model
     public function scopeStatus($query, $status)
     {
         return $query->where('status', $status);
+    }
+
+    public function scopeSuccess($query)
+    {
+        return $query->where('status', self::STATUS_SUCCESS);
     }
 
     public static function get_status($id = '')

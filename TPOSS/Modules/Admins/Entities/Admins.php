@@ -166,6 +166,11 @@ class Admins extends Authenticatable
         return $query->where('status', $status);
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
     public function scopeSupper($query, $supper)
     {
         return $query->where('supper', $supper);
