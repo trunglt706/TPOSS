@@ -34,6 +34,11 @@ class AdminGroup extends Model
         return $query->where('created_by', $created_by);
     }
 
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
     public static function get_status($id = '')
     {
         $list = [

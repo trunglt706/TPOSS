@@ -8,11 +8,38 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class InvoicePortal extends Model
 {
     use HasFactory;
+    protected $table = 'invoice_portals';
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
+    protected $fillable = ['code', 'name', 'description', 'version', 'status'];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_SUSPEND = 2;
+
+    public function invoices()
     {
-        return \Modules\Admins\Database\factories\InvoicePortalFactory::new();
+        return $this->hasMany(AdminInvoice::class, 'portal_id', 'id');
+    }
+
+    public function scopeCode($query, $code)
+    {
+        return $query->where('code', $code);
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    public static function get_status($id = '')
+    {
+        $list = [
+            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+        ];
+        return ($id == '') ? $list : $list[$id];
     }
 }

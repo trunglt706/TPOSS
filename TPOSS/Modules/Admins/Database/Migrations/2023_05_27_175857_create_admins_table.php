@@ -38,7 +38,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->integer('deleted_by')->nullable();
 
-            $table->index(['id', 'group_id', 'assigned_id']);
+            $table->index(['id', 'group_id']);
         });
     }
 

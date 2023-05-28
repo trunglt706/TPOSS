@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('admin_invoices', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
+            $table->integer('order_id');
             $table->integer('portal_id');
             $table->json('data');
             $table->string('link')->nullable();
             $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
 
-            $table->index(['id', 'portal_id']);
+            $table->index(['id', 'portal_id', 'order_id']);
         });
     }
 

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('admin_activities', function (Blueprint $table) {
             $table->id();
+            $table->integer('admin_id');
             $table->integer('permission_id');
             $table->integer('role_id');
             $table->json('data_json')->nullable();
@@ -25,7 +26,7 @@ return new class extends Migration
             $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
 
-            $table->index(['id', 'permission_id', 'role_id']);
+            $table->index(['id', 'permission_id', 'admin_id', 'role_id']);
         });
     }
 
