@@ -14,16 +14,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_groups', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('image')->nullable();
             $table->integer('order')->nullable()->default(0);
             $table->boolean('status')->nullable()->default(true);
-            $table->integer('created_by')->nullable();
+            $table->integer('created_by')->nullable()->index();
             $table->timestamps();
-
-            $table->index(['id', 'created_by']);
         });
     }
 

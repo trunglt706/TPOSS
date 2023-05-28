@@ -14,19 +14,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_activities', function (Blueprint $table) {
-            $table->id();
-            $table->integer('admin_id');
-            $table->integer('permission_id');
-            $table->integer('role_id');
+            $table->id()->index();
+            $table->integer('admin_id')->index();
+            $table->integer('permission_id')->index();
+            $table->integer('role_id')->index();
             $table->json('data_json')->nullable();
             $table->string('description');
-            $table->ipAddress('ip')->nullable();
+            $table->ipAddress('ip')->nullable()->index();
             $table->string('device')->nullable();
             $table->string('link')->nullable();
             $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
-
-            $table->index(['id', 'permission_id', 'admin_id', 'role_id']);
         });
     }
 

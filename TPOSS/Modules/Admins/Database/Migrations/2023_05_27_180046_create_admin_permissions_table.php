@@ -15,7 +15,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_permissions', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->string('name');
             $table->string('extension')->unique();
             $table->string('icon')->nullable();
@@ -23,8 +23,6 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->boolean('status')->default(AdminPermission::STATUS_SUSPEND);
             $table->timestamps();
-
-            $table->index(['id']);
         });
     }
 

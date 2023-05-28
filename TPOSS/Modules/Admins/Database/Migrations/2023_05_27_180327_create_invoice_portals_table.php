@@ -14,15 +14,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('invoice_portals', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->string('code')->unique();
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('version')->nullable();
             $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
-
-            $table->index(['id']);
         });
     }
 

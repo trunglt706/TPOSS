@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Nwidart\Modules\Facades\Module;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,6 +14,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('telescope:prune')->daily();
+        if (Module::has('Admins')) {
+            $schedule->command('register_usings:check_and_delete')->everyFiveMinutes();
+        }
     }
 
     /**

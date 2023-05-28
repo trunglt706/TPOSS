@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('store_permissions', function (Blueprint $table) {
+        Schema::create('leads', function (Blueprint $table) {
             $table->id();
 
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('store_permissions');
+        Schema::dropIfExists('leads');
     }
 };

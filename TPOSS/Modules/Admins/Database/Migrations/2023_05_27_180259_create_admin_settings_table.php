@@ -14,8 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_settings', function (Blueprint $table) {
-            $table->id();
-            $table->integer('group_id');
+            $table->id()->index();
+            $table->integer('group_id')->index();
             $table->string('code')->unique();
             $table->string('name');
             $table->string('description')->nullable();
@@ -24,8 +24,6 @@ return new class extends Migration
             $table->string('data')->nullable();
             $table->integer('order')->nullable()->default(0);
             $table->timestamps();
-
-            $table->index(['id', 'group_id']);
         });
     }
 

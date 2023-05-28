@@ -15,14 +15,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_group_role_samples', function (Blueprint $table) {
-            $table->id();
-            $table->integer('group_id');
-            $table->integer('permission_id');
-            $table->integer('role_id')->nullable();
+            $table->id()->index();
+            $table->integer('group_id')->index();
+            $table->integer('permission_id')->index();
+            $table->integer('role_id')->nullable()->index();
             $table->boolean('status')->nullable()->default(AdminGroupRoleSample::STATUS_SUSPEND);
             $table->timestamps();
-
-            $table->index(['id', 'group_id', 'permission_id', 'role_id']);
         });
     }
 

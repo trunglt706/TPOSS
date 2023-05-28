@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('areas', function (Blueprint $table) {
-            $table->id();
-
+            $table->id()->index();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->boolean('status')->nullable()->default(true);
+            $table->integer('created_by')->nullable()->index();
             $table->timestamps();
         });
     }

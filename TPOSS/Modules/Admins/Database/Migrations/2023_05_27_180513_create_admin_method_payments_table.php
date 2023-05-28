@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_method_payments', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->string('code')->unique();
             $table->string('name');
             $table->string('description')->nullable();
@@ -22,10 +22,8 @@ return new class extends Migration
             $table->integer('order')->nullable()->default(0);
             $table->boolean('status')->nullable()->default(true);
             $table->boolean('has_portal')->nullable()->default(false);
-            $table->integer('created_by');
+            $table->integer('created_by')->index();
             $table->timestamps();
-
-            $table->index(['id', 'created_by']);
         });
     }
 

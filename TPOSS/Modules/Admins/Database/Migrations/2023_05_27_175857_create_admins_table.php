@@ -15,10 +15,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admins', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->string('code')->nullable();
             $table->string('name');
-            $table->integer('group_id')->nullable();
+            $table->integer('group_id')->nullable()->index();
             $table->string('email', 50)->unique();
             $table->string('phone', 20)->nullable();
             $table->string('address')->nullable();
@@ -33,12 +33,10 @@ return new class extends Migration
             $table->date('birthday')->nullable();
             $table->integer('gender')->nullable()->default(Admins::GENDER_OTHER);
             $table->dateTime('last_activity')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->integer('created_by')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
             $table->integer('deleted_by')->nullable();
-
-            $table->index(['id', 'group_id']);
         });
     }
 

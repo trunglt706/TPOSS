@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('service_permissions', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->integer('permission_id')->index();
             $table->integer('service_id')->index();
             $table->boolean('status')->nullable()->default();
-            $table->integer('created_by')->nullable();
+            $table->integer('created_by')->nullable()->index();
             $table->timestamps();
         });
     }

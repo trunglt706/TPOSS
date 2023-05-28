@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('admin_orders', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->integer('store_id')->index();
             $table->integer('service_id')->index();
             $table->date('start_date')->nullable()->default(date('Y-m-d'));

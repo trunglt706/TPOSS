@@ -14,15 +14,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_notifications', function (Blueprint $table) {
-            $table->id();
-            $table->integer('permission_id');
-            $table->integer('admin_id');
+            $table->id()->index();
+            $table->integer('permission_id')->index();
+            $table->integer('admin_id')->index();
             $table->string('description');
             $table->string('link')->nullable();
             $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
-
-            $table->index(['id', 'permission_id', 'admin_id']);
         });
     }
 

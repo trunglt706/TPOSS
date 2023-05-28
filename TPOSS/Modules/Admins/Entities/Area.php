@@ -4,15 +4,53 @@ namespace Modules\Admins\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Stores\Entities\Stores;
 
 class Area extends Model
 {
     use HasFactory;
+    protected $table = 'areas';
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
+    protected $fillable = ['name', 'description', 'status', 'created_by'];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_SUSPEND = 2;
+
+    public function stores()
     {
-        return \Modules\Admins\Database\factories\AreaFactory::new();
+        return $this->hasMany(Stores::class, 'area_id', 'id');
+    }
+
+    public function createdBy()
+    {
+        return $this->hasOne(Admins::class, 'id', 'created_by');
+    }
+
+    public function scopeCreatedBy($query, $created_by)
+    {
+        return $query->where('created_by', $created_by);
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public static function get_status($id = '')
+    {
+        $list = [
+            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+        ];
+        return ($id == '') ? $list : $list[$id];
     }
 }
