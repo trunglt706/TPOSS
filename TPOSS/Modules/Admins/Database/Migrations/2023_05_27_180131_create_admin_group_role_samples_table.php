@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Admins\Entities\AdminGroupRoleSample;
 
 return new class extends Migration
 {
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->integer('group_id');
             $table->integer('permission_id');
             $table->integer('role_id')->nullable();
-            $table->boolean('status')->nullable()->default(true);
+            $table->boolean('status')->nullable()->default(AdminGroupRoleSample::STATUS_SUSPEND);
             $table->timestamps();
 
             $table->index(['id', 'group_id', 'permission_id', 'role_id']);

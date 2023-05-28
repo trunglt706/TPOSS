@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('order_id');
             $table->integer('method_id');
-            $table->integer('portal_id');
+            $table->integer('portal_id')->nullable();
             $table->integer('total')->nullable()->default(0);
             $table->string('description')->nullable();
             $table->boolean('status')->nullable()->default(false);

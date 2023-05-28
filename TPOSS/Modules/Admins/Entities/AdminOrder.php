@@ -4,15 +4,90 @@ namespace Modules\Admins\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Stores\Entities\Stores;
 
 class AdminOrder extends Model
 {
     use HasFactory;
+    protected $table = 'admin_orders';
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
+    protected $fillable = ['store_id', 'service_id', 'start_date', 'end_date', 'discount_type', 'discount_value', 'discount_total', 'vat_value', 'vat_total', 'sub_total', 'total', 'description', 'url_view', 'status', 'created_by', 'deleted_by'];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
+
+    const DISCOUNT_TYPE_PERCENT = 1;
+    const DISCOUNT_TYPE_VND = 0;
+
+    const STATUS_TMP = 0;
+    const STATUS_APPROVED = 1;
+    const STATUS_EXPIRED = 2;
+    const STATUS_DELETED = 3;
+
+    public function store()
     {
-        return \Modules\Admins\Database\factories\AdminOrderFactory::new();
+        return $this->hasOne(Stores::class, 'id', 'store_id');
+    }
+
+    public function service()
+    {
+        return $this->hasOne(Service::class, 'id', 'service_id');
+    }
+
+    public function createdBy()
+    {
+        return $this->hasOne(Admins::class, 'id', 'created_by');
+    }
+
+    public function deletedBy()
+    {
+        return $this->hasOne(Admins::class, 'id', 'deleted_by');
+    }
+
+    public function scopeStoreId($query, $store_id)
+    {
+        return $query->where('store_id', $store_id);
+    }
+
+    public function scopeServiceId($query, $service_id)
+    {
+        return $query->where('service_id', $service_id);
+    }
+
+    public function scopeCreatedBy($query, $created_by)
+    {
+        return $query->where('created_by', $created_by);
+    }
+
+    public function scopeDeletedBy($query, $deleted_by)
+    {
+        return $query->where('deleted_by', $deleted_by);
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        if (is_array($status)) {
+            return $query->whereIn('status', $status);
+        }
+        return $query->where('status', $status);
+    }
+
+    public function scopeApprove($query)
+    {
+        return $query->where('status', self::STATUS_APPROVED);
+    }
+
+    public static function get_status($id = '')
+    {
+        $list = [
+            self::STATUS_TMP => ['Đơn tạm', COLORS['secondary']],
+            self::STATUS_APPROVED => ['Đã duyệt', COLORS['success']],
+            self::STATUS_EXPIRED => ['Quá hạn', COLORS['warning']],
+            self::STATUS_DELETED => ['Đã xáo', COLORS['danger']],
+        ];
+        return ($id == '') ? $list : $list[$id];
     }
 }

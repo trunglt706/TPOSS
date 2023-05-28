@@ -8,11 +8,63 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class ServicePermission extends Model
 {
     use HasFactory;
+    protected $table = 'service_permissions';
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
+    protected $fillable = ['permission_id', 'service_id', 'status', 'created_by'];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_SUSPEND = 2;
+
+    public function permission()
     {
-        return \Modules\Admins\Database\factories\ServicePermissionFactory::new();
+        return $this->hasOne(AdminPermission::class, 'id', 'permission_id');
+    }
+
+    public function service()
+    {
+        return $this->hasOne(Service::class, 'id', 'service_id');
+    }
+
+    public function createdBy()
+    {
+        return $this->hasOne(Admins::class, 'id', 'created_by');
+    }
+
+    public function scopeCreatedBy($query, $created_by)
+    {
+        return $query->where('created_by', $created_by);
+    }
+
+    public function scopePermissionId($query, $permission_id)
+    {
+        return $query->where('permission_id', $permission_id);
+    }
+
+    public function scopeServiceId($query, $service_id)
+    {
+        return $query->where('service_id', $service_id);
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public static function get_status($id = '')
+    {
+        $list = [
+            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+        ];
+        return ($id == '') ? $list : $list[$id];
     }
 }

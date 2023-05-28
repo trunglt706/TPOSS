@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Admins\Entities\AdminPermission;
 
 return new class extends Migration
 {
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->string('icon')->nullable();
             $table->integer('order')->default(0);
             $table->string('description')->nullable();
-            $table->boolean('status')->default(true);
+            $table->boolean('status')->default(AdminPermission::STATUS_SUSPEND);
             $table->timestamps();
 
             $table->index(['id']);

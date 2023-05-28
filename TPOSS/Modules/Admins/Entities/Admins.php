@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Stores\Entities\Stores;
+use Nwidart\Modules\Module;
 
 class Admins extends Authenticatable
 {
@@ -127,7 +128,7 @@ class Admins extends Authenticatable
 
     public function storeAssigned()
     {
-        if (\Module::has('Stores')) {
+        if (Module::has('Stores')) {
             return $this->hasMany(Stores::class, 'assigned_id', 'id');
         }
         return null;
