@@ -65,7 +65,9 @@ class Admins extends Authenticatable
         'created_at',
         'created_by',
         'deleted_at',
-        'deleted_by'
+        'deleted_by',
+        'identity_card',
+        'tax_code'
     ];
 
     /**

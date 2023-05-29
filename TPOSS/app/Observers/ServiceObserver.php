@@ -26,6 +26,7 @@ class ServiceObserver
 
     public function deleted(Service $service)
     {
+        // delete table admin_store_service
     }
 
     public function restored(Service $service)

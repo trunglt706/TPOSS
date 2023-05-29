@@ -18,10 +18,8 @@ class PostGroup extends Model
         'order' => 'integer',
     ];
 
-    const STATUS_TMP = 0;
-    const STATUS_PUBLIC = 1;
+    const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
-    const STATUS_DELETED = 3;
 
     public function posts()
     {
@@ -57,11 +55,6 @@ class PostGroup extends Model
         return $query->where('slug', $slug);
     }
 
-    public function scopePublic($query)
-    {
-        return $query->where('status', self::STATUS_PUBLIC);
-    }
-
     public function scopeSortDesc($query)
     {
         return $query->orderBy('order', 'desc');
@@ -70,5 +63,14 @@ class PostGroup extends Model
     public function scopeSortAsc($query)
     {
         return $query->orderBy('order', 'asc');
+    }
+
+    public static function get_status($id = '')
+    {
+        $list = [
+            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+        ];
+        return ($id == '') ? $list : $list[$id];
     }
 }

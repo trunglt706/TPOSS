@@ -11,7 +11,7 @@ class Service extends Model
     use HasFactory;
     protected $table = 'services';
 
-    protected $fillable = ['code', 'name', 'description', 'status', 'image', 'max_users', 'max_times', 'max_orders', 'created_by'];
+    protected $fillable = ['code', 'name', 'support_device', 'description', 'status', 'image', 'max_users', 'max_times', 'max_orders', 'created_by'];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -23,6 +23,12 @@ class Service extends Model
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
+
+    const SUPPORT_WEB = 'web';
+    const SUPPORT_WINDOW = 'window';
+    const SUPPORT_MAC = 'mac';
+    const SUPPORT_ANDROID = 'android';
+    const SUPPORT_IOS = 'ios';
 
     public function stores()
     {
@@ -67,5 +73,14 @@ class Service extends Model
             self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
+    }
+
+    public function scopeSearchSupport($query, $support)
+    {
+        $data = json_encode([$support]);
+        if (is_array($support)) {
+            $data = json_encode($support);
+        }
+        return $query->whereRaw('JSON_CONTAINS(support_device, \'' . $data . '\')');
     }
 }

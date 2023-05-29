@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('backup_d_bs');
+        Schema::dropIfExists('backup_dbs');
     }
 };

@@ -5,35 +5,26 @@ namespace Modules\Admins\Entities;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Vanthao03596\HCVN\Models\District;
-use Vanthao03596\HCVN\Models\Province;
-use Vanthao03596\HCVN\Models\Ward;
 
-class AdminLead extends Model
+class AdminContact extends Model
 {
     use HasFactory;
-    protected $table = 'admin_leads';
+    protected $table = 'admin_contacts';
 
-    protected $fillable = ['province_id', 'district_id', 'ward_id', 'code', 'name', 'avatar', 'phone', 'email', 'address', 'description', 'status', 'created_by', 'assigned_id', 'source', 'converted_at', 'customer_id', 'identity_card', 'tax_code', 'bank_name', 'bank_address', 'bank_branch', 'bank_account_number', 'bank_account_name', 'gender'];
+    protected $fillable = ['customer_id', 'province_id', 'district_id', 'ward_id', 'code', 'name', 'avatar', 'phone', 'email', 'address', 'description', 'status', 'created_by', 'identity_card', 'tax_code', 'bank_name', 'bank_address', 'bank_branch', 'bank_account_number', 'bank_account_name', 'gender', 'position'];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'converted_at' => 'datetime'
     ];
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
-    const SOURCE_REGISTER = 'register';
-    const SOURCE_FACEBOOK = 'facebook';
-    const SOURCE_ZALO = 'zalo';
-    const SOURCE_EMAIL = 'email';
-    const SOURCE_CONTACT = 'contact';
-
-    const GENDER_MALE = 1;
-    const GENDER_FEMALE = 0;
-    const GENDER_OTHER = 2;
+    public function customer()
+    {
+        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
+    }
 
     public function province()
     {
@@ -53,16 +44,6 @@ class AdminLead extends Model
     public function createdBy()
     {
         return $this->hasOne(Admins::class, 'id', 'created_by');
-    }
-
-    public function assigned()
-    {
-        return $this->hasOne(Admins::class, 'id', 'assigned_id');
-    }
-
-    public function customer()
-    {
-        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
     }
 
     public function scopeProvinceId($query, $province_id)
@@ -89,28 +70,20 @@ class AdminLead extends Model
         return $query->where('ward_id', $ward_id);
     }
 
-    public function scopeOfCreated($query, $created_by)
-    {
-        if (is_array($created_by)) {
-            return $query->whereIn('created_by', $created_by);
-        }
-        return $query->where('created_by', $created_by);
-    }
-
-    public function scopeOfAssigned($query, $assigned_id)
-    {
-        if (is_array($assigned_id)) {
-            return $query->whereIn('assigned_id', $assigned_id);
-        }
-        return $query->where('assigned_id', $assigned_id);
-    }
-
     public function scopeCustomerId($query, $customer_id)
     {
         if (is_array($customer_id)) {
             return $query->whereIn('customer_id', $customer_id);
         }
         return $query->where('customer_id', $customer_id);
+    }
+
+    public function scopeOfCreated($query, $created_by)
+    {
+        if (is_array($created_by)) {
+            return $query->whereIn('created_by', $created_by);
+        }
+        return $query->where('created_by', $created_by);
     }
 
     public function scopePhone($query, $phone)
@@ -153,43 +126,12 @@ class AdminLead extends Model
         return $query->where('code', $code);
     }
 
-    public function scopeSource($query, $source)
-    {
-        if (is_array($source)) {
-            return $query->whereIn('source', $source);
-        }
-        return $query->where('source', $source);
-    }
-
     public function scopeStatus($query, $status)
     {
         if (is_array($status)) {
             return $query->whereIn('status', $status);
         }
         return $query->where('status', $status);
-    }
-
-    public function scopeConverted($query)
-    {
-        return $query->whereHas('customer_id');
-    }
-
-    public function scopeNotConvert($query)
-    {
-        return $query->whereDoesntHave('customer_id');
-    }
-
-    public function scopeConvertDate($query, $date)
-    {
-        $_date = Carbon::parse($date)->format('Y-m-d');
-        return $query->whereDate('converted_at', $_date);
-    }
-
-    public function scopeConvertBetween($query, $from, $to)
-    {
-        $_from = Carbon::parse($from)->startOfDay()->format('Y-m-d H:i:s');
-        $_to = Carbon::parse($to)->startOfDay()->format('Y-m-d H:i:s');
-        return $query->whereBetween('converted_at', [$_from, $_to]);
     }
 
     public function scopeDate($query, $date)
@@ -210,28 +152,6 @@ class AdminLead extends Model
         $list = [
             self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
             self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
-        ];
-        return ($id == '') ? $list : $list[$id];
-    }
-
-    public static function get_source($id = '')
-    {
-        $list = [
-            self::SOURCE_REGISTER => ['Tự đăng ký', COLORS['secondary']],
-            self::SOURCE_FACEBOOK => ['Facebook', COLORS['info']],
-            self::SOURCE_ZALO => ['Zalo', COLORS['success']],
-            self::SOURCE_EMAIL => ['Email', COLORS['danger']],
-            self::SOURCE_CONTACT => ['Liên hệ trực tiếp', COLORS['warning']],
-        ];
-        return ($id == '') ? $list : $list[$id];
-    }
-
-    public static function get_gender($id = '')
-    {
-        $list = [
-            self::GENDER_MALE => ['Name', COLORS['success']],
-            self::GENDER_FEMALE => ['Nữ', COLORS['secondary']],
-            self::GENDER_OTHER => ['Khác', COLORS['secondary']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('phone', 20)->nullable();
             $table->string('address')->nullable();
             $table->text('description')->nullable();
+            $table->string('identity_card')->nullable();
+            $table->string('tax_code')->nullable();
             $table->integer('status')->nullable()->default(Admins::STATUS_UN_ACTIVE);
             $table->boolean('root')->nullable()->default(Admins::NOT_ROOT);
             $table->string('avatar')->nullable();

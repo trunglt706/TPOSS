@@ -25,6 +25,13 @@ return new class extends Migration
             $table->integer('max_orders')->nullable()->default(0);
             $table->boolean('status')->nullable()->default(Service::STATUS_ACTIVE);
             $table->integer('created_by')->nullable()->index();
+            $table->json('support_device')->nullable()->default(json_encode([
+                Service::SUPPORT_WEB,
+                Service::SUPPORT_WINDOW,
+                Service::SUPPORT_MAC,
+                Service::SUPPORT_ANDROID,
+                Service::SUPPORT_IOS,
+            ]));
             $table->timestamps();
         });
     }
