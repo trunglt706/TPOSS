@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('admin_store_follows', function (Blueprint $table) {
-            $table->id();
-
+            $table->id()->index();
+            $table->integer('admin_id')->index();
+            $table->integer('store_id')->index();
             $table->timestamps();
         });
     }

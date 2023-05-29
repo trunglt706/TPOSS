@@ -15,6 +15,7 @@ class Service extends Model
 
     protected $casts = [
         'created_at' => 'datetime',
+        'updated_at' => 'datetime',
         'max_users' => 'integer',
         'max_times' => 'integer',
         'max_orders' => 'integer',

@@ -2,17 +2,105 @@
 
 namespace Modules\Admins\Entities;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Posts extends Model
 {
     use HasFactory;
+    protected $table = 'posts';
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
+    protected $fillable = ['name', 'slug', 'group_id', 'description', 'tag', 'order', 'image', 'content', 'status', 'created_by', 'public_date'];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'order' => 'integer',
+        'public_date' => 'datetime',
+    ];
+
+    const STATUS_TMP = 0;
+    const STATUS_PUBLIC = 1;
+    const STATUS_SUSPEND = 2;
+    const STATUS_DELETED = 3;
+
+    public function group()
     {
-        return \Modules\Admins\Database\factories\PostsFactory::new();
+        return $this->hasOne(PostGroup::class, 'id', 'group_id');
+    }
+
+    public function createdBy()
+    {
+        return $this->hasOne(Admins::class, 'id', 'created_by');
+    }
+
+    public function scopeCreatedBy($query, $created_by)
+    {
+        if (is_array($created_by)) {
+            return $query->whereIn('created_by', $created_by);
+        }
+        return $query->where('created_by', $created_by);
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        if (is_array($status)) {
+            return $query->whereIn('status', $status);
+        }
+        return $query->where('status', $status);
+    }
+
+    public function scopeSlug($query, $slug)
+    {
+        if (is_array($slug)) {
+            return $query->whereIn('slug', $slug);
+        }
+        return $query->where('slug', $slug);
+    }
+
+    public function scopeGroupId($query, $group_id)
+    {
+        if (is_array($group_id)) {
+            return $query->whereIn('group_id', $group_id);
+        }
+        return $query->where('group_id', $group_id);
+    }
+
+    public function scopeSearchTag($query, $tag)
+    {
+        $data = json_encode([$tag]);
+        if (is_array($tag)) {
+            $data = json_encode($tag);
+        }
+        return $query->whereRaw('JSON_CONTAINS(tag, \'' . $data . '\')');
+    }
+
+    public function scopePublic($query)
+    {
+        return $query->where('status', self::STATUS_PUBLIC);
+    }
+
+    public function scopeSortDesc($query)
+    {
+        return $query->orderBy('order', 'desc');
+    }
+
+    public function scopeSortAsc($query)
+    {
+        return $query->orderBy('order', 'asc');
+    }
+
+    public function scopeDate($query, $date)
+    {
+        $_date = Carbon::parse($date)->format('Y-m-d');
+        return $query->whereDate('created_at', $_date);
+    }
+
+    public function scopeBetween($query, $from, $to)
+    {
+        $_from = Carbon::parse($from)->startOfDay()->format('Y-m-d H:i:s');
+        $_to = Carbon::parse($to)->startOfDay()->format('Y-m-d H:i:s');
+        return $query->whereBetween('created_at', [$_from, $_to]);
     }
 }

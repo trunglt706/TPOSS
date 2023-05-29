@@ -2,6 +2,7 @@
 
 namespace Modules\Admins\Entities;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -86,6 +87,7 @@ class Admins extends Authenticatable
         'last_activity' => 'datetime',
         'birthday' => 'date',
         'created_at' => 'datetime',
+        'updated_at' => 'datetime',
         'expired_date' => 'datetime',
         'deleted_at' => 'datetime',
     ];
@@ -219,5 +221,18 @@ class Admins extends Authenticatable
             self::IS_ROOT => ['Tài gốc', COLORS['success']],
         ];
         return ($root == '') ? $list : $list[$root];
+    }
+
+    public function scopeDate($query, $date)
+    {
+        $_date = Carbon::parse($date)->format('Y-m-d');
+        return $query->whereDate('created_at', $_date);
+    }
+
+    public function scopeBetween($query, $from, $to)
+    {
+        $_from = Carbon::parse($from)->startOfDay()->format('Y-m-d H:i:s');
+        $_to = Carbon::parse($to)->startOfDay()->format('Y-m-d H:i:s');
+        return $query->whereBetween('created_at', [$_from, $_to]);
     }
 }

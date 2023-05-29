@@ -14,6 +14,7 @@ class AdminInvoice extends Model
 
     protected $casts = [
         'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     const STATUS_WAIT = 0;

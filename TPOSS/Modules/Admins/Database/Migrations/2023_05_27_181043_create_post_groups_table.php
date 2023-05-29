@@ -14,8 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('post_groups', function (Blueprint $table) {
-            $table->id();
-
+            $table->id()->index();
+            $table->string('slug')->unique();
+            $table->string('name');
+            $table->string('image')->nullable();
+            $table->string('description')->nullable();
+            $table->integer('status')->nullable()->default('');
+            $table->integer('order')->nullable();
+            $table->integer('created_by')->nullable()->index();
             $table->timestamps();
         });
     }
