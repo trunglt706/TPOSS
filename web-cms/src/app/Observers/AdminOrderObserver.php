@@ -22,7 +22,8 @@ class AdminOrderObserver
 
     public function created(AdminOrder $order)
     {
-        //
+        // send notify to supper admin and assigned of store
+        
     }
 
     public function updating(AdminOrder $order)

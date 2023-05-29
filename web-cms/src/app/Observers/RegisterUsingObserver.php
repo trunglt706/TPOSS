@@ -3,8 +3,10 @@
 namespace App\Observers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Modules\Admins\Entities\RegisterUsing;
 use Illuminate\Support\Str;
+use Modules\Admins\Emails\EmailValidateRegister;
 
 class RegisterUsingObserver
 {
@@ -19,6 +21,11 @@ class RegisterUsingObserver
     public function created(RegisterUsing $register)
     {
         // send email or phone to customer to verify
+        try {
+            Mail::to($register->email)->send(new EmailValidateRegister($register));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     public function updating(RegisterUsing $register)
