@@ -29,16 +29,25 @@ class AdminSetting extends Model
 
     public function scopeGroupId($query, $group_id)
     {
+        if (is_array($group_id)) {
+            return $query->whereIn('group_id', $group_id);
+        }
         return $query->where('group_id', $group_id);
     }
 
     public function scopeCode($query, $code)
     {
+        if (-is_array($code)) {
+            return $query->whereIn('code', $code);
+        }
         return $query->where('code', $code);
     }
 
     public function scopeType($query, $type)
     {
+        if (is_array($type)) {
+            return $query->whereIn('type', $type);
+        }
         return $query->where('type', $type);
     }
 }

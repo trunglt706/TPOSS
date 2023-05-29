@@ -40,11 +40,17 @@ class Service extends Model
 
     public function scopeCreatedBy($query, $created_by)
     {
+        if (is_array($created_by)) {
+            return $query->whereIn('created_by', $created_by);
+        }
         return $query->where('created_by', $created_by);
     }
 
     public function scopeStatus($query, $status)
     {
+        if (is_array($status)) {
+            return $query->whereIn('status', $status);
+        }
         return $query->where('status', $status);
     }
 

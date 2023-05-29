@@ -26,6 +26,9 @@ class AdminTokenDevice extends Model
 
     public function scopeIp($query, $ip)
     {
+        if (is_array($ip)) {
+            return $query->whereIn('ip', $ip);
+        }
         return $query->where('ip', $ip);
     }
 
@@ -36,21 +39,33 @@ class AdminTokenDevice extends Model
 
     public function scopeDeviceId($query, $device_id)
     {
+        if (is_array($device_id)) {
+            return $query->whereIn('device_id', $device_id);
+        }
         return $query->where('device_id', $device_id);
     }
 
     public function scopeToken($query, $token)
     {
+        if (is_array($token)) {
+            return $query->whereIn('token', $token);
+        }
         return $query->where('token', $token);
     }
 
     public function scopeOs($query, $os)
     {
+        if (is_array($os)) {
+            return $query->whereIn('os', $os);
+        }
         return $query->where('os', $os);
     }
 
     public function scopeStatus($query, $status)
     {
+        if (is_array($status)) {
+            return $query->whereIn('status', $status);
+        }
         return $query->where('status', $status);
     }
 

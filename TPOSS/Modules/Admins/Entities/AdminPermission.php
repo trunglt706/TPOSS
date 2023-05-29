@@ -26,11 +26,17 @@ class AdminPermission extends Model
 
     public function scopeExtension($query, $extension)
     {
+        if (is_array($extension)) {
+            return $query->whereIn('extension', $extension);
+        }
         return $query->where('extension', $extension);
     }
 
     public function scopeStatus($query, $status)
     {
+        if (is_array($status)) {
+            return $query->whereIn('status', $status);
+        }
         return $query->where('status', $status);
     }
 

@@ -49,21 +49,33 @@ class AdminOrder extends Model
 
     public function scopeStoreId($query, $store_id)
     {
+        if (is_array($store_id)) {
+            return $query->whereIn('store_id', $store_id);
+        }
         return $query->where('store_id', $store_id);
     }
 
     public function scopeServiceId($query, $service_id)
     {
+        if (is_array($service_id)) {
+            return $query->whereIn('service_id', $service_id);
+        }
         return $query->where('service_id', $service_id);
     }
 
     public function scopeCreatedBy($query, $created_by)
     {
+        if (is_array($created_by)) {
+            return $query->whereIn('created_by', $created_by);
+        }
         return $query->where('created_by', $created_by);
     }
 
     public function scopeDeletedBy($query, $deleted_by)
     {
+        if (is_array($deleted_by)) {
+            return $query->whereIn('deleted_by', $deleted_by);
+        }
         return $query->where('deleted_by', $deleted_by);
     }
 

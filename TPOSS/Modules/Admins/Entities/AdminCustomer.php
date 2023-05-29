@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Leads\Entities;
+namespace Modules\Admins\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Leads extends Model
+class AdminCustomer extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,6 @@ class Leads extends Model
     
     protected static function newFactory()
     {
-        return \Modules\Leads\Database\factories\LeadsFactory::new();
+        return \Modules\Admins\Database\factories\AdminCustomerFactory::new();
     }
 }

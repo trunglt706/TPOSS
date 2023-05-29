@@ -31,16 +31,25 @@ class AdminNotification extends Model
 
     public function scopePermissionId($query, $permission_id)
     {
+        if (is_array($permission_id)) {
+            return $query->whereIn('permission_id', $permission_id);
+        }
         return $query->where('permission_id', $permission_id);
     }
 
     public function scopeAdminId($query, $admin_id)
     {
+        if (is_array($admin_id)) {
+            return $query->whereIn('admin_id', $admin_id);
+        }
         return $query->where('admin_id', $admin_id);
     }
 
     public function scopeStatus($query, $status)
     {
+        if (is_array($status)) {
+            return $query->whereIn('status', $status);
+        }
         return $query->where('status', $status);
     }
 

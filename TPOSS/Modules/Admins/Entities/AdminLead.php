@@ -5,7 +5,7 @@ namespace Modules\Admins\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AdmnEmails extends Model
+class AdminLead extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,6 @@ class AdmnEmails extends Model
     
     protected static function newFactory()
     {
-        return \Modules\Admins\Database\factories\AdmnEmailsFactory::new();
+        return \Modules\Admins\Database\factories\AdminLeadFactory::new();
     }
 }

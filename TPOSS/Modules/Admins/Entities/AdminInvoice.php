@@ -32,11 +32,17 @@ class AdminInvoice extends Model
 
     public function scopeOrderId($query, $order_id)
     {
+        if (is_array($order_id)) {
+            return $query->whereIn('order_id', $order_id);
+        }
         return $query->where('order_id', $order_id);
     }
 
     public function scopePortalId($query, $portal_id)
     {
+        if (is_array($portal_id)) {
+            return $query->whereIn('portal_id', $portal_id);
+        }
         return $query->where('portal_id', $portal_id);
     }
 

@@ -26,11 +26,17 @@ class AdminRole extends Model
 
     public function scopePermissionId($query, $permission_id)
     {
+        if (is_array($permission_id)) {
+            return $query->whereIn('permission_id', $permission_id);
+        }
         return $query->where('permission_id', $permission_id);
     }
 
     public function scopeStatus($query, $status)
     {
+        if (is_array($status)) {
+            return $query->whereIn('status', $status);
+        }
         return $query->where('status', $status);
     }
 

@@ -5,8 +5,6 @@ namespace Modules\Admins\Entities;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Leads\Entities\Leads;
-use Nwidart\Modules\Facades\Module;
 
 class RegisterUsing extends Model
 {
@@ -37,10 +35,7 @@ class RegisterUsing extends Model
 
     public function lead_id()
     {
-        if (Module::hash('Leads')) {
-            return $this->hasOne(Leads::class, 'id', 'lead_id');
-        }
-        return null;
+        return $this->hasOne(AdminLead::class, 'id', 'lead_id');
     }
 
     public function scopeEmail($query, $email)
@@ -55,26 +50,41 @@ class RegisterUsing extends Model
 
     public function scopeLeadId($query, $lead_id)
     {
+        if (is_array($lead_id)) {
+            return $query->whereIn('lead_id', $lead_id);
+        }
         return $query->where('lead_id', $lead_id);
     }
 
     public function scopeServiceId($query, $service_id)
     {
+        if (is_array($service_id)) {
+            return $query->whereIn('service_id', $service_id);
+        }
         return $query->where('service_id', $service_id);
     }
 
     public function scopeType($query, $type)
     {
+        if (is_array($type)) {
+            return $query->whereIn('type', $type);
+        }
         return $query->where('type', $type);
     }
 
     public function scopeStatus($query, $status)
     {
+        if (is_array($status)) {
+            return $query->whereIn('status', $status);
+        }
         return $query->where('status', $status);
     }
 
     public function scopeIp($query, $ip)
     {
+        if (is_array($ip)) {
+            return $query->whereIn('ip', $ip);
+        }
         return $query->where('ip', $ip);
     }
 
