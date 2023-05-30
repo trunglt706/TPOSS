@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('store_permissions', function (Blueprint $table) {
+        Schema::create('store_keys', function (Blueprint $table) {
             $table->id()->index();
-            $table->string('name');
-            $table->string('extension')->unique();
-            $table->string('icon')->nullable();
-            $table->integer('order')->default(0);
-            $table->string('description')->nullable();
-            $table->boolean('status')->default(true);
+            $table->integer('store_id')->index();
+            $table->string('key')->unique();
+            $table->integer('pin')->nullable();
+            $table->integer('rgm')->nullable();
+            $table->dateTime('expire_date')->nullable();
+            $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('store_permissions');
+        Schema::dropIfExists('store_keys');
     }
 };

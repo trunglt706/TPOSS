@@ -14,8 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('store_roles', function (Blueprint $table) {
-            $table->id();
-
+            $table->id()->index();
+            $table->integer('permission_id')->index();
+            $table->string('extension');
+            $table->string('icon')->nullable();
+            $table->integer('order')->nullable()->default(0);
+            $table->boolean('status')->nullable(true);
             $table->timestamps();
         });
     }
