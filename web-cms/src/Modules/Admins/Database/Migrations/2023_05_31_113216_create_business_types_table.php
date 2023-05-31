@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id()->index();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->integer('status')->nullable()->default(BusinessType::STATUS_TMP);
+            $table->integer('status')->nullable()->default(BusinessType::STATUS_ACTIVE);
             $table->integer('created_by')->nullable()->index();
             $table->timestamps();
         });

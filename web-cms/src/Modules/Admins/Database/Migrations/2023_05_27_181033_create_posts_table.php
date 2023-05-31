@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->text('content')->nullable();
             $table->json('tag')->nullable();
-            $table->integer('status')->nullable()->default(Posts::STATUS_TMP);
+            $table->integer('status')->nullable()->default(Posts::STATUS_SUSPEND);
             $table->integer('order')->nullable();
             $table->integer('created_by')->nullable()->index();
             $table->dateTime('public_date')->nullable();
