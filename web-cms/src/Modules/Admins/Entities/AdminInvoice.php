@@ -10,7 +10,13 @@ class AdminInvoice extends Model
     use HasFactory;
     protected $table = 'admin_invoices';
 
-    protected $fillable = ['order_id', 'portal_id', 'data', 'link', 'status'];
+    protected $fillable = [
+        'order_id',
+        'portal_id',
+        'data',
+        'link',
+        'status'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

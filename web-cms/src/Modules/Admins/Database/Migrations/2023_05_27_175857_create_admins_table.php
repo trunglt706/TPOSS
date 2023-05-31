@@ -35,6 +35,7 @@ return new class extends Migration
             $table->boolean('supper')->nullable()->default(Admins::NOT_SUPPER);
             $table->string('password')->nullable();
             $table->dateTime('last_activity')->nullable();
+            $table->date('expired_date')->nullable();
             $table->integer('created_by')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();

@@ -10,7 +10,19 @@ class AdminServiceUsing extends Model
     use HasFactory;
     protected $table = 'admin_service_using';
 
-    protected $fillable = ['customer_id', 'service_id', 'support_device', 'description', 'status', 'max_stores', 'max_users', 'max_times', 'max_orders', 'created_by', 'total_amount'];
+    protected $fillable = [
+        'customer_id',
+        'service_id',
+        'support_device',
+        'description',
+        'status',
+        'max_stores',
+        'max_users',
+        'max_times',
+        'max_orders',
+        'created_by',
+        'total_amount'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

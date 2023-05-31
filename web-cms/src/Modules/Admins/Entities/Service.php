@@ -11,7 +11,18 @@ class Service extends Model
     use HasFactory;
     protected $table = 'services';
 
-    protected $fillable = ['code', 'name', 'support_device', 'description', 'status', 'image', 'max_users', 'max_times', 'max_orders', 'created_by'];
+    protected $fillable = [
+        'code',
+        'name',
+        'support_device',
+        'description',
+        'status',
+        'image',
+        'max_users',
+        'max_times',
+        'max_orders',
+        'created_by'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

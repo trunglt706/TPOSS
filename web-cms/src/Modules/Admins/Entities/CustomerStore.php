@@ -11,7 +11,10 @@ class CustomerStore extends Model
     use HasFactory;
     protected $table = 'customer_stores';
 
-    protected $fillable = ['customer_id', 'store_id'];
+    protected $fillable = [
+        'customer_id',
+        'store_id'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

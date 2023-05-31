@@ -10,7 +10,13 @@ class InvoicePortal extends Model
     use HasFactory;
     protected $table = 'invoice_portals';
 
-    protected $fillable = ['code', 'name', 'description', 'version', 'status'];
+    protected $fillable = [
+        'code',
+        'name',
+        'description',
+        'version',
+        'status'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

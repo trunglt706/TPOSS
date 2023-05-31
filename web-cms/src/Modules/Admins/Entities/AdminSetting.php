@@ -16,7 +16,16 @@ class AdminSetting extends Model
     const TYPE_CHECKBOX = 'checkbox';
     const TYPE_RADIO = 'radio';
 
-    protected $fillable = ['group_id', 'code', 'name', 'description', 'type', 'value', 'data', 'order'];
+    protected $fillable = [
+        'group_id', 
+        'code', 
+        'name', 
+        'description', 
+        'type', 
+        'value', 
+        'data', 
+        'order'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

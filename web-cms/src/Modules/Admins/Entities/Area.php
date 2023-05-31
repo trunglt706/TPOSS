@@ -11,7 +11,12 @@ class Area extends Model
     use HasFactory;
     protected $table = 'areas';
 
-    protected $fillable = ['name', 'description', 'status', 'created_by'];
+    protected $fillable = [
+        'name',
+        'description',
+        'status',
+        'created_by'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

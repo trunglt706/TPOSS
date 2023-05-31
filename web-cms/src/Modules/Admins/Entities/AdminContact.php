@@ -11,7 +11,30 @@ class AdminContact extends Model
     use HasFactory;
     protected $table = 'admin_contacts';
 
-    protected $fillable = ['customer_id', 'province_id', 'district_id', 'ward_id', 'code', 'name', 'avatar', 'phone', 'email', 'address', 'description', 'status', 'created_by', 'identity_card', 'tax_code', 'bank_name', 'bank_address', 'bank_branch', 'bank_account_number', 'bank_account_name', 'gender', 'position'];
+    protected $fillable = [
+        'customer_id',
+        'province_id',
+        'district_id',
+        'ward_id',
+        'code',
+        'name',
+        'avatar',
+        'phone',
+        'email',
+        'address',
+        'description',
+        'status',
+        'created_by',
+        'identity_card',
+        'tax_code',
+        'bank_name',
+        'bank_address',
+        'bank_branch',
+        'bank_account_number',
+        'bank_account_name',
+        'gender',
+        'position'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

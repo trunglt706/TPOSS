@@ -11,7 +11,22 @@ class RegisterUsing extends Model
     use HasFactory;
     protected $table = 'admin_groups';
 
-    protected $fillable = ['name', 'email', 'phone', 'address', 'description', 'status', 'business_type_id', 'service_id', 'lead_id', 'date_convert', 'ip', 'device', 'verify_code', 'expired_code'];
+    protected $fillable = [
+        'name',
+        'email',
+        'phone',
+        'address',
+        'description',
+        'status',
+        'business_type_id',
+        'service_id',
+        'lead_id',
+        'date_convert',
+        'ip',
+        'device',
+        'verify_code',
+        'expired_code'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

@@ -10,7 +10,10 @@ class SubDomainStore extends Model
     use HasFactory;
 
     protected $table = 'sub_domain_stores';
-    protected $fillable = ['sub_domain_id', 'store_id'];
+    protected $fillable = [
+        'sub_domain_id',
+        'store_id'
+    ];
 
     public function sub_domain()
     {

@@ -10,7 +10,16 @@ class AdminPaymentPortal extends Model
     use HasFactory;
     protected $table = 'admin_payment_portals';
 
-    protected $fillable = ['code', 'name', 'description', 'image', 'order', 'version', 'status', 'created_by'];
+    protected $fillable = [
+        'code',
+        'name',
+        'description',
+        'image',
+        'order',
+        'version',
+        'status',
+        'created_by'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

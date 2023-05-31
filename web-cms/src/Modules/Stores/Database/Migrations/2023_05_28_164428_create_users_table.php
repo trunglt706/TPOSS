@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Stores\Entities\Users;
 
 return new class extends Migration
 {
@@ -27,13 +28,14 @@ return new class extends Migration
             $table->string('tax_code')->nullable();
             $table->string('identity_card')->nullable();
             $table->integer('status')->nullable()->default(0);
-            $table->boolean('root')->nullable()->default(false);
-            $table->boolean('supper')->nullable()->default(false);
+            $table->boolean('root')->nullable()->default(Users::NOT_ROOT);
+            $table->boolean('supper')->nullable()->default(Users::NOT_SUPPER);
             $table->dateTime('last_login')->nullable();
             $table->boolean('enable_two_factory')->nullable()->default(false);
             $table->string('password')->nullable();
             $table->dateTime('last_activity')->nullable();
-            $table->integer('type_work')->nullable()->default(0);
+            $table->dateTime('expired_date')->nullable();
+            $table->integer('type_work')->nullable()->default(Users::WORK_TYPE_FULL);
             $table->integer('deleted_by')->nullable();
             $table->integer('created_by')->nullable()->index();
             $table->timestamps();

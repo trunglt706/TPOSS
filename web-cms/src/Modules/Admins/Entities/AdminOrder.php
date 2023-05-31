@@ -12,7 +12,24 @@ class AdminOrder extends Model
     use HasFactory;
     protected $table = 'admin_orders';
 
-    protected $fillable = ['customer_id', 'service_id', 'start_date', 'end_date', 'discount_type', 'discount_value', 'discount_total', 'vat_value', 'vat_total', 'sub_total', 'total', 'description', 'url_view', 'status', 'created_by', 'deleted_by'];
+    protected $fillable = [
+        'customer_id',
+        'service_id',
+        'start_date',
+        'end_date',
+        'discount_type',
+        'discount_value',
+        'discount_total',
+        'vat_value',
+        'vat_total',
+        'sub_total',
+        'total',
+        'description',
+        'url_view',
+        'status',
+        'created_by',
+        'deleted_by'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

@@ -11,7 +11,11 @@ class BlockVendor extends Model
     use HasFactory;
     protected $table = 'block_vendors';
 
-    protected $fillable = ['type', 'vendor', 'created_by'];
+    protected $fillable = [
+        'type',
+        'vendor',
+        'created_by'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

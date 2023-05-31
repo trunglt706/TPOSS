@@ -11,7 +11,18 @@ class Posts extends Model
     use HasFactory;
     protected $table = 'posts';
 
-    protected $fillable = ['name', 'slug', 'group_id', 'description', 'tag', 'order', 'image', 'content', 'status', 'created_by'];
+    protected $fillable = [
+        'name',
+        'slug',
+        'group_id',
+        'description',
+        'tag',
+        'order',
+        'image',
+        'content',
+        'status',
+        'created_by'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

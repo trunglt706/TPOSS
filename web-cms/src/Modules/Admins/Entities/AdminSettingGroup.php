@@ -13,7 +13,13 @@ class AdminSettingGroup extends Model
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
-    protected $fillable = ['code', 'name', 'description', 'status', 'order'];
+    protected $fillable = [
+        'code',
+        'name',
+        'description',
+        'status',
+        'order'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

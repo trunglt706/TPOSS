@@ -10,7 +10,10 @@ class AdminServiceUsingStore extends Model
 {
     use HasFactory;
     protected $table = 'admin_service_using_stores';
-    protected $fillable = ['using_id', 'store_id'];
+    protected $fillable = [
+        'using_id',
+        'store_id'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

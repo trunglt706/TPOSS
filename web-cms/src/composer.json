@@ -11,6 +11,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.8",
         "laravel/sanctum": "^3.2",
+        "laravel/slack-notification-channel": "^2.5",
         "laravel/telescope": "^4.14",
         "laravel/tinker": "^2.8",
         "laravolt/avatar": "^5.0",
@@ -20,6 +21,7 @@
         "nwidart/laravel-modules": "^10.0",
         "pusher/pusher-php-server": "^7.2",
         "qruto/laravel-wave": "^0.6.1",
+        "spatie/laravel-backup": "^8.1",
         "vanthao03596/laravel-hanhchinhvn": "^1.1"
     },
     "require-dev": {

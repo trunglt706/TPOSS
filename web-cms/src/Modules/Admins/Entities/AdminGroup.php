@@ -10,7 +10,14 @@ class AdminGroup extends Model
     use HasFactory;
     protected $table = 'admin_groups';
 
-    protected $fillable = ['name', 'description', 'status', 'image', 'order', 'created_by'];
+    protected $fillable = [
+        'name',
+        'description',
+        'status',
+        'image',
+        'order',
+        'created_by'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

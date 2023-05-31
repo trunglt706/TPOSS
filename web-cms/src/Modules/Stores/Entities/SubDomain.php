@@ -13,7 +13,14 @@ class SubDomain extends Model
     use HasFactory;
     protected $table = 'sub_domains';
 
-    protected $fillable = ['domain', 'customer_id', 'description', 'status', 'active_date', 'created_by'];
+    protected $fillable = [
+        'sub_domain',
+        'customer_id',
+        'description',
+        'status',
+        'active_date',
+        'created_by'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

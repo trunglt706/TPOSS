@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('sub_domains', function (Blueprint $table) {
             $table->id()->index();
             $table->integer('customer_id')->index();
-            $table->string('domain')->unique();
+            $table->string('sub_domain')->unique();
             $table->string('description')->nullable();
             $table->boolean('status')->nullable()->default(false);
             $table->dateTime('active_date')->nullable();

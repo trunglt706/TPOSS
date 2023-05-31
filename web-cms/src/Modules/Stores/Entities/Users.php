@@ -2,23 +2,83 @@
 
 namespace Modules\Stores\Entities;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Admins\Entities\AdminCustomer;
 
 class Users extends Model
 {
     use HasFactory;
     protected $table = 'users';
 
-    protected $fillable = ['customer_id', 'province_id', 'district_id', 'ward_id', 'code', 'name', 'avatar', 'phone', 'email', 'address', 'description', 'status', 'created_by', 'identity_card', 'tax_code', 'bank_name', 'bank_address', 'bank_branch', 'bank_account_number', 'bank_account_name', 'gender', 'position'];
-
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'code',
+        'client_id',
+        'position_id',
+        'phone',
+        'gender',
+        'address',
+        'description',
+        'status',
+        'root',
+        'avatar',
+        'supper',
+        'last_login',
+        'enable_two_factory',
+        'birthday',
+        'last_activity',
+        'expired_date',
+        'created_at',
+        'created_by',
+        'deleted_at',
+        'deleted_by',
+        'identity_card',
+        'tax_code'
     ];
 
+    protected $casts = [
+        'last_login' => 'datetime',
+        'last_activity' => 'datetime',
+        'birthday' => 'date',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'expired_date' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
+
+    // status
+    const STATUS_UN_ACTIVE = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
+    const STATUS_DELETED = 3;
+
+    // root
+    const IS_ROOT = true;
+    const NOT_ROOT = false;
+
+    // enable_two_factory
+    const ENABLE_TWO_FACTORY = true;
+    const DISABLE_TWO_FACTORY = false;
+
+    // supper
+    const IS_SUPPER = true;
+    const NOT_SUPPER = false;
+
+    // gender
+    const GENDER_MALE = 1;
+    const GENDER_FEMALE = 0;
+    const GENDER_OTHER = 2;
+
+    const WORK_TYPE_SHIFT = 0;
+    const WORK_TYPE_FULL = 1;
 
     public function customer()
     {
@@ -33,6 +93,11 @@ class Users extends Model
     public function district()
     {
         return $this->hasOne(District::class, 'id', 'district_id');
+    }
+
+    public function position()
+    {
+        return $this->hasOne(Positions::class, 'id', 'position_id');
     }
 
     public function ward()
@@ -125,12 +190,58 @@ class Users extends Model
         return $query->where('code', $code);
     }
 
-    public function scopeStatus($query, $status)
+    public function scopeActive($query)
     {
-        if (is_array($status)) {
-            return $query->whereIn('status', $status);
-        }
-        return $query->where('status', $status);
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public function scopeSupper($query, $supper)
+    {
+        return $query->where('supper', $supper);
+    }
+
+    public function scopeIsSupper($query)
+    {
+        return $query->where('supper', self::IS_SUPPER);
+    }
+
+    public function scopeRoot($query, $root)
+    {
+        return $query->where('root', $root);
+    }
+
+    public function scopeIsRoot($query)
+    {
+        return $query->where('root', self::IS_ROOT);
+    }
+
+    public static function get_status($id = '')
+    {
+        $list = [
+            self::STATUS_UN_ACTIVE => [__('admins::status_0'), COLORS['secondary'], 'slash'],
+            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
+            self::STATUS_DELETED => [__('admins::status_3'), COLORS['danger'], 'times'],
+        ];
+        return ($id == '') ? $list : $list[$id];
+    }
+
+    public static function get_supper($supper = '')
+    {
+        $list = [
+            self::IS_SUPPER => [__('admins::account_supper_1'), COLORS['success']],
+            self::NOT_SUPPER => [__('admins::account_supper_0'), COLORS['secondary']],
+        ];
+        return ($supper == '') ? $list : $list[$supper];
+    }
+
+    public static function get_root($root = '')
+    {
+        $list = [
+            self::NOT_ROOT => [__('admins::account_root_0'), COLORS['secondary']],
+            self::IS_ROOT => [__('admins::account_root_1'), COLORS['success']],
+        ];
+        return ($root == '') ? $list : $list[$root];
     }
 
     public function scopeDate($query, $date)
@@ -146,11 +257,16 @@ class Users extends Model
         return $query->whereBetween('created_at', [$_from, $_to]);
     }
 
-    public static function get_status($id = '')
+    public function scopeWorkType($query, $work_type)
+    {
+        return $query->where('work_type', $work_type);
+    }
+
+    public static function get_work_type($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+            self::WORK_TYPE_SHIFT => [__('stores::work_type_0'), COLORS['info']],
+            self::WORK_TYPE_FULL => [__('stores::work_type_1'), COLORS['success']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

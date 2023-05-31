@@ -12,7 +12,10 @@ class AdminStoreFollow extends Model
     use HasFactory;
     protected $table = 'admin_store_follows';
 
-    protected $fillable = ['admin_id', 'store_id'];
+    protected $fillable = [
+        'admin_id',
+        'store_id'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

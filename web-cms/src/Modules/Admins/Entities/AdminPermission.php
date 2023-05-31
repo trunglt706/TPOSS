@@ -10,7 +10,14 @@ class AdminPermission extends Model
     use HasFactory;
     protected $table = 'admin_permissions';
 
-    protected $fillable = ['name', 'extension', 'icon', 'order', 'description', 'status'];
+    protected $fillable = [
+        'name',
+        'extension',
+        'icon',
+        'order',
+        'description',
+        'status'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

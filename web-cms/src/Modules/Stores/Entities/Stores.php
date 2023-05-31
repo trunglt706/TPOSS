@@ -15,7 +15,29 @@ class Stores extends Model
     use HasFactory;
     protected $table = 'stores';
 
-    protected $fillable = ['province_id', 'business_type_id', 'district_id', 'ward_id', 'area_id', 'service_id', 'assigned_id', 'code', 'name', 'logo', 'phone', 'email', 'address', 'description', 'status', 'created_by', 'currency', 'tax_code', 'website', 'longitude', 'latitude'];
+    protected $fillable = [
+        'province_id',
+        'business_type_id',
+        'district_id',
+        'ward_id',
+        'area_id',
+        'service_id',
+        'assigned_id',
+        'code',
+        'name',
+        'logo',
+        'phone',
+        'email',
+        'address',
+        'description',
+        'status',
+        'created_by',
+        'currency',
+        'tax_code',
+        'website',
+        'longitude',
+        'latitude'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

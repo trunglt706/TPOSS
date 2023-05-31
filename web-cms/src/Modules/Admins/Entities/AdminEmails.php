@@ -9,7 +9,15 @@ class AdminEmails extends Model
 {
     use HasFactory;
     protected $table = 'admin_emails';
-    protected $fillable = ['name', 'code', 'content', 'data', 'permission_id', 'created_by', 'updated_by'];
+    protected $fillable = [
+        'name',
+        'code',
+        'content',
+        'data',
+        'permission_id',
+        'created_by',
+        'updated_by'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

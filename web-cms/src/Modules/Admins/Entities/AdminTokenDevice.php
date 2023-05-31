@@ -11,7 +11,14 @@ class AdminTokenDevice extends Model
     use HasFactory;
     protected $table = 'admin_token_devices';
 
-    protected $fillable = ['token', 'device_name', 'device_id', 'os', 'ip', 'status'];
+    protected $fillable = [
+        'token',
+        'device_name',
+        'device_id',
+        'os',
+        'ip',
+        'status'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

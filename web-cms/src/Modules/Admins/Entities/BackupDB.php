@@ -11,7 +11,15 @@ class BackupDB extends Model
     use HasFactory;
     protected $table = 'backup_dbs';
 
-    protected $fillable = ['name', 'description', 'status', 'size', 'link', 'type', 'created_by'];
+    protected $fillable = [
+        'name',
+        'description',
+        'status',
+        'size',
+        'link',
+        'type',
+        'created_by'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

@@ -4,13 +4,19 @@ namespace Modules\Stores\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Admins\Entities\AdminCustomer;
 
 class StorePermission extends Model
 {
     use HasFactory;
     protected $table = 'store_permissions';
 
-    protected $fillable = ['name', 'extension', 'icon', 'order', 'description', 'status'];
+    protected $fillable = [
+        'customer_id',
+        'store_id',
+        'permission_id',
+        'status'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -20,17 +26,43 @@ class StorePermission extends Model
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
-    public function roles()
+    public function customer()
     {
-        return $this->hasMany(AdminRole::class, 'permission_id', 'id');
+        return $this->hasOne(AdminCustomer::class, 'customer_id', 'id');
     }
 
-    public function scopeExtension($query, $extension)
+    public function store()
     {
-        if (is_array($extension)) {
-            return $query->whereIn('extension', $extension);
+        return $this->hasOne(Stores::class, 'store_id', 'id');
+    }
+
+    public function permission()
+    {
+        return $this->hasOne(Permissions::class, 'permission_id', 'id');
+    }
+
+    public function scopeCustomerId($query, $customer_id)
+    {
+        if (is_array($customer_id)) {
+            return $query->whereIn('customer_id', $customer_id);
         }
-        return $query->where('extension', $extension);
+        return $query->where('customer_id', $customer_id);
+    }
+
+    public function scopeStoreId($query, $store_id)
+    {
+        if (is_array($store_id)) {
+            return $query->whereIn('store_id', $store_id);
+        }
+        return $query->where('store_id', $store_id);
+    }
+
+    public function scopePermissionId($query, $permission_id)
+    {
+        if (is_array($permission_id)) {
+            return $query->whereIn('permission_id', $permission_id);
+        }
+        return $query->where('permission_id', $permission_id);
     }
 
     public function scopeStatus($query, $status)

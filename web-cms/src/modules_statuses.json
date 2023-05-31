@@ -1,5 +1,19 @@
 {
     "Admins": true,
     "Stores": true,
-    "Apis": true
+    "Apis": true,
+    "Promotions": true,
+    "Shifts": true,
+    "Warehouses": true,
+    "Customers": true,
+    "Services": true,
+    "Reports": true,
+    "Bookings": true,
+    "Menus": true,
+    "Settings": true,
+    "Units": true,
+    "Orders": true,
+    "Activities": true,
+    "Licenses": true,
+    "Applications": true
 }

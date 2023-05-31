@@ -14,7 +14,33 @@ class AdminLead extends Model
     use HasFactory;
     protected $table = 'admin_leads';
 
-    protected $fillable = ['province_id', 'service_id', 'district_id', 'ward_id', 'code', 'name', 'avatar', 'phone', 'email', 'address', 'description', 'status', 'created_by', 'assigned_id', 'source', 'converted_at', 'customer_id', 'identity_card', 'tax_code', 'bank_name', 'bank_address', 'bank_branch', 'bank_account_number', 'bank_account_name', 'gender'];
+    protected $fillable = [
+        'province_id',
+        'service_id',
+        'district_id',
+        'ward_id',
+        'code',
+        'name',
+        'avatar',
+        'phone',
+        'email',
+        'address',
+        'description',
+        'status',
+        'created_by',
+        'assigned_id',
+        'source',
+        'converted_at',
+        'customer_id',
+        'identity_card',
+        'tax_code',
+        'bank_name',
+        'bank_address',
+        'bank_branch',
+        'bank_account_number',
+        'bank_account_name',
+        'gender'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

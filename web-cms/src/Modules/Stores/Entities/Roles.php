@@ -10,7 +10,13 @@ class Roles extends Model
     use HasFactory;
     protected $table = 'store_roles';
 
-    protected $fillable = ['permission_id', 'extension', 'icon', 'order', 'status'];
+    protected $fillable = [
+        'permission_id',
+        'extension',
+        'icon',
+        'order',
+        'status'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

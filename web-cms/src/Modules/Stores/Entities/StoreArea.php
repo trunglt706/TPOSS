@@ -10,7 +10,13 @@ class StoreArea extends Model
     use HasFactory;
     protected $table = 'store_areas';
 
-    protected $fillable = ['customer_id', 'name', 'description', 'status', 'created_by'];
+    protected $fillable = [
+        'customer_id',
+        'name',
+        'description',
+        'status',
+        'created_by'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

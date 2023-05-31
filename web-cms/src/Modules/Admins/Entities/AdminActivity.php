@@ -11,7 +11,17 @@ class AdminActivity extends Model
     use HasFactory;
     protected $table = 'admin_activities';
 
-    protected $fillable = ['permission_id', 'role_id', 'admin_id', 'data_json', 'description', 'ip', 'device', 'link', 'status'];
+    protected $fillable = [
+        'permission_id',
+        'role_id',
+        'admin_id',
+        'data_json',
+        'description',
+        'ip',
+        'device',
+        'link',
+        'status'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

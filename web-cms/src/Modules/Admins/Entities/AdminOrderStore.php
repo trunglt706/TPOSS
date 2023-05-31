@@ -11,7 +11,10 @@ class AdminOrderStore extends Model
     use HasFactory;
 
     protected $table = 'admin_order_stores';
-    protected $fillable = ['order_id', 'store_id'];
+    protected $fillable = [
+        'order_id',
+        'store_id'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

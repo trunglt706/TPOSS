@@ -10,7 +10,12 @@ class UserStore extends Model
     use HasFactory;
 
     protected $table = 'user_stores';
-    protected $fillable = ['user_id', 'store_id', 'position_id', 'status'];
+    protected $fillable = [
+        'user_id',
+        'store_id',
+        'position_id',
+        'status'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

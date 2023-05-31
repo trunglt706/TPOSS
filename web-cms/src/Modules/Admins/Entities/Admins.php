@@ -181,7 +181,7 @@ class Admins extends Authenticatable
         return $query->where('supper', $supper);
     }
 
-    public function scopeInSupper($query)
+    public function scopeIsSupper($query)
     {
         return $query->where('supper', self::IS_SUPPER);
     }
@@ -236,5 +236,16 @@ class Admins extends Authenticatable
         $_from = Carbon::parse($from)->startOfDay()->format('Y-m-d H:i:s');
         $_to = Carbon::parse($to)->startOfDay()->format('Y-m-d H:i:s');
         return $query->whereBetween('created_at', [$_from, $_to]);
+    }
+
+    public function scopeExpireDate($query, $expired_date)
+    {
+        $_date = Carbon::parse($expired_date)->format('Y-m-d');
+        return $query->where('created_at', $_date);
+    }
+
+    public function scopeExpired($query)
+    {
+        return $query->where('expired_date', '>', Carbon::now()->format('Y-m-d'));
     }
 }

@@ -10,7 +10,12 @@ class AdminGroupRoleSample extends Model
     use HasFactory;
     protected $table = 'admin_group_role_samples';
 
-    protected $fillable = ['permission_id', 'group_id', 'role_id', 'status'];
+    protected $fillable = [
+        'permission_id',
+        'group_id',
+        'role_id',
+        'status'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

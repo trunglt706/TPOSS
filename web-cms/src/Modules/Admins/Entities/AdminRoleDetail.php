@@ -10,7 +10,12 @@ class AdminRoleDetail extends Model
     use HasFactory;
     protected $table = 'admin_role_details';
 
-    protected $fillable = ['permission_id', 'admin_id', 'role_id', 'status'];
+    protected $fillable = [
+        'permission_id',
+        'admin_id',
+        'role_id',
+        'status'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',

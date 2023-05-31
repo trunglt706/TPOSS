@@ -11,7 +11,13 @@ class AdminNotification extends Model
     use HasFactory;
     protected $table = 'admin_activities';
 
-    protected $fillable = ['permission_id', 'admin_id', 'description', 'link', 'status'];
+    protected $fillable = [
+        'permission_id',
+        'admin_id',
+        'description',
+        'link',
+        'status'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime',
