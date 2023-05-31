@@ -271,8 +271,8 @@ class AdminLead extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+            self::STATUS_ACTIVE => [__('admins.status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('admins.status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }
@@ -280,12 +280,12 @@ class AdminLead extends Model
     public static function get_source($id = '')
     {
         $list = [
-            self::SOURCE_REGISTER => ['Tự đăng ký', COLORS['secondary']],
-            self::SOURCE_FACEBOOK => ['Facebook', COLORS['info']],
-            self::SOURCE_ZALO => ['Zalo', COLORS['success']],
-            self::SOURCE_EMAIL => ['Email', COLORS['danger']],
-            self::SOURCE_CONTACT => ['Liên hệ trực tiếp', COLORS['warning']],
-            self::SOURCE_OTHER => ['Khác', COLORS['dark']],
+            self::SOURCE_REGISTER => [__('admins.source_lead_register'), COLORS['secondary']],
+            self::SOURCE_FACEBOOK => [__('admins.source_lead_facebook'), COLORS['info']],
+            self::SOURCE_ZALO => [__('admins.source_lead_zalo'), COLORS['success']],
+            self::SOURCE_EMAIL => [__('admins.source_lead_email'), COLORS['danger']],
+            self::SOURCE_CONTACT => [__('admins.source_lead_contact'), COLORS['warning']],
+            self::SOURCE_OTHER => [__('admins.source_lead_other'), COLORS['dark']],
         ];
         return ($id == '') ? $list : $list[$id];
     }
