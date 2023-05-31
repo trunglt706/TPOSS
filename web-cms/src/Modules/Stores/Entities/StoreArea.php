@@ -1,16 +1,16 @@
 <?php
 
-namespace Modules\Admins\Entities;
+namespace Modules\Stores\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AdminGroupRoleSample extends Model
+class StoreArea extends Model
 {
     use HasFactory;
-    protected $table = 'admin_group_role_samples';
+    protected $table = 'store_areas';
 
-    protected $fillable = ['permission_id', 'group_id', 'role_id', 'status'];
+    protected $fillable = ['customer_id', 'name', 'description', 'status', 'created_by'];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -20,19 +20,22 @@ class AdminGroupRoleSample extends Model
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
-    public function permission()
+    public function stores()
     {
-        return $this->hasOne(AdminPermission::class, 'id', 'permission_id');
+        return $this->hasMany(Stores::class, 'area_id', 'id');
     }
 
-    public function role()
+    public function createdBy()
     {
-        return $this->hasOne(AdminRole::class, 'id', 'role_id');
+        return $this->hasOne(Admins::class, 'id', 'created_by');
     }
 
-    public function group()
+    public function scopeCreatedBy($query, $created_by)
     {
-        return $this->hasOne(AdminGroup::class, 'id', 'group_id');
+        if (is_array($created_by)) {
+            return $query->whereIn('created_by', $created_by);
+        }
+        return $query->where('created_by', $created_by);
     }
 
     public function scopeStatus($query, $status)
@@ -51,8 +54,8 @@ class AdminGroupRoleSample extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
+            self::STATUS_ACTIVE => [__('stores::status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('stores::status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }

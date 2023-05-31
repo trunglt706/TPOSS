@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Admins\Entities\BusinessType;
 
 return new class extends Migration
 {
@@ -13,12 +14,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('store_permissions', function (Blueprint $table) {
+        Schema::create('business_types', function (Blueprint $table) {
             $table->id()->index();
-            $table->integer('customer_id')->nullable()->index();
-            $table->integer('store_id')->index();
-            $table->integer('permission_id')->index();
-            $table->boolean('status')->default(true);
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->integer('status')->nullable()->default(BusinessType::STATUS_TMP);
+            $table->integer('created_by')->nullable()->index();
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('store_permissions');
+        Schema::dropIfExists('business_types');
     }
 };

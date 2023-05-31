@@ -5,12 +5,12 @@ namespace Modules\Admins\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AdminStoreService extends Model
+class AdminServiceUsing extends Model
 {
     use HasFactory;
-    protected $table = 'admin_store_services';
+    protected $table = 'admin_service_using';
 
-    protected $fillable = ['store_id', 'service_id', 'support_device', 'description', 'status', 'max_users', 'max_times', 'max_orders', 'created_by', 'total_amount'];
+    protected $fillable = ['customer_id', 'service_id', 'support_device', 'description', 'status', 'max_stores', 'max_users', 'max_times', 'max_orders', 'created_by', 'total_amount'];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -24,9 +24,9 @@ class AdminStoreService extends Model
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
-    public function store()
+    public function customer()
     {
-        return $this->hasOne(Stores::class, 'id', 'store_id');
+        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
     }
 
     public function service()
@@ -37,14 +37,6 @@ class AdminStoreService extends Model
     public function createdBy()
     {
         return $this->hasOne(Admins::class, 'id', 'created_by');
-    }
-
-    public function scopeStoreId($query, $store_id)
-    {
-        if (is_array($store_id)) {
-            return $query->whereIn('store_id', $store_id);
-        }
-        return $query->where('store_id', $store_id);
     }
 
     public function scopeServiceId($query, $service_id)
@@ -79,8 +71,8 @@ class AdminStoreService extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }

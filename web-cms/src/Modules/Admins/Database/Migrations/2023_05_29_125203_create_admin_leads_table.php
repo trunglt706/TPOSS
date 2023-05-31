@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('province_id')->nullable()->index();
             $table->integer('district_id')->nullable()->index();
             $table->integer('ward_id')->nullable()->index();
+            $table->integer('service_id')->index();
             $table->string('code')->unique();
             $table->string('name');
             $table->integer('gender')->nullable()->default(AdminLead::GENDER_OTHER);

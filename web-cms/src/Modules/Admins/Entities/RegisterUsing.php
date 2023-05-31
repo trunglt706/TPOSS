@@ -11,7 +11,7 @@ class RegisterUsing extends Model
     use HasFactory;
     protected $table = 'admin_groups';
 
-    protected $fillable = ['name', 'email', 'phone', 'address', 'description', 'status', 'type', 'service_id', 'lead_id', 'date_convert', 'ip', 'device', 'verify_code', 'expired_code'];
+    protected $fillable = ['name', 'email', 'phone', 'address', 'description', 'status', 'business_type_id', 'service_id', 'lead_id', 'date_convert', 'ip', 'device', 'verify_code', 'expired_code'];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -22,12 +22,12 @@ class RegisterUsing extends Model
 
     const STATUS_WAIT = 0;
     const STATUS_APPROVED = 1;
-    const STATUS_REJECTED = 2;
+    const STATUS_REJECTED = 4;
 
-    const TYPE_COFFEE_RESTAURANT = 1;
-    const TYPE_HOTEL_KARAOKE_SERVICE = 2;
-    const TYPE_RETAIL = 3;
-    const TYPE_OTHER = 4;
+    public function business_type()
+    {
+        return $this->hasOne(BusinessType::class, 'id', 'business_type_id');
+    }
 
     public function service()
     {
@@ -65,12 +65,12 @@ class RegisterUsing extends Model
         return $query->where('service_id', $service_id);
     }
 
-    public function scopeType($query, $type)
+    public function scopeBusinessTypeId($query, $business_type_id)
     {
-        if (is_array($type)) {
-            return $query->whereIn('type', $type);
+        if (is_array($business_type_id)) {
+            return $query->whereIn('business_type_id', $business_type_id);
         }
-        return $query->where('type', $type);
+        return $query->where('business_type_id', $business_type_id);
     }
 
     public function scopeStatus($query, $status)
@@ -103,20 +103,9 @@ class RegisterUsing extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_WAIT => ['Chưa duyệt', COLORS['secondary']],
-            self::STATUS_APPROVED => ['Đã duyệt', COLORS['success']],
-            self::STATUS_REJECTED => ['Từ chối', COLORS['danger']],
-        ];
-        return ($id == '') ? $list : $list[$id];
-    }
-
-    public static function get_type($id = '')
-    {
-        $list = [
-            self::TYPE_COFFEE_RESTAURANT => ['Coffee, nhà hàng', COLORS['secondary']],
-            self::TYPE_HOTEL_KARAOKE_SERVICE => ['Khách sạn, karaoke, dịch vụ', COLORS['success']],
-            self::TYPE_RETAIL => ['Bán lẻ', COLORS['info']],
-            self::TYPE_OTHER => ['Khác', COLORS['danger']],
+            self::STATUS_WAIT => [__('admins::order_status_0'), COLORS['secondary']],
+            self::STATUS_APPROVED => [__('admins::order_status_1'), COLORS['success']],
+            self::STATUS_REJECTED => [__('admins::order_status_4'), COLORS['danger']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

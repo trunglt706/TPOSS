@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('store_roles', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id()->index();
             $table->integer('permission_id')->index();
+            $table->string('name');
             $table->string('extension');
             $table->string('icon')->nullable();
             $table->integer('order')->nullable()->default(0);
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('store_roles');
+        Schema::dropIfExists('roles');
     }
 };

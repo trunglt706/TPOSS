@@ -11,19 +11,16 @@ class Posts extends Model
     use HasFactory;
     protected $table = 'posts';
 
-    protected $fillable = ['name', 'slug', 'group_id', 'description', 'tag', 'order', 'image', 'content', 'status', 'created_by', 'public_date'];
+    protected $fillable = ['name', 'slug', 'group_id', 'description', 'tag', 'order', 'image', 'content', 'status', 'created_by'];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'order' => 'integer',
-        'public_date' => 'datetime',
     ];
 
-    const STATUS_TMP = 0;
-    const STATUS_PUBLIC = 1;
+    const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
-    const STATUS_DELETED = 3;
 
     public function group()
     {
@@ -76,9 +73,18 @@ class Posts extends Model
         return $query->whereRaw('JSON_CONTAINS(tag, \'' . $data . '\')');
     }
 
-    public function scopePublic($query)
+    public function scopeActive($query)
     {
-        return $query->where('status', self::STATUS_PUBLIC);
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public static function get_status($id = '')
+    {
+        $list = [
+            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
+        ];
+        return ($id == '') ? $list : $list[$id];
     }
 
     public function scopeSortDesc($query)

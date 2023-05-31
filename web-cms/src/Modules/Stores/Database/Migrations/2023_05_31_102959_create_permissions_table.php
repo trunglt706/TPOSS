@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('store_permissions', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->id()->index();
-            $table->integer('customer_id')->nullable()->index();
-            $table->integer('store_id')->index();
-            $table->integer('permission_id')->index();
+            $table->string('name');
+            $table->string('extension')->unique();
+            $table->string('icon')->nullable();
+            $table->integer('order')->default(0);
+            $table->string('description')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('store_permissions');
+        Schema::dropIfExists('permissions');
     }
 };

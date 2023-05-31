@@ -2,37 +2,37 @@
 
 namespace App\Observers;
 
-use Modules\Admins\Entities\AdminStoreService;
+use Modules\Admins\Entities\AdminServiceUsing;
 
-class AdminStoreServiceObserver
+class AdminServiceUsingObserver
 {
-    public function creating(AdminStoreService $service)
+    public function creating(AdminServiceUsing $service)
     {
     }
 
-    public function created(AdminStoreService $service)
-    {
-        //
-    }
-
-    public function updating(AdminStoreService $service)
-    {
-    }
-
-    public function updated(AdminStoreService $service)
-    {
-    }
-
-    public function deleted(AdminStoreService $service)
-    {
-    }
-
-    public function restored(AdminStoreService $service)
+    public function created(AdminServiceUsing $service)
     {
         //
     }
 
-    public function forceDeleted(AdminStoreService $service)
+    public function updating(AdminServiceUsing $service)
+    {
+    }
+
+    public function updated(AdminServiceUsing $service)
+    {
+    }
+
+    public function deleted(AdminServiceUsing $service)
+    {
+    }
+
+    public function restored(AdminServiceUsing $service)
+    {
+        //
+    }
+
+    public function forceDeleted(AdminServiceUsing $service)
     {
         //
     }

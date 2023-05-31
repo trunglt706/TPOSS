@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('areas', function (Blueprint $table) {
+        Schema::create('sub_domain_stores', function (Blueprint $table) {
             $table->id()->index();
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->boolean('status')->nullable()->default(true);
-            $table->integer('created_by')->nullable()->index();
+            $table->integer('sub_domain_id')->index();
+            $table->integer('store_id')->index();
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
+        Schema::dropIfExists('sub_domain_stores');
     }
 };

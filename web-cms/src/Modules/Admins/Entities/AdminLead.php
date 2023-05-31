@@ -14,7 +14,7 @@ class AdminLead extends Model
     use HasFactory;
     protected $table = 'admin_leads';
 
-    protected $fillable = ['province_id', 'district_id', 'ward_id', 'code', 'name', 'avatar', 'phone', 'email', 'address', 'description', 'status', 'created_by', 'assigned_id', 'source', 'converted_at', 'customer_id', 'identity_card', 'tax_code', 'bank_name', 'bank_address', 'bank_branch', 'bank_account_number', 'bank_account_name', 'gender'];
+    protected $fillable = ['province_id', 'service_id', 'district_id', 'ward_id', 'code', 'name', 'avatar', 'phone', 'email', 'address', 'description', 'status', 'created_by', 'assigned_id', 'source', 'converted_at', 'customer_id', 'identity_card', 'tax_code', 'bank_name', 'bank_address', 'bank_branch', 'bank_account_number', 'bank_account_name', 'gender'];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -30,10 +30,16 @@ class AdminLead extends Model
     const SOURCE_ZALO = 'zalo';
     const SOURCE_EMAIL = 'email';
     const SOURCE_CONTACT = 'contact';
+    const SOURCE_OTHER = 'other';
 
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 0;
     const GENDER_OTHER = 2;
+
+    public function service()
+    {
+        return $this->hasOne(Service::class, 'id', 'service_id');
+    }
 
     public function province()
     {
@@ -222,6 +228,7 @@ class AdminLead extends Model
             self::SOURCE_ZALO => ['Zalo', COLORS['success']],
             self::SOURCE_EMAIL => ['Email', COLORS['danger']],
             self::SOURCE_CONTACT => ['Liên hệ trực tiếp', COLORS['warning']],
+            self::SOURCE_OTHER => ['Khác', COLORS['dark']],
         ];
         return ($id == '') ? $list : $list[$id];
     }
@@ -229,9 +236,9 @@ class AdminLead extends Model
     public static function get_gender($id = '')
     {
         $list = [
-            self::GENDER_MALE => ['Name', COLORS['success']],
-            self::GENDER_FEMALE => ['Nữ', COLORS['secondary']],
-            self::GENDER_OTHER => ['Khác', COLORS['secondary']],
+            self::GENDER_FEMALE => [__('admins::gender_0'), COLORS['secondary']],
+            self::GENDER_MALE => [__('admins::gender_1'), COLORS['success']],
+            self::GENDER_OTHER => [__('admins::gender_2'), COLORS['secondary']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

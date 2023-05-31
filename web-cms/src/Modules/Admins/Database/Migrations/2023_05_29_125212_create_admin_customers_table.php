@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Admins\Entities\AdminCustomer;
 use Modules\Admins\Entities\AdminLead;
 
 return new class extends Migration
@@ -16,6 +17,8 @@ return new class extends Migration
     {
         Schema::create('admin_customers', function (Blueprint $table) {
             $table->id()->index();
+            $table->integer('business_type_id')->nullable();
+            $table->integer('type')->nullable()->default(AdminCustomer::TYPE_OLD);
             $table->integer('province_id')->nullable()->index();
             $table->integer('district_id')->nullable()->index();
             $table->integer('ward_id')->nullable()->index();

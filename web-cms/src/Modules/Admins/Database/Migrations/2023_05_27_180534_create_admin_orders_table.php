@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('admin_orders', function (Blueprint $table) {
             $table->id()->index();
-            $table->integer('store_id')->index();
+            $table->integer('customer_id')->index();
             $table->integer('service_id')->index();
             $table->date('start_date')->nullable()->default(date('Y-m-d'));
             $table->date('end_date')->nullable();

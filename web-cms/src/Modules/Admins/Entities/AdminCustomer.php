@@ -14,7 +14,7 @@ class AdminCustomer extends Model
     use HasFactory;
     protected $table = 'admin_customers';
 
-    protected $fillable = ['province_id', 'district_id', 'ward_id', 'code', 'name', 'avatar', 'phone', 'email', 'address', 'description', 'status', 'created_by', 'assigned_id', 'identity_card', 'tax_code', 'bank_name', 'bank_address', 'bank_branch', 'bank_account_number', 'bank_account_name', 'gender'];
+    protected $fillable = ['province_id', 'business_type_id', 'service_id', 'type', 'district_id', 'ward_id', 'code', 'name', 'avatar', 'phone', 'email', 'address', 'description', 'status', 'created_by', 'assigned_id', 'identity_card', 'tax_code', 'bank_name', 'bank_address', 'bank_branch', 'bank_account_number', 'bank_account_name', 'gender'];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -23,6 +23,19 @@ class AdminCustomer extends Model
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
+
+    const TYPE_GROUP = 1;
+    const TYPE_OLD = 0;
+
+    public function business_type()
+    {
+        return $this->hasOne(BusinessType::class, 'id', 'business_type_id');
+    }
+
+    public function service()
+    {
+        return $this->hasOne(Service::class, 'id', 'service_id');
+    }
 
     public function province()
     {
@@ -47,6 +60,14 @@ class AdminCustomer extends Model
     public function assigned()
     {
         return $this->hasOne(Admins::class, 'id', 'assigned_id');
+    }
+
+    public function scopeServiceId($query, $service_id)
+    {
+        if (is_array($service_id)) {
+            return $query->whereIn('service_id', $service_id);
+        }
+        return $query->where('service_id', $service_id);
     }
 
     public function scopeProvinceId($query, $province_id)
@@ -137,6 +158,14 @@ class AdminCustomer extends Model
         return $query->where('status', $status);
     }
 
+    public function scopeType($query, $type)
+    {
+        if (is_array($type)) {
+            return $query->whereIn('type', $type);
+        }
+        return $query->where('type', $type);
+    }
+
     public function scopeDate($query, $date)
     {
         $_date = Carbon::parse($date)->format('Y-m-d');
@@ -153,8 +182,17 @@ class AdminCustomer extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
+        ];
+        return ($id == '') ? $list : $list[$id];
+    }
+
+    public static function get_type($id = '')
+    {
+        $list = [
+            self::TYPE_GROUP => [__('admins::customer_type_1'), COLORS['success'], 'building'],
+            self::TYPE_OLD => [__('admins::customer_type_0'), COLORS['info'], 'store'],
         ];
         return ($id == '') ? $list : $list[$id];
     }

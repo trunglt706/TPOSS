@@ -53,8 +53,8 @@ class BlockVendor extends Model
     public static function get_type($id = '')
     {
         $list = [
-            self::TYPE_IP => ['Địa chỉ IP', COLORS['success']],
-            self::TYPE_DOMAIN => ['Tên miền', COLORS['danger']],
+            self::TYPE_IP => [__('admins::vendor_type_ip'), COLORS['success']],
+            self::TYPE_DOMAIN => [__('admins::vendor_type_domain'), COLORS['danger']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

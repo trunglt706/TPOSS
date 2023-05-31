@@ -12,7 +12,7 @@ class AdminOrder extends Model
     use HasFactory;
     protected $table = 'admin_orders';
 
-    protected $fillable = ['store_id', 'service_id', 'start_date', 'end_date', 'discount_type', 'discount_value', 'discount_total', 'vat_value', 'vat_total', 'sub_total', 'total', 'description', 'url_view', 'status', 'created_by', 'deleted_by'];
+    protected $fillable = ['customer_id', 'service_id', 'start_date', 'end_date', 'discount_type', 'discount_value', 'discount_total', 'vat_value', 'vat_total', 'sub_total', 'total', 'description', 'url_view', 'status', 'created_by', 'deleted_by'];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -29,9 +29,9 @@ class AdminOrder extends Model
     const STATUS_EXPIRED = 2;
     const STATUS_DELETED = 3;
 
-    public function store()
+    public function customer()
     {
-        return $this->hasOne(Stores::class, 'id', 'store_id');
+        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
     }
 
     public function service()
@@ -49,12 +49,12 @@ class AdminOrder extends Model
         return $this->hasOne(Admins::class, 'id', 'deleted_by');
     }
 
-    public function scopeStoreId($query, $store_id)
+    public function scopeCustomerId($query, $customer_id)
     {
-        if (is_array($store_id)) {
-            return $query->whereIn('store_id', $store_id);
+        if (is_array($customer_id)) {
+            return $query->whereIn('customer_id', $customer_id);
         }
-        return $query->where('store_id', $store_id);
+        return $query->where('customer_id', $customer_id);
     }
 
     public function scopeServiceId($query, $service_id)
@@ -97,10 +97,10 @@ class AdminOrder extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_TMP => ['Đơn tạm', COLORS['secondary']],
-            self::STATUS_APPROVED => ['Đã duyệt', COLORS['success']],
-            self::STATUS_EXPIRED => ['Quá hạn', COLORS['warning']],
-            self::STATUS_DELETED => ['Đã xáo', COLORS['danger']],
+            self::STATUS_TMP => [__('admins::order_status_0'), COLORS['secondary']],
+            self::STATUS_APPROVED => [__('admins::order_status_1'), COLORS['success']],
+            self::STATUS_EXPIRED => [__('admins::order_status_2'), COLORS['warning']],
+            self::STATUS_DELETED => [__('admins::order_status_3'), COLORS['danger']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

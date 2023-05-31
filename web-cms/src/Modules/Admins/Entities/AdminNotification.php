@@ -68,8 +68,8 @@ class AdminNotification extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::VIEWED => ['Đã xem', COLORS['secondary']],
-            self::NOT_VIEW => ['Chưa xem', COLORS['dark']],
+            self::VIEWED => [__('admins::view_status_1'), COLORS['secondary']],
+            self::NOT_VIEW => [__('admins::view_status_2'), COLORS['dark']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

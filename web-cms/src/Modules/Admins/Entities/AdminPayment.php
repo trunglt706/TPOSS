@@ -100,8 +100,8 @@ class AdminPayment extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_SUCCESS => ['Thành công', COLORS['success'], 'check-circle'],
-            self::STATUS_FAILED => ['Thất bại', COLORS['warning'], 'lock-on'],
+            self::STATUS_SUCCESS => [__('admins::result_status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_FAILED => [__('admins::result_status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }
@@ -109,8 +109,8 @@ class AdminPayment extends Model
     public static function get_type($id = '')
     {
         $list = [
-            self::TYPE_THU => ['Thu', COLORS['success'], 'arrow-up'],
-            self::TYPE_CHI => ['Chi', COLORS['danger'], 'arrow-down'],
+            self::TYPE_THU => [__('admins::payment_type_1'), COLORS['success'], 'arrow-up'],
+            self::TYPE_CHI => [__('admins::payment_type_2'), COLORS['danger'], 'arrow-down'],
         ];
         return ($id == '') ? $list : $list[$id];
     }

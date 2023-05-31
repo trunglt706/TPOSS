@@ -79,8 +79,8 @@ class AdminTokenDevice extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }
@@ -88,10 +88,10 @@ class AdminTokenDevice extends Model
     public static function get_os($os = '')
     {
         $list = [
-            self::OS_ANDROID => 'Hệ điều hành Android',
-            self::OS_IOS => 'Hệ điều hành IOS',
-            self::OS_WEB => 'Trình duyệt web',
-            self::OS_PC => 'Myas PC',
+            self::OS_ANDROID => __('admins::platform_android'),
+            self::OS_IOS => __('admins::platform_ios'),
+            self::OS_WEB => __('admins::platform_web'),
+            self::OS_PC => __('admins::platform_pc'),
         ];
         return ($os == '') ? $list : $list[$os];
     }

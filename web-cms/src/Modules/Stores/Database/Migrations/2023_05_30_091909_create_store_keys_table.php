@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('pin')->nullable();
             $table->integer('rgm')->nullable();
             $table->dateTime('expire_date')->nullable();
+            $table->string('computer')->nullable();
             $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
         });

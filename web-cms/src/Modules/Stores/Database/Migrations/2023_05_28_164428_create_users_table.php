@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id()->index();
             $table->string('code')->unique();
-            $table->integer('store_id')->index();
-            $table->integer('position_id')->index();
+            $table->integer('client_id')->nullable()->index();
+            $table->integer('position_id')->nullable()->index();
             $table->string('name');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
@@ -33,11 +33,11 @@ return new class extends Migration
             $table->boolean('enable_two_factory')->nullable()->default(false);
             $table->string('password')->nullable();
             $table->dateTime('last_activity')->nullable();
-            $table->integer('created_by')->nullable()->index();
             $table->integer('type_work')->nullable()->default(0);
+            $table->integer('deleted_by')->nullable();
+            $table->integer('created_by')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
-            $table->integer('deleted_by')->nullable();
         });
     }
 

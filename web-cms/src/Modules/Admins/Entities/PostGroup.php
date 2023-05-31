@@ -47,6 +47,11 @@ class PostGroup extends Model
         return $query->where('status', $status);
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
     public function scopeSlug($query, $slug)
     {
         if (is_array($slug)) {
@@ -68,8 +73,8 @@ class PostGroup extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }

@@ -1,16 +1,16 @@
 <?php
 
-namespace Modules\Admins\Entities;
+namespace Modules\Stores\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AdminGroupRoleSample extends Model
+class Roles extends Model
 {
     use HasFactory;
-    protected $table = 'admin_group_role_samples';
+    protected $table = 'store_roles';
 
-    protected $fillable = ['permission_id', 'group_id', 'role_id', 'status'];
+    protected $fillable = ['permission_id', 'extension', 'icon', 'order', 'status'];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -25,14 +25,12 @@ class AdminGroupRoleSample extends Model
         return $this->hasOne(AdminPermission::class, 'id', 'permission_id');
     }
 
-    public function role()
+    public function scopePermissionId($query, $permission_id)
     {
-        return $this->hasOne(AdminRole::class, 'id', 'role_id');
-    }
-
-    public function group()
-    {
-        return $this->hasOne(AdminGroup::class, 'id', 'group_id');
+        if (is_array($permission_id)) {
+            return $query->whereIn('permission_id', $permission_id);
+        }
+        return $query->where('permission_id', $permission_id);
     }
 
     public function scopeStatus($query, $status)
@@ -51,8 +49,8 @@ class AdminGroupRoleSample extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
+            self::STATUS_ACTIVE => [__('stores::status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('stores::status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }

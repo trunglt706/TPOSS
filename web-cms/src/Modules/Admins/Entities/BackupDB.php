@@ -19,7 +19,7 @@ class BackupDB extends Model
     ];
 
     const STATUS_SUCCESS = 1;
-    const STATUS_FAILED = 0;
+    const STATUS_FAILED = 2;
 
     public function createdBy()
     {
@@ -50,8 +50,8 @@ class BackupDB extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_SUCCESS => ['Thành công', COLORS['success'], 'check-circle'],
-            self::STATUS_FAILED => ['Thất bại', COLORS['warning'], 'lock-on'],
+            self::STATUS_SUCCESS => [__('admins::result_status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_FAILED => [__('admins::result_status_0'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }

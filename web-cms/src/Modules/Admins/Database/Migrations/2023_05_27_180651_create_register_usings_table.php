@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('register_usings', function (Blueprint $table) {
             $table->id()->index();
-            $table->integer('type');
+            $table->integer('business_type_id')->index();
             $table->string('name');
             $table->string('email');
             $table->string('phone');

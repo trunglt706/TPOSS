@@ -2,27 +2,37 @@
 
 namespace Modules\Stores\Entities;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Admins\Entities\Admins;
+use Vanthao03596\HCVN\Models\District;
+use Vanthao03596\HCVN\Models\Province;
+use Vanthao03596\HCVN\Models\Ward;
 
 class Stores extends Model
 {
     use HasFactory;
     protected $table = 'stores';
 
-    protected $fillable = ['customer_id', 'province_id', 'district_id', 'ward_id', 'code', 'name', 'avatar', 'phone', 'email', 'address', 'description', 'status', 'created_by', 'identity_card', 'tax_code', 'bank_name', 'bank_address', 'bank_branch', 'bank_account_number', 'bank_account_name', 'gender', 'position'];
+    protected $fillable = ['province_id', 'business_type_id', 'district_id', 'ward_id', 'area_id', 'service_id', 'assigned_id', 'code', 'name', 'logo', 'phone', 'email', 'address', 'description', 'status', 'created_by', 'currency', 'tax_code', 'website', 'longitude', 'latitude'];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
+    const STATUS_UN_ACTIVE = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
+    const STATUS_DELETED = 3;
 
-    public function customer()
+    const CURRENCY_VN = 'vnd';
+    const CURRENCY_USD = 'usd';
+
+    public function business_type()
     {
-        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
+        return $this->hasOne(BusinessType::class, 'id', 'business_type_id');
     }
 
     public function province()
@@ -43,6 +53,14 @@ class Stores extends Model
     public function createdBy()
     {
         return $this->hasOne(Admins::class, 'id', 'created_by');
+    }
+
+    public function scopeServiceId($query, $service_id)
+    {
+        if (is_array($service_id)) {
+            return $query->whereIn('service_id', $service_id);
+        }
+        return $query->where('service_id', $service_id);
     }
 
     public function scopeProvinceId($query, $province_id)
@@ -149,8 +167,19 @@ class Stores extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+            self::STATUS_UN_ACTIVE => [__('stores::status_0'), COLORS['secondary'], 'slash'],
+            self::STATUS_ACTIVE => [__('stores::status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('stores::status_2'), COLORS['warning'], 'lock-on'],
+            self::STATUS_DELETED => [__('stores::status_3'), COLORS['danger'], 'times'],
+        ];
+        return ($id == '') ? $list : $list[$id];
+    }
+
+    public static function get_currency($id = '')
+    {
+        $list = [
+            self::CURRENCY_VN => [__('stores::currency_vnd'), COLORS['secondary'], 'vnd'],
+            self::CURRENCY_USD => [__('stores::currency_usd'), COLORS['success'], 'usd'],
         ];
         return ($id == '') ? $list : $list[$id];
     }

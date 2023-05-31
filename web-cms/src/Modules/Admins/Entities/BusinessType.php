@@ -1,16 +1,16 @@
 <?php
 
-namespace Modules\Stores\Entities;
+namespace Modules\Admins\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class StoreRole extends Model
+class BusinessType extends Model
 {
     use HasFactory;
-    protected $table = 'store_roles';
+    protected $table = 'business_types';
 
-    protected $fillable = ['permission_id', 'extension', 'icon', 'order', 'status'];
+    protected $fillable = ['name', 'description', 'status', 'created_by'];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -20,17 +20,17 @@ class StoreRole extends Model
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
-    public function permission()
+    public function createdBy()
     {
-        return $this->hasOne(AdminPermission::class, 'id', 'permission_id');
+        return $this->hasOne(Admins::class, 'id', 'created_by');
     }
 
-    public function scopePermissionId($query, $permission_id)
+    public function scopeCreatedBy($query, $created_by)
     {
-        if (is_array($permission_id)) {
-            return $query->whereIn('permission_id', $permission_id);
+        if (is_array($created_by)) {
+            return $query->whereIn('created_by', $created_by);
         }
-        return $query->where('permission_id', $permission_id);
+        return $query->where('created_by', $created_by);
     }
 
     public function scopeStatus($query, $status)
@@ -49,8 +49,8 @@ class StoreRole extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => ['Kích hoạt', COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => ['Bị khóa', COLORS['warning'], 'lock-on'],
+            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }
