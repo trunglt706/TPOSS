@@ -12,7 +12,14 @@ class AdminCustomerObserver
 
     public function created(AdminCustomer $customer)
     {
-        //
+        // send notify to admin assigned and admin have permission
+        // send to email
+
+        // send to slack
+
+        // send to pusher
+
+        // send to firebase
     }
 
     public function updating(AdminCustomer $customer)
@@ -25,6 +32,7 @@ class AdminCustomerObserver
 
     public function deleted(AdminCustomer $customer)
     {
+        // check and delete avatar in s3
     }
 
     public function restored(AdminCustomer $customer)

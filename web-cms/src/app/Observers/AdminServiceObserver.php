@@ -25,6 +25,7 @@ class AdminServiceObserver
 
     public function deleted(Service $service)
     {
+        // check and delete image in s3
     }
 
     public function restored(Service $service)

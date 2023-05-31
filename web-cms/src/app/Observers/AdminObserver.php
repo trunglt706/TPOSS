@@ -67,6 +67,7 @@ class AdminObserver
 
         // delete admin_role_details
         AdminRoleDetail::adminId($admin->id)->delete();
+        // check and delete avatar in s3
     }
 
     public function restored(Admins $admin)

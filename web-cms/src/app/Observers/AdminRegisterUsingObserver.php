@@ -12,7 +12,7 @@ class AdminRegisterUsingObserver
 
     public function created(RegisterUsing $client)
     {
-        //
+        // send email to validate code
     }
 
     public function updating(RegisterUsing $client)

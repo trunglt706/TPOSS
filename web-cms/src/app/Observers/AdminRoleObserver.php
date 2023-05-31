@@ -12,7 +12,7 @@ class AdminRoleObserver
 
     public function created(AdminRole $role)
     {
-        //
+        // add to group role sample
     }
 
     public function updating(AdminRole $role)
@@ -25,11 +25,12 @@ class AdminRoleObserver
 
     public function deleted(AdminRole $role)
     {
+        // delete out group role sample
     }
 
     public function restored(AdminRole $role)
     {
-        //
+        // add to group role sample
     }
 
     public function forceDeleted(AdminRole $role)

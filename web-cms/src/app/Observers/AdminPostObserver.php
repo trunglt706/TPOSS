@@ -25,6 +25,7 @@ class AdminPostObserver
 
     public function deleted(Posts $post)
     {
+        // delete image in s3
     }
 
     public function restored(Posts $post)

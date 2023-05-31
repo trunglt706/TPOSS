@@ -12,7 +12,7 @@ class AdminPermissionObserver
 
     public function created(AdminPermission $permission)
     {
-        //
+        // add to group role sample
     }
 
     public function updating(AdminPermission $permission)
@@ -25,11 +25,12 @@ class AdminPermissionObserver
 
     public function deleted(AdminPermission $permission)
     {
+        // delete out group role sample
     }
 
     public function restored(AdminPermission $permission)
     {
-        //
+        // add to group role sample
     }
 
     public function forceDeleted(AdminPermission $permission)

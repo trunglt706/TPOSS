@@ -12,7 +12,7 @@ class AdminMethodPaymentObserver
 
     public function created(AdminMethodPayment $method)
     {
-        //
+        // check and delete image in s3
     }
 
     public function updating(AdminMethodPayment $method)

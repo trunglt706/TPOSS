@@ -25,6 +25,7 @@ class AdminLeadObserver
 
     public function deleted(AdminLead $lead)
     {
+        // check and delete avatar in s3
     }
 
     public function restored(AdminLead $lead)

@@ -25,6 +25,7 @@ class AdminPaymentPortalObserver
 
     public function deleted(AdminPaymentPortal $portal)
     {
+        // check and delete image in s3
     }
 
     public function restored(AdminPaymentPortal $portal)

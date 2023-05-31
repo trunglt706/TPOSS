@@ -30,7 +30,7 @@ class StoreObserver
 
     public function restored(Stores $store)
     {
-        //
+        // check and delete logo in s3
     }
 
     public function forceDeleted(Stores $store)

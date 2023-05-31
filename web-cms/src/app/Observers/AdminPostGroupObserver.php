@@ -25,6 +25,9 @@ class AdminPostGroupObserver
 
     public function deleted(PostGroup $group)
     {
+        // delete all post of group
+
+        // check and delete image in s3
     }
 
     public function restored(PostGroup $group)

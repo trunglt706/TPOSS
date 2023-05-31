@@ -15,5 +15,11 @@
     "Orders": true,
     "Activities": true,
     "Licenses": true,
-    "Applications": true
+    "Applications": true,
+    "Chats": true,
+    "Hotels": true,
+    "Sales": true,
+    "Tables": true,
+    "Payments": true,
+    "Invoices": true
 }
