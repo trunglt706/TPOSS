@@ -24,8 +24,9 @@ class AdminPayment extends Model
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'total' => 'integer',
     ];
 
     const STATUS_SUCCESS = 1;

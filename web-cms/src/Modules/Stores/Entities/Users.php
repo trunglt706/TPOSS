@@ -41,13 +41,13 @@ class Users extends Model
     ];
 
     protected $casts = [
-        'last_login' => 'datetime',
-        'last_activity' => 'datetime',
-        'birthday' => 'date',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'expired_date' => 'datetime',
-        'deleted_at' => 'datetime',
+        'last_login' => 'datetime:Y-m-d H:i:s',
+        'last_activity' => 'datetime:Y-m-d H:i:s',
+        'birthday' => 'date:Y-m-d',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'expired_date' => 'date:Y-m-d',
+        'deleted_at' => 'datetime-m-d H:i:s',
     ];
 
     protected $hidden = [

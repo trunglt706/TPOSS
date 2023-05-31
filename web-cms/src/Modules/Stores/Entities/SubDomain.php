@@ -23,9 +23,9 @@ class SubDomain extends Model
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'active_date' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'active_date' => 'datetime-m-d H:i:s',
     ];
 
     const STATUS_ACTIVE = 1;

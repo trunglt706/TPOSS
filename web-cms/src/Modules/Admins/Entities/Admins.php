@@ -3,6 +3,7 @@
 namespace Modules\Admins\Entities;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -85,14 +86,56 @@ class Admins extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'last_login' => 'datetime',
-        'last_activity' => 'datetime',
-        'birthday' => 'date',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'expired_date' => 'datetime',
-        'deleted_at' => 'datetime',
+        'last_login' => 'datetime:Y-m-d H:i:s',
+        'last_activity' => 'datetime:Y-m-d H:i:s',
+        'birthday' => 'date:Y-m-d',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'expired_date' => 'date:Y-m-d',
+        'deleted_at' => 'datetime-m-d H:i:s',
     ];
+
+    protected function identityCard(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function code(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function taxCode(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function root(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => ((bool)$value),
+        );
+    }
+
+    protected function supper(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => ((bool)$value),
+        );
+    }
+
+    protected function enableTwoFactory(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => ((bool)$value),
+        );
+    }
 
     // relations
     public function group()

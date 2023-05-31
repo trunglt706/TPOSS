@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Stores\Entities\StoreKey;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::domain(env('APP_URL'))->group(function () {
     Route::get('/', function () {
+        return StoreKey::first();
         return view('welcome');
     });
 });

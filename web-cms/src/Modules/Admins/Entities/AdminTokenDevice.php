@@ -3,6 +3,7 @@
 namespace Modules\Admins\Entities;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -21,9 +22,23 @@ class AdminTokenDevice extends Model
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    protected function token(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function ip(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;

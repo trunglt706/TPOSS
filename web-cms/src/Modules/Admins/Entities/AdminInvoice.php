@@ -2,6 +2,7 @@
 
 namespace Modules\Admins\Entities;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -19,9 +20,16 @@ class AdminInvoice extends Model
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    protected function data(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (json_decode($value, 1)),
+        );
+    }
 
     const STATUS_WAIT = 0;
     const STATUS_SUCCESS = 1;

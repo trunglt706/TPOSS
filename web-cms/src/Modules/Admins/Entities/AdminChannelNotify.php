@@ -21,9 +21,16 @@ class AdminChannelNotify extends Model
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    protected function code(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
 
     protected function settings(): Attribute
     {

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('address')->nullable();
             $table->string('description')->nullable();
             $table->boolean('status')->nullable()->default(AdminLead::STATUS_ACTIVE);

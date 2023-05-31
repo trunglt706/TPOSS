@@ -3,6 +3,7 @@
 namespace Modules\Admins\Entities;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Vanthao03596\HCVN\Models\District;
@@ -24,6 +25,7 @@ class AdminLead extends Model
         'avatar',
         'phone',
         'email',
+        'birthday',
         'address',
         'description',
         'status',
@@ -39,14 +41,43 @@ class AdminLead extends Model
         'bank_branch',
         'bank_account_number',
         'bank_account_name',
-        'gender'
+        'gender',
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'converted_at' => 'datetime'
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'converted_at' => 'datetime-m-d H:i:s',
+        'birthday' => 'date:Y-m-d',
     ];
+
+    protected function code(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function identityCard(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function taxCode(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function bankAccountNumber(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('image')->nullable();
+            $table->integer('max_stores')->nullable()->default(0);
             $table->integer('max_users')->nullable()->default(0);
             $table->integer('max_times')->nullable()->default(0);
             $table->integer('max_orders')->nullable()->default(0);
@@ -32,6 +33,7 @@ return new class extends Migration
                 Service::SUPPORT_ANDROID,
                 Service::SUPPORT_IOS,
             ]));
+            $table->integer('total_amount')->nullable()->default(0);
             $table->timestamps();
         });
     }

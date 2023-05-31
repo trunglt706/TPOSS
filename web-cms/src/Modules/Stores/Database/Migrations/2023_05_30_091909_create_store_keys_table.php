@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id()->index();
             $table->integer('store_id')->index();
             $table->string('key')->unique();
-            $table->integer('pin')->nullable();
-            $table->integer('rgm')->nullable();
+            $table->string('pin')->nullable();
+            $table->string('rgm')->nullable();
             $table->date('expire_date')->nullable();
             $table->string('computer')->nullable();
             $table->boolean('status')->nullable()->default(true);

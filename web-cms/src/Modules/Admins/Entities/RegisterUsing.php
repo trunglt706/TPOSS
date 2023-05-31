@@ -3,6 +3,7 @@
 namespace Modules\Admins\Entities;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -28,9 +29,23 @@ class RegisterUsing extends Model
         'expired_code'
     ];
 
+    protected function ip(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function verifyCode(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (strtoupper($value)),
+        );
+    }
+
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
         'expired_code' => 'datetime',
         'date_convert' => 'datetime',
     ];

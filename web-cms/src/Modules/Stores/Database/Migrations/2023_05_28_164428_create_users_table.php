@@ -34,7 +34,7 @@ return new class extends Migration
             $table->boolean('enable_two_factory')->nullable()->default(false);
             $table->string('password')->nullable();
             $table->dateTime('last_activity')->nullable();
-            $table->dateTime('expired_date')->nullable();
+            $table->date('expired_date')->nullable();
             $table->integer('type_work')->nullable()->default(Users::WORK_TYPE_FULL);
             $table->integer('deleted_by')->nullable();
             $table->integer('created_by')->nullable()->index();

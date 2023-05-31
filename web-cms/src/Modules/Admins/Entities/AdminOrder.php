@@ -32,10 +32,16 @@ class AdminOrder extends Model
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'start_date' => 'date',
-        'end_date' => 'date',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'start_date' => 'datetime:Y-m-d',
+        'end_date' => 'datetime:Y-m-d',
+        'discount_value' => 'integer',
+        'discount_total' => 'integer',
+        'vat_total' => 'integer',
+        'vat_value' => 'integer',
+        'sub_total' => 'integer',
+        'total' => 'integer',
     ];
 
     const DISCOUNT_TYPE_PERCENT = 1;

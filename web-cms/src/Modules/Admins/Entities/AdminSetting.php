@@ -2,6 +2,7 @@
 
 namespace Modules\Admins\Entities;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -17,20 +18,41 @@ class AdminSetting extends Model
     const TYPE_RADIO = 'radio';
 
     protected $fillable = [
-        'group_id', 
-        'code', 
-        'name', 
-        'description', 
-        'type', 
-        'value', 
-        'data', 
+        'group_id',
+        'code',
+        'name',
+        'description',
+        'type',
+        'value',
+        'data',
         'order'
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    protected function data(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (json_decode($value, 1)),
+        );
+    }
+
+    protected function order(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => ((int)($value)),
+        );
+    }
+
+    protected function code(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
 
     public function group()
     {

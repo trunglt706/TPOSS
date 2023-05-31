@@ -5,6 +5,7 @@ namespace Modules\Stores\Entities;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class StoreKey extends Model
 {
@@ -20,6 +21,28 @@ class StoreKey extends Model
         'computer',
         'status'
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'expire_date' => 'date:Y-m-d'
+    ];
+
+    protected function pin(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => base64_decode($value),
+            set: fn (string $value) => base64_encode($value),
+        );
+    }
+
+    protected function rgm(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => base64_decode($value),
+            set: fn (string $value) => base64_encode($value),
+        );
+    }
 
     public function store()
     {

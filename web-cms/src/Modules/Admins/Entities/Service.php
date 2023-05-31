@@ -2,6 +2,7 @@
 
 namespace Modules\Admins\Entities;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Stores\Entities\Stores;
@@ -21,16 +22,55 @@ class Service extends Model
         'max_users',
         'max_times',
         'max_orders',
+        'max_stores',
+        'total_amount',
         'created_by'
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
         'max_users' => 'integer',
         'max_times' => 'integer',
         'max_orders' => 'integer',
+        'max_stores' => 'integer',
+        'total_amount' => 'integer',
     ];
+
+    protected function maxStores(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => ((int)$value),
+        );
+    }
+
+    protected function maxUsers(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => ((int)$value),
+        );
+    }
+
+    protected function maxTimes(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => ((int)$value),
+        );
+    }
+
+    protected function maxOrders(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => ((int)$value),
+        );
+    }
+
+    protected function totalAmount(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => ((int)$value),
+        );
+    }
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;

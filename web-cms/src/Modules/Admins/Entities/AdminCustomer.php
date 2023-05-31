@@ -3,6 +3,7 @@
 namespace Modules\Admins\Entities;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Vanthao03596\HCVN\Models\District;
@@ -15,36 +16,66 @@ class AdminCustomer extends Model
     protected $table = 'admin_customers';
 
     protected $fillable = [
-        'province_id', 
-        'business_type_id', 
-        'service_id', 
-        'type', 
-        'district_id', 
-        'ward_id', 
-        'code', 
-        'name', 
-        'avatar', 
-        'phone', 
-        'email', 
-        'address', 
-        'description', 
-        'status', 
-        'created_by', 
-        'assigned_id', 
-        'identity_card', 
-        'tax_code', 
-        'bank_name', 
-        'bank_address', 
-        'bank_branch', 
-        'bank_account_number', 
-        'bank_account_name', 
+        'province_id',
+        'business_type_id',
+        'service_id',
+        'type',
+        'district_id',
+        'ward_id',
+        'code',
+        'name',
+        'avatar',
+        'phone',
+        'email',
+        'birthday',
+        'address',
+        'description',
+        'status',
+        'created_by',
+        'assigned_id',
+        'identity_card',
+        'tax_code',
+        'bank_name',
+        'bank_address',
+        'bank_branch',
+        'bank_account_number',
+        'bank_account_name',
         'gender'
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'birthday' => 'date:Y-m-d',
     ];
+
+    protected function code(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function identityCard(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function taxCode(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function bankAccountNumber(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
