@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Activities\Entities;
+namespace Modules\Bookings\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Usernotification extends Model
+class Bookings extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,6 @@ class Usernotification extends Model
     
     protected static function newFactory()
     {
-        return \Modules\Activities\Database\factories\UsernotificationFactory::new();
+        return \Modules\Bookings\Database\factories\BookingsFactory::new();
     }
 }

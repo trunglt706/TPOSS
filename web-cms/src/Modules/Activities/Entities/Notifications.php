@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Tables\Entities;
+namespace Modules\Activities\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class TableẢeas extends Model
+class Notifications extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,6 @@ class TableẢeas extends Model
     
     protected static function newFactory()
     {
-        return \Modules\Tables\Database\factories\TableẢeasFactory::new();
+        return \Modules\Activities\Database\factories\NotificationsFactory::new();
     }
 }

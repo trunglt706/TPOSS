@@ -5,7 +5,7 @@ namespace Modules\Activities\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class UserActivity extends Model
+class Activities extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,6 @@ class UserActivity extends Model
     
     protected static function newFactory()
     {
-        return \Modules\Activities\Database\factories\UserActivityFactory::new();
+        return \Modules\Activities\Database\factories\ActivitiesFactory::new();
     }
 }
