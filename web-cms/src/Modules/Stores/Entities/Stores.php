@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Admins\Entities\Admins;
+use Modules\Admins\Entities\AdminServiceUsingStore;
 use Vanthao03596\HCVN\Models\District;
 use Vanthao03596\HCVN\Models\Province;
 use Vanthao03596\HCVN\Models\Ward;
@@ -51,6 +52,11 @@ class Stores extends Model
 
     const CURRENCY_VN = 'vnd';
     const CURRENCY_USD = 'usd';
+
+    public function service_usings()
+    {
+        return $this->hasMany(AdminServiceUsingStore::class, 'store_id', 'id');
+    }
 
     public function business_type()
     {

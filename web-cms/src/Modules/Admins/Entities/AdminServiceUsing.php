@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AdminServiceUsing extends Model
 {
     use HasFactory;
-    protected $table = 'admin_service_using';
+    protected $table = 'admin_service_usings';
 
     protected $fillable = [
         'customer_id',
@@ -72,6 +72,11 @@ class AdminServiceUsing extends Model
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
+
+    public function ofStore()
+    {
+        return $this->belongsTo(AdminServiceUsingStore::class, 'id', 'store_id');
+    }
 
     public function customer()
     {
