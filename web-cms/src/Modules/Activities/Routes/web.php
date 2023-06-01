@@ -14,7 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::domain('{domain}.' . env('APP_URL'))->name('user.')->group(function () {
-    Route::get('', function () {
-        return 'user';
-    });
 });
