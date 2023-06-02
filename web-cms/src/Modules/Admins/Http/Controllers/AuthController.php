@@ -9,16 +9,14 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view('admins::admins.pages.auth.login');
+        return view('admins::admins.pages.auth.index');
     }
 
     public function forgot_password()
     {
-        return view('admins::admins.pages.auth.forgot_password');
     }
 
     public function reset_password()
     {
-        return view('admins::admins.pages.auth.reset_password');
     }
 }
