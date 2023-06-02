@@ -49,8 +49,8 @@ Route::domain('admin.' . env('APP_URL'))->name('admin.')->group(function () {
         Route::get('reset_password', [AuthController::class, 'reset_password'])->name('reset_password');
     });
 
-    Route::middleware('')->group(function () {
-        Route::get('guest', [HomeController::class, 'index'])->name('index');
+    Route::middleware('guest')->group(function () {
+        Route::get('', [HomeController::class, 'index'])->name('index');
 
         Route::prefix('admins')->group(function () {
             Route::get('', [AdminsController::class, 'index'])->name('admins.index');
