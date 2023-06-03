@@ -252,4 +252,10 @@ class AdminCustomer extends Model
         ];
         return ($id == '') ? $list : $list[$id];
     }
+
+    public static function get_code_default()
+    {
+        $max = AdminCustomer::max('id');
+        return 'AC' . sprintf("%'.04d", $max + 1);
+    }
 }

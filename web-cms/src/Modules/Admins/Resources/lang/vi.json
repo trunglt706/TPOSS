@@ -37,5 +37,7 @@
     "platform_ios": "Thiết bị IOS",
     "platform_pc": "Máy PC (Window / Mac)",
     "vendor_type_ip": "Địa chỉ IP",
-    "vendor_type_domain": "Tên miền"
+    "vendor_type_domain": "Tên miền",
+    "backup_type_auto" : "Tự động",
+    "backup_type_personal" : "Chủ động",
 }

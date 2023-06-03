@@ -38,6 +38,9 @@ class BackupDB extends Model
     const STATUS_SUCCESS = 1;
     const STATUS_FAILED = 2;
 
+    const TYPE_AUTO = 'auto';
+    const TYPE_PERSONAL = 'personal';
+
     public function createdBy()
     {
         return $this->hasOne(Admins::class, 'id', 'created_by');
@@ -59,6 +62,14 @@ class BackupDB extends Model
         return $query->where('status', $status);
     }
 
+    public function scopeType($query, $type)
+    {
+        if (is_array($type)) {
+            return $query->whereIn('type', $type);
+        }
+        return $query->where('type', $type);
+    }
+
     public function scopeSuccess($query)
     {
         return $query->where('status', self::STATUS_SUCCESS);
@@ -69,6 +80,15 @@ class BackupDB extends Model
         $list = [
             self::STATUS_SUCCESS => [__('admins::result_status_1'), COLORS['success'], 'check-circle'],
             self::STATUS_FAILED => [__('admins::result_status_0'), COLORS['warning'], 'lock-on'],
+        ];
+        return ($id == '') ? $list : $list[$id];
+    }
+
+    public static function get_type($id = '')
+    {
+        $list = [
+            self::TYPE_AUTO => [__('admins::backup_type_auto'), COLORS['success']],
+            self::TYPE_PERSONAL => [__('admins::backup_type_personal'), COLORS['warning']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

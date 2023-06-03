@@ -2,12 +2,15 @@
 
 namespace App\Observers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Modules\Admins\Entities\BackupDB;
 
 class AdminBackupDBObserver
 {
     public function creating(BackupDB $backup)
     {
+        $backup->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 1;
     }
 
     public function created(BackupDB $backup)
@@ -25,6 +28,8 @@ class AdminBackupDBObserver
 
     public function deleted(BackupDB $backup)
     {
+        // remove in s3
+        Storage::delete($backup->link);
     }
 
     public function restored(BackupDB $backup)

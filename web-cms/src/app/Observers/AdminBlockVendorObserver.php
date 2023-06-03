@@ -2,12 +2,14 @@
 
 namespace App\Observers;
 
+use Illuminate\Support\Facades\Auth;
 use Modules\Admins\Entities\BlockVendor;
 
 class AdminBlockVendorObserver
 {
     public function creating(BlockVendor $vendor)
     {
+        $vendor->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 1;
     }
 
     public function created(BlockVendor $vendor)

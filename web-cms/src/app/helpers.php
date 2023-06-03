@@ -2,24 +2,6 @@
 
 use Illuminate\Support\Facades\Log;
 
-if (!defined('ROLE_PERMISSION')) {
-    define(
-        "ROLE_PERMISSION",
-        [
-            'CAN_ACCESS'     => 'Xem chung',
-            'CAN_ACCESS_OWE'     => 'Xem riêng',
-            'CAN_UPDATE'     => 'Cập nhật',
-            'CAN_INSERT'     => 'Tạo mới',
-            'CAN_DELETE'     => 'Xóa',
-            'CAN_REPORT' => 'Thống kê',
-            'CAN_PRINT'      => 'In',
-            'CAN_PERMISSION'      => 'Phân quyền',
-            'CAN_PRINT'      => 'In',
-            'CAN_SETTING'      => 'Cài đặt',
-        ]
-    );
-}
-
 if (!defined('COLORS')) {
     define('COLORS', [
         'primary' => '#0d6efd',
@@ -162,6 +144,7 @@ if (!function_exists('remove_tag_script')) {
         return $str;
     }
 }
+
 if (!function_exists('generateRandomString')) {
     function generateRandomString($length = 10,  $is_number = false)
     {
@@ -172,6 +155,7 @@ if (!function_exists('generateRandomString')) {
         return ($length > 0) ? substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length) : '';
     }
 }
+
 if (!function_exists('remove_all_file')) {
     function remove_all_file($glob)
     {
@@ -277,6 +261,7 @@ if (!function_exists('zipAddFile')) {
         return $zip;
     }
 }
+
 if (!function_exists('pushLogServer')) {
     function pushLogServer($options = [])
     {
@@ -293,15 +278,28 @@ if (!function_exists('pushLogServer')) {
         }
     }
 }
+
 if (!function_exists('getServerIp')) {
     function getServerIp()
     {
         return $_SERVER['REMOTE_ADDR'] ?? '';
     }
 }
+
 if (!function_exists('getUserAgent')) {
     function getUserAgent()
     {
         return $_SERVER['HTTP_USER_AGENT'] ?? '';
+    }
+}
+
+if (!function_exists('bytesToHuman')) {
+    function bytesToHuman($bytes, $fix = 3)
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+        for ($i = 0; $bytes >= 1024; $i++) {
+            $bytes /= 1024;
+        }
+        return round($bytes, $fix) . ' ' . $units[$i];
     }
 }

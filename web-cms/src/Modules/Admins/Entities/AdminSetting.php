@@ -67,9 +67,9 @@ class AdminSetting extends Model
         return $query->where('group_id', $group_id);
     }
 
-    public function scopeCode($query, $code)
+    public function scopeOfCode($query, $code)
     {
-        if (-is_array($code)) {
+        if (is_array($code)) {
             return $query->whereIn('code', $code);
         }
         return $query->where('code', $code);
