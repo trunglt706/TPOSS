@@ -25,7 +25,7 @@ html .content {
     margin-left: 260px;
 }
 html .content.app-content {
-    padding: calc(2rem + 4.45rem + 1.3rem) 2rem 0;
+    padding: calc(4.45rem + 1.3rem) 2rem 0;
 }
 html .content.app-content.show-overlay .content-overlay {
     z-index: 10;

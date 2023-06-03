@@ -36,8 +36,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pickers/flatpickr/flatpickr.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pickers/form-flat-pickr.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/app-todo.css') }}">
-
     <title>xCRM - NxCloud</title>
     @yield('style')
 </head>
@@ -100,8 +98,6 @@
 
     <script src="{{ asset('assets/js/menu.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
-    <script src="{{ asset('js/dashboard-demo.js') }}"></script>
     @yield('script')
 </body>
 
