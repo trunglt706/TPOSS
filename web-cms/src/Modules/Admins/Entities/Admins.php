@@ -2,11 +2,13 @@
 
 namespace Modules\Admins\Entities;
 
+use App\Observers\AdminObserver;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Stores\Entities\Stores;
 use Nwidart\Modules\Module;
@@ -290,5 +292,16 @@ class Admins extends Authenticatable
     public function scopeExpired($query)
     {
         return $query->where('expired_date', '>', Carbon::now()->format('Y-m-d'));
+    }
+
+    public static function get_code_default()
+    {
+        $max = Admins::max('id');
+        return 'AD' . sprintf("%'.04d", $max + 1);
+    }
+
+    public static function get_password_default()
+    {
+        return Hash::make('Abc@#123');
     }
 }

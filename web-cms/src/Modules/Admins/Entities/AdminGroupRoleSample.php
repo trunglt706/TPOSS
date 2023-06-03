@@ -40,6 +40,22 @@ class AdminGroupRoleSample extends Model
         return $this->hasOne(AdminGroup::class, 'id', 'group_id');
     }
 
+    public function scopeGroupId($query, $group_id)
+    {
+        if (is_array($group_id)) {
+            return $query->whereIn('group_id', $group_id);
+        }
+        return $query->where('group_id', $group_id);
+    }
+
+    public function scopeRoleId($query, $role_id)
+    {
+        if (is_array($role_id)) {
+            return $query->whereIn('role_id', $role_id);
+        }
+        return $query->where('role_id', $role_id);
+    }
+
     public function scopeStatus($query, $status)
     {
         if (is_array($status)) {

@@ -15,7 +15,13 @@ class AdminObserver
 {
     public function creating(Admins $admin)
     {
-        $admin->created_by = Auth::guard('admin')->user()->id;
+        $admin->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 1;
+        $admin->password = $admin->password ?? Admins::get_password_default();
+        $admin->gender = $admin->gender ?? Admins::GENDER_OTHER;
+        $admin->status = $admin->status ?? Admins::STATUS_UN_ACTIVE;
+        $admin->root = $admin->root ?? Admins::NOT_ROOT;
+        $admin->supper = $admin->supper ?? Admins::NOT_SUPPER;
+        $admin->code = $admin->code ?? Admins::get_code_default();
     }
 
     public function created(Admins $admin)

@@ -9,7 +9,7 @@ use Modules\Stores\Entities\Stores;
 class Area extends Model
 {
     use HasFactory;
-    protected $table = 'areas';
+    protected $table = 'admin_areas';
 
     protected $fillable = [
         'name',

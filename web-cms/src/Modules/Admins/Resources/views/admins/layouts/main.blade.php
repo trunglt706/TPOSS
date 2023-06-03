@@ -27,16 +27,10 @@
     <link href="{{ asset('assets/css/bootstrap-extended.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/colors.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/components.css') }}" rel="stylesheet">
-
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/datatable/dataTables.bootstrap5.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/datatable/responsive.bootstrap5.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/datatable/buttons.bootstrap5.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/datatable/rowGroup.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pickers/flatpickr/flatpickr.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pickers/form-flat-pickr.css') }}">
 
-    <title>xCRM - NxCloud</title>
+    <title>{{ env('APP_NAME') }}</title>
     @yield('style')
 </head>
 
@@ -58,7 +52,8 @@
 
     <!-- BEGIN: Footer-->
     <footer class="footer footer-static footer-light">
-        <p class="clearfix mb-0"><span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy;
+        <p class="clearfix mb-0"><span class="float-md-start d-block d-md-inline-block mt-25">{{ env('APP_NAME') }}
+                &copy;
                 2022<a class="ms-25" href="#" target="_blank">NxCloud</a><span class="d-none d-sm-inline-block">,
                     All rights Reserved</span></span></p>
     </footer>
@@ -77,25 +72,9 @@
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/js/apexcharts.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
-
-
-    <script src="{{ asset('assets/datatable/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/datatables.checkboxes.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/datatables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/jszip.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('assets/datatable/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/dataTables.rowGroup.min.js') }}"></script>
     <script src="{{ asset('assets/pickers/flatpickr/flatpickr.min.js') }}"></script>
     <script src="{{ asset('assets/js/dragula.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.full.min.js') }}"></script>
-
-
     <script src="{{ asset('assets/js/menu.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     @yield('script')
