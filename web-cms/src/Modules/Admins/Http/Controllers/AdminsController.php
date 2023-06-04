@@ -4,12 +4,14 @@ namespace Modules\Admins\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Admins\Entities\AdminMenus;
 use Modules\Admins\Entities\Admins;
 
 class AdminsController extends Controller
 {
     public function index()
     {
+        return AdminMenus::with('roles')->parentId(0)->active()->get();
         return view('admins::admins.pages.admins.index');
     }
 

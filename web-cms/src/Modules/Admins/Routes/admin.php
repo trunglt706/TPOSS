@@ -36,6 +36,7 @@ use Modules\Admins\Http\Controllers\PostController;
 use Modules\Admins\Http\Controllers\PostGroupController;
 use Modules\Admins\Http\Controllers\ProvinceController;
 use Modules\Admins\Http\Controllers\RegisterUsingController;
+use Modules\Admins\Http\Controllers\ReportController;
 use Modules\Admins\Http\Controllers\RoleController;
 use Modules\Admins\Http\Controllers\ServiceController;
 use Modules\Admins\Http\Controllers\SettingController;
@@ -259,5 +260,14 @@ Route::domain('admin.' . env('APP_URL'))->name('admin.')->group(function () {
             Route::put('/{id}', [ServiceController::class, 'update'])->where('id', '[0-9]+')->name('services.update');
             Route::delete('/{id}', [ServiceController::class, 'destroy'])->where('id', '[0-9]+')->name('services.destroy');
         });
+
+        Route::prefix('report')->group(function () {
+            Route::get('revenue', [ReportController::class, 'revenue'])->name('report.revenue');
+            Route::get('financial', [ReportController::class, 'financial'])->name('report.financial');
+            Route::get('invoice', [ReportController::class, 'invoice'])->name('report.invoice');
+            Route::get('register', [ReportController::class, 'register'])->name('report.register');
+        });
+
+        Route::get('telescope', [HomeController::class, 'telescope'])->name('telescope.index');
     });
 });

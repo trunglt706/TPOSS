@@ -11,12 +11,14 @@ class AdminMenus extends Model
     protected $table = 'admin_menus';
 
     protected $fillable = [
-        'permission_id',
+        'name',
         'type',
         'status',
         'route',
         'target',
-        'created_by'
+        'created_by',
+        'parent_id',
+        'icon',
     ];
 
     protected $casts = [
@@ -30,17 +32,12 @@ class AdminMenus extends Model
     const TYPE_MAIN = 1;
     const TYPE_SUB = 0;
 
-    public function permission()
-    {
-        return $this->hasOne(AdminPermission::class, 'id', 'permission_id');
-    }
+    const TARGET_SELF = 'self';
+    const TARGET_BLANK = '_blank';
 
-    public function scopePermissionId($query, $permission_id)
+    public function roles()
     {
-        if (is_array($permission_id)) {
-            return $query->whereIn('permission_id', $permission_id);
-        }
-        return $query->where('permission_id', $permission_id);
+        return $this->hasMany(AdminMenus::class, 'parent_id', 'id')->active();
     }
 
     public function scopeType($query, $type)
@@ -65,6 +62,11 @@ class AdminMenus extends Model
             return $query->whereIn('status', $status);
         }
         return $query->where('status', $status);
+    }
+
+    public function scopeParentId($query, $parent_id)
+    {
+        return $query->where('parent_id', $parent_id);
     }
 
     public function scopeActive($query)

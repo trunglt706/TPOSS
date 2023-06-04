@@ -13,9 +13,7 @@ class AdminRole extends Model
 
     protected $fillable = [
         'permission_id',
-        'name',
         'extension',
-        'icon',
         'order',
         'status'
     ];
@@ -24,6 +22,15 @@ class AdminRole extends Model
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    const ROLE_VIEW = 'view';
+    const ROLE_VIEW_OWNER = 'view_owner';
+    const ROLE_INSERT = 'insert';
+    const ROLE_UPDATE = 'update';
+    const ROLE_DELETE = 'delete';
+    const ROLE_REPORT = 'report';
+    const ROLE_LOGIN = 'login';
+    const ROLE_PERMISSION = 'permission';
 
     protected function order(): Attribute
     {
@@ -77,9 +84,24 @@ class AdminRole extends Model
         return ($id == '') ? $list : $list[$id];
     }
 
-    public static function get_order($group_id)
+    public static function get_order($permission_id)
     {
-        $max = AdminRole::groupId($group_id)->count();
+        $max = AdminRole::permissionId($permission_id)->count();
         return $max + 1;
+    }
+
+    public static function get_role($id = '')
+    {
+        $list = [
+            self::ROLE_VIEW => __('admins::role_view'),
+            self::ROLE_VIEW_OWNER => __('admins::role_view_owner'),
+            self::ROLE_INSERT => __('admins::role_insert'),
+            self::ROLE_UPDATE => __('admins::role_update'),
+            self::ROLE_DELETE => __('admins::role_delete'),
+            self::ROLE_REPORT => __('admins::role_report'),
+            self::ROLE_LOGIN => __('admins::role_login'),
+            self::ROLE_PERMISSION => __('admins::role_permission'),
+        ];
+        return ($id == '') ? $list : $list[$id];
     }
 }

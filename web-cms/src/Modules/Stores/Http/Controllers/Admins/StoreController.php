@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Stores\Http\Controllers;
+namespace Modules\Stores\Http\Controllers\Admins;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class StoresController extends Controller
+class StoreController extends Controller
 {
     /**
      * Display a listing of the resource.

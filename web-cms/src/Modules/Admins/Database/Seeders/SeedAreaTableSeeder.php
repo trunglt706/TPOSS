@@ -15,6 +15,7 @@ class SeedAreaTableSeeder extends Seeder
     public function run()
     {
         Area::truncate();
+
         Area::create([
             'name' => 'Miền Bắc',
         ]);

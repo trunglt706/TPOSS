@@ -23,6 +23,9 @@ class AdminsDatabaseSeeder extends Seeder
         // seed menu
         $this->call(SeedAdminMenuTableSeeder::class);
 
+        // seed admin
+        $this->call(SeedAdminTableSeeder::class);
+
         // seed area
         $this->call(SeedAreaTableSeeder::class);
 

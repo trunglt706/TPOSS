@@ -11,7 +11,7 @@ class AdminPermissionObserver
     public function creating(AdminPermission $permission)
     {
         $permission->order = $permission->order ?? AdminPermission::get_order();
-        $permission->status = $permission->status ?? AdminPermission::STATUS_SUSPEND;
+        $permission->status = $permission->status ?? AdminPermission::STATUS_ACTIVE;
     }
 
     public function created(AdminPermission $permission)

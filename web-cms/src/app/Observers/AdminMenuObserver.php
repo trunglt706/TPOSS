@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use Illuminate\Support\Facades\Auth;
 use Modules\Admins\Entities\AdminMenus;
 
 class AdminMenuObserver
@@ -11,7 +12,11 @@ class AdminMenuObserver
      */
     public function created(AdminMenus $adminMenus): void
     {
-        //
+        $adminMenus->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+        $adminMenus->status = $adminMenus->status ?? AdminMenus::STATUS_ACTIVE;
+        $adminMenus->type = $adminMenus->type ?? AdminMenus::TYPE_MAIN;
+        $adminMenus->target = $adminMenus->target ?? AdminMenus::TARGET_SELF;
+        $adminMenus->level = $adminMenus->level ?? 0;
     }
 
     /**

@@ -16,6 +16,8 @@ class SeedAdminTableSeeder extends Seeder
     public function run()
     {
         AdminGroup::truncate();
+        Admins::truncate();
+
         $group = AdminGroup::create([
             'name' => 'Quản trị viên',
             'description' => 'Có toàn quyền',
@@ -24,7 +26,6 @@ class SeedAdminTableSeeder extends Seeder
             'created_by' => 1
         ]);
 
-        Admins::truncate();
         Admins::create([
             'name' => 'Super admin',
             'email' => 'tpos_admin@gmail.com',

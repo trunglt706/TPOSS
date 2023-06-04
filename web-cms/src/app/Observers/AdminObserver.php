@@ -33,7 +33,7 @@ class AdminObserver
                 'permission_id' => $permission->permission_id,
                 'admin_id' => $admin->id,
                 'role_id' => $permission->role_id ?? null,
-                'status' => AdminRoleDetail::STATUS_ACTIVE
+                'status' => $admin->root == Admins::IS_ROOT ? AdminRoleDetail::STATUS_ACTIVE : $permission->status,
             ]);
         }
         // check and send email
@@ -91,7 +91,7 @@ class AdminObserver
                 'permission_id' => $permission->permission_id,
                 'admin_id' => $admin->id,
                 'role_id' => $permission->role_id ?? null,
-                'status' => $permission->status
+                'status' => $admin->root == Admins::IS_ROOT ? AdminRoleDetail::STATUS_ACTIVE : $permission->status,
             ]);
         }
     }

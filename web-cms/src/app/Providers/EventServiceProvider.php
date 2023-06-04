@@ -14,6 +14,7 @@ use App\Observers\AdminGroupRoleSampleObserver;
 use App\Observers\AdminInvoiceObserver;
 use App\Observers\AdminInvoicePortalObserver;
 use App\Observers\AdminLeadObserver;
+use App\Observers\AdminMenuObserver;
 use App\Observers\AdminMethodPaymentObserver;
 use App\Observers\AdminObserver;
 use App\Observers\AdminPaymentObserver;
@@ -42,6 +43,7 @@ use Modules\Admins\Entities\AdminGroup;
 use Modules\Admins\Entities\AdminGroupRoleSample;
 use Modules\Admins\Entities\AdminInvoice;
 use Modules\Admins\Entities\AdminLead;
+use Modules\Admins\Entities\AdminMenus;
 use Modules\Admins\Entities\AdminMethodPayment;
 use Modules\Admins\Entities\AdminOrder;
 use Modules\Admins\Entities\AdminPayment;
@@ -117,6 +119,7 @@ class EventServiceProvider extends ServiceProvider
         BusinessType::observe(new BusinessTypeObserver);
         Stores::observe(new StoreObserver);
         PasswordResetToken::observe(new PasswordResetTokenObserver);
+        AdminMenus::observe(new AdminMenuObserver);
     }
 
     /**

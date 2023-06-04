@@ -1,6 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Log;
+use Modules\Admins\Entities\AdminMenus;
+
+if (function_exists('menu_admins')) {
+    function menu_admins()
+    {
+        return AdminMenus::with('roles')->parentId(0)->active()->get();
+    }
+}
 
 if (!defined('COLORS')) {
     define('COLORS', [

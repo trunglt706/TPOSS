@@ -16,11 +16,13 @@ return new class extends Migration
     {
         Schema::create('admin_menus', function (Blueprint $table) {
             $table->id()->index();
-            $table->integer('permission_id')->nullable()->index();
+            $table->string('name');
             $table->boolean('type')->nullable()->default(AdminMenus::TYPE_MAIN);
             $table->string('route')->nullable();
             $table->boolean('status')->nullable()->default(AdminMenus::STATUS_ACTIVE);
-            $table->string('target')->nullable()->default('self');
+            $table->string('target')->nullable()->default(AdminMenus::TARGET_SELF);
+            $table->integer('parent_id')->nullable()->default(0)->index();
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_menuses');
+        Schema::dropIfExists('admin_menus');
     }
 };

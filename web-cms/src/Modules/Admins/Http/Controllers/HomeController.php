@@ -11,4 +11,8 @@ class HomeController extends Controller
     {
         return view('admins::admins.pages.home.index');
     }
+
+    public function telescope()
+    {
+    }
 }

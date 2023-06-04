@@ -14,8 +14,9 @@ class SeedBusinessTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        // seed business type
         BusinessType::truncate();
+
+        // seed business type
         BusinessType::create([
             'name' => 'Quán cà phê',
             'description' => 'Quản lý quán từ xa tiện lợi, tính tiền nhanh',

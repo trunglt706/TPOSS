@@ -10,7 +10,7 @@ class AdminRoleObserver
 {
     public function creating(AdminRole $role)
     {
-        $role->status = $role->status ?? AdminRole::STATUS_SUSPEND;
+        $role->status = $role->status ?? AdminRole::STATUS_ACTIVE;
         $role->order = $role->order ?? AdminRole::get_order($role->group_id ?? 0);
     }
 

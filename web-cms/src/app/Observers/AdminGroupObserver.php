@@ -23,12 +23,14 @@ class AdminGroupObserver
             AdminGroupRoleSample::firstOrCreate([
                 'permission_id' => $permission->id,
                 'group_id' => $group->id,
+                'status' => $group->id == 1 ? AdminGroupRoleSample::STATUS_ACTIVE : AdminGroupRoleSample::STATUS_SUSPEND
             ]);
             foreach (AdminRole::permissionId($permission->id)->get() as $role) {
                 AdminGroupRoleSample::firstOrCreate([
                     'permission_id' => $permission->id,
                     'group_id' => $group->id,
-                    'role_id' => $role->id
+                    'role_id' => $role->id,
+                    'status' => $group->id == 1 ? AdminGroupRoleSample::STATUS_ACTIVE : AdminGroupRoleSample::STATUS_SUSPEND
                 ]);
             }
         }
