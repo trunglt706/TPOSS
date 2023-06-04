@@ -10,7 +10,7 @@ class AdminBackupDBObserver
 {
     public function creating(BackupDB $backup)
     {
-        $backup->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 1;
+        $backup->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
     }
 
     public function created(BackupDB $backup)

@@ -10,7 +10,7 @@ class BusinessTypeObserver
 
     public function creating(BusinessType $type)
     {
-        $type->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 1;
+        $type->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
         $type->status = $type->status ?? BusinessType::STATUS_ACTIVE;
     }
 

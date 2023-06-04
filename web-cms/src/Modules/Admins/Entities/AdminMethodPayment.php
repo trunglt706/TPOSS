@@ -86,4 +86,10 @@ class AdminMethodPayment extends Model
         ];
         return ($id == '') ? $list : $list[$id];
     }
+
+    public static function get_order()
+    {
+        $max = AdminMethodPayment::count();
+        return $max + 1;
+    }
 }

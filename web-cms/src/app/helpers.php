@@ -152,7 +152,7 @@ if (!function_exists('generateRandomString')) {
             $length -= 1;
             return ($length > 0) ? random_int(1, 9) . substr(str_shuffle(str_repeat($x = '0123456789', ceil($length / strlen($x)))), 1, $length) : '';
         }
-        return ($length > 0) ? substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length) : '';
+        return ($length > 0) ? substr(str_shuffle(str_repeat($x = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length) : '';
     }
 }
 
@@ -279,15 +279,15 @@ if (!function_exists('pushLogServer')) {
     }
 }
 
-if (!function_exists('getServerIp')) {
-    function getServerIp()
+if (!function_exists('get_ip')) {
+    function get_ip()
     {
         return $_SERVER['REMOTE_ADDR'] ?? '';
     }
 }
 
-if (!function_exists('getUserAgent')) {
-    function getUserAgent()
+if (!function_exists('get_device')) {
+    function get_device()
     {
         return $_SERVER['HTTP_USER_AGENT'] ?? '';
     }

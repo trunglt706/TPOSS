@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('admin_area_id')->nullable()->index();
             $table->integer('service_id')->nullable()->index();
             $table->integer('assigned_id')->nullable()->index();
+            $table->integer('customer_id')->nullable()->index();
             $table->string('code')->unique();
             $table->string('name');
             $table->string('logo')->nullable();

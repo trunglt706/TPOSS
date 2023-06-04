@@ -5,6 +5,7 @@ namespace Modules\Stores\Entities;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Admins\Entities\AdminCustomer;
 use Modules\Admins\Entities\Admins;
 use Modules\Admins\Entities\AdminServiceUsingStore;
 use Vanthao03596\HCVN\Models\District;
@@ -21,9 +22,11 @@ class Stores extends Model
         'business_type_id',
         'district_id',
         'ward_id',
+        'admin_area_id',
         'area_id',
         'service_id',
         'assigned_id',
+        'customer_id',
         'code',
         'name',
         'logo',
@@ -52,6 +55,11 @@ class Stores extends Model
 
     const CURRENCY_VN = 'vnd';
     const CURRENCY_USD = 'usd';
+
+    public function customer()
+    {
+        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
+    }
 
     public function service_usings()
     {
@@ -210,5 +218,11 @@ class Stores extends Model
             self::CURRENCY_USD => [__('stores::currency_usd'), COLORS['success'], 'usd'],
         ];
         return ($id == '') ? $list : $list[$id];
+    }
+
+    public static function get_code_default()
+    {
+        $max = Stores::max('id');
+        return 'ST' . sprintf("%'.04d", $max + 1);
     }
 }

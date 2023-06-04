@@ -35,7 +35,8 @@ class AdminContact extends Model
         'bank_account_number',
         'bank_account_name',
         'gender',
-        'position'
+        'position',
+        'is_primary'
     ];
 
     protected $casts = [
@@ -192,6 +193,16 @@ class AdminContact extends Model
     {
         $_date = Carbon::parse($date)->format('Y-m-d');
         return $query->whereDate('created_at', $_date);
+    }
+
+    public function scopeIsPrimary($query)
+    {
+        return $query->where('is_primary', true);
+    }
+
+    public function scopeNotPrimary($query)
+    {
+        return $query->where('is_primary', false);
     }
 
     public function scopeBetween($query, $from, $to)

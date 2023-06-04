@@ -8,6 +8,7 @@ class AdminInvoiceObserver
 {
     public function creating(AdminInvoice $invoice)
     {
+        $invoice->status = $invoice->status ?? AdminInvoice::STATUS_WAIT;
     }
 
     public function created(AdminInvoice $invoice)

@@ -76,4 +76,10 @@ class AdminRole extends Model
         ];
         return ($id == '') ? $list : $list[$id];
     }
+
+    public static function get_order($group_id)
+    {
+        $max = AdminRole::groupId($group_id)->count();
+        return $max + 1;
+    }
 }

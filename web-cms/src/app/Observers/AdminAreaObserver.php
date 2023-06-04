@@ -9,7 +9,7 @@ class AdminAreaObserver
 {
     public function creating(Area $area)
     {
-        $area->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 1;
+        $area->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
     }
 
     public function created(Area $area)

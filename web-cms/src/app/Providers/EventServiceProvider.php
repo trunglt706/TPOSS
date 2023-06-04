@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\PasswordResetToken;
 use App\Observers\AdminAreaObserver;
 use App\Observers\AdminBackupDBObserver;
 use App\Observers\AdminBlockVendorObserver;
@@ -29,6 +30,7 @@ use App\Observers\AdminSettingObserver;
 use App\Observers\AdminStoreFollowObserver;
 use App\Observers\AdminTokenDeviceObserver;
 use App\Observers\BusinessTypeObserver;
+use App\Observers\PasswordResetTokenObserver;
 use App\Observers\StoreObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -114,6 +116,7 @@ class EventServiceProvider extends ServiceProvider
         AdminTokenDevice::observe(new AdminTokenDeviceObserver);
         BusinessType::observe(new BusinessTypeObserver);
         Stores::observe(new StoreObserver);
+        PasswordResetToken::observe(new PasswordResetTokenObserver);
     }
 
     /**

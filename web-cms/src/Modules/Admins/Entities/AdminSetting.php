@@ -5,6 +5,7 @@ namespace Modules\Admins\Entities;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Settings\Entities\SettingGroup;
 
 class AdminSetting extends Model
 {
@@ -16,6 +17,7 @@ class AdminSetting extends Model
     const TYPE_SELECT = 'select';
     const TYPE_CHECKBOX = 'checkbox';
     const TYPE_RADIO = 'radio';
+    const TYPE_FILE = 'file';
 
     protected $fillable = [
         'group_id',
@@ -36,7 +38,7 @@ class AdminSetting extends Model
     protected function data(): Attribute
     {
         return Attribute::make(
-            set: fn (string $value) => (json_decode($value, 1)),
+            get: fn (string $value) => (json_decode($value, 1)),
         );
     }
 
@@ -81,5 +83,11 @@ class AdminSetting extends Model
             return $query->whereIn('type', $type);
         }
         return $query->where('type', $type);
+    }
+
+    public static function get_order($group_id)
+    {
+        $max = AdminSetting::groupId($group_id)->count();
+        return $max + 1;
     }
 }

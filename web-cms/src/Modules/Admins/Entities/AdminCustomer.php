@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Stores\Entities\Stores;
 use Vanthao03596\HCVN\Models\District;
 use Vanthao03596\HCVN\Models\Province;
 use Vanthao03596\HCVN\Models\Ward;
@@ -82,6 +83,11 @@ class AdminCustomer extends Model
 
     const TYPE_GROUP = 1;
     const TYPE_OLD = 0;
+
+    public function stores()
+    {
+        return $this->hasMany(Stores::class, 'customer_id', 'id');
+    }
 
     public function business_type()
     {

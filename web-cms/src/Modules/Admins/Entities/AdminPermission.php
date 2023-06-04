@@ -69,4 +69,10 @@ class AdminPermission extends Model
         ];
         return ($id == '') ? $list : $list[$id];
     }
+
+    public static function get_order()
+    {
+        $max = AdminPermission::count();
+        return $max + 1;
+    }
 }

@@ -13,7 +13,7 @@ class CheckAndUpdateOrderExpired extends Command
      *
      * @var string
      */
-    protected $name = 'command:name';
+    protected $name = 'order:check-and-update-expire';
 
     /**
      * The console command description.

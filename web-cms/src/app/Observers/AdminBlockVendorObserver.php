@@ -9,7 +9,7 @@ class AdminBlockVendorObserver
 {
     public function creating(BlockVendor $vendor)
     {
-        $vendor->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 1;
+        $vendor->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
     }
 
     public function created(BlockVendor $vendor)

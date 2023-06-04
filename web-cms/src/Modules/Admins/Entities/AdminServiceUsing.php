@@ -35,6 +35,13 @@ class AdminServiceUsing extends Model
         'max_stores' => 'integer',
     ];
 
+    protected function supportDevice(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => (json_decode($value, 1)),
+        );
+    }
+
     protected function maxStores(): Attribute
     {
         return Attribute::make(

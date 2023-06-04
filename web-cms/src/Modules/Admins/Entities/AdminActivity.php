@@ -39,7 +39,7 @@ class AdminActivity extends Model
     protected function dataJson(): Attribute
     {
         return Attribute::make(
-            set: fn (string $value) => (json_decode($value, 1)),
+            get: fn (string $value) => (json_decode($value, 1)),
         );
     }
 

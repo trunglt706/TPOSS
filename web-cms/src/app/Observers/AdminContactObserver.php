@@ -12,7 +12,7 @@ class AdminContactObserver
 {
     public function creating(AdminContact $contact)
     {
-        $contact->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 1;
+        $contact->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
         $contact->code = $contact->code ?? AdminContact::get_code_default();
         $contact->gender = $contact->gender ?? AdminLead::GENDER_OTHER;
         $contact->status = $contact->status ?? AdminContact::STATUS_ACTIVE;

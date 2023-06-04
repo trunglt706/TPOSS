@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\PasswordResetToken;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,16 +13,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->string('email');
-            $table->string('token');
-            $table->string('type', 20)->default('admin');
-            $table->integer('store_id')->nullable();
+            $table->string('token')->nullable();
+            $table->string('type', 20)->default(PasswordResetToken::TYPE_ADMIN);
+            $table->integer('store_id')->nullable()->index();
             $table->ipAddress('ip')->nullable();
             $table->string('device')->nullable();
+            $table->timestamp('expired_at')->nullable();
             $table->timestamp('created_at')->nullable();
-
-            $table->index(['id', 'store_id']);
         });
     }
 

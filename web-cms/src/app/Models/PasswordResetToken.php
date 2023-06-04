@@ -17,11 +17,15 @@ class PasswordResetToken extends Model
         'token',
         'type',
         'store_id',
-        'created_at'
+        'created_at',
+        'ip',
+        'device',
+        'expired_at'
     ];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
+        'expired_at' => 'datetime:Y-m-d H:i:s',
         'store_id' => 'integer',
     ];
 
@@ -60,5 +64,15 @@ class PasswordResetToken extends Model
     public function scopeToken($query, $token)
     {
         return $query->where('token', $token);
+    }
+
+    public function scopeExpired($query)
+    {
+        return $query->where('expired_at', '<', now());
+    }
+
+    public function scopeNotExpired($query)
+    {
+        return $query->where('expired_at', '>=', now());
     }
 }

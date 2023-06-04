@@ -299,4 +299,10 @@ class AdminLead extends Model
         ];
         return ($id == '') ? $list : $list[$id];
     }
+
+    public static function get_code_default()
+    {
+        $max = AdminLead::max('id');
+        return 'AL' . sprintf("%'.04d", $max + 1);
+    }
 }

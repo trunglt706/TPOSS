@@ -41,7 +41,7 @@ class Posts extends Model
     protected function tag(): Attribute
     {
         return Attribute::make(
-            set: fn (string $value) => (json_decode($value, 1)),
+            get: fn (string $value) => (json_decode($value, 1)),
         );
     }
 
@@ -134,5 +134,11 @@ class Posts extends Model
         $_from = Carbon::parse($from)->startOfDay()->format('Y-m-d H:i:s');
         $_to = Carbon::parse($to)->startOfDay()->format('Y-m-d H:i:s');
         return $query->whereBetween('created_at', [$_from, $_to]);
+    }
+
+    public static function get_order($group_id)
+    {
+        $max = Posts::groupId($group_id)->count();
+        return $max + 1;
     }
 }

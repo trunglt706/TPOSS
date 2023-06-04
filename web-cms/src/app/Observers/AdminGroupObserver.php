@@ -12,7 +12,8 @@ class AdminGroupObserver
 {
     public function creating(AdminGroup $group)
     {
-        $group->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 1;
+        $group->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+        $group->order = $group->order ?? AdminGroup::get_order();
     }
 
     public function created(AdminGroup $group)

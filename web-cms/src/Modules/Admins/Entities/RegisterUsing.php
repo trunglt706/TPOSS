@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class RegisterUsing extends Model
 {
     use HasFactory;
-    protected $table = 'admin_groups';
+    protected $table = 'register_usings';
 
     protected $fillable = [
         'name',

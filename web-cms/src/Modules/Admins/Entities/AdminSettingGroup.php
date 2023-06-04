@@ -72,4 +72,10 @@ class AdminSettingGroup extends Model
         ];
         return ($id == '') ? $list : $list[$id];
     }
+
+    public static function get_order()
+    {
+        $max = AdminSettingGroup::count();
+        return $max + 1;
+    }
 }

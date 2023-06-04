@@ -8,6 +8,7 @@ class AdminInvoicePortalObserver
 {
     public function creating(InvoicePortal $portal)
     {
+        $portal->status = $portal->status ?? InvoicePortal::STATUS_ACTIVE;
     }
 
     public function created(InvoicePortal $portal)

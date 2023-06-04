@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Modules\Admins\Emails\EmailAdminActive;
 use Modules\Admins\Emails\EmailAdminInfo;
 use Modules\Admins\Emails\EmailAdminSuspended;
@@ -15,7 +16,7 @@ class AdminObserver
 {
     public function creating(Admins $admin)
     {
-        $admin->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 1;
+        $admin->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
         $admin->password = $admin->password ?? Admins::get_password_default();
         $admin->gender = $admin->gender ?? Admins::GENDER_OTHER;
         $admin->status = $admin->status ?? Admins::STATUS_UN_ACTIVE;
@@ -73,7 +74,11 @@ class AdminObserver
 
         // delete admin_role_details
         AdminRoleDetail::adminId($admin->id)->delete();
+
         // check and delete avatar in s3
+        if ($admin->avatar) {
+            Storage::delete($admin->avatar);
+        }
     }
 
     public function restored(Admins $admin)

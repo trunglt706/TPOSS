@@ -8,6 +8,7 @@ class AdminRoleDetailObserver
 {
     public function creating(AdminRoleDetail $role)
     {
+        $role->status = $role->status ?? AdminRoleDetail::STATUS_SUSPEND;
     }
 
     public function created(AdminRoleDetail $role)

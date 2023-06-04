@@ -8,6 +8,8 @@ class AdminTokenDeviceObserver
 {
     public function creating(AdminTokenDevice $token)
     {
+        $token->status = $token->status ?? AdminTokenDevice::STATUS_ACTIVE;
+        $token->ip = $token->ip ?? get_ip();
     }
 
     public function created(AdminTokenDevice $token)

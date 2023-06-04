@@ -39,6 +39,7 @@ return new class extends Migration
             $table->string('bank_branch')->nullable();
             $table->string('bank_account_number')->nullable();
             $table->string('bank_account_name')->nullable();
+            $table->boolean('is_primary')->nullable()->default(false);
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ class AdminCustomerObserver
 {
     public function creating(AdminCustomer $customer)
     {
-        $customer->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 1;
+        $customer->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
         $customer->code = $customer->code ?? AdminCustomer::get_code_default();
         $customer->gender = $customer->gender ?? AdminLead::GENDER_OTHER;
         $customer->status = $customer->status ?? AdminCustomer::STATUS_ACTIVE;
