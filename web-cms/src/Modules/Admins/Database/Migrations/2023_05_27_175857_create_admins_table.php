@@ -16,15 +16,15 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id()->index();
-            $table->string('code')->nullable();
+            $table->string('code')->nullable()->index();
             $table->string('name');
             $table->integer('group_id')->nullable()->index();
             $table->string('email', 50)->unique();
             $table->string('phone', 20)->nullable();
             $table->string('address')->nullable();
             $table->text('description')->nullable();
-            $table->string('identity_card')->nullable();
-            $table->string('tax_code')->nullable();
+            $table->string('identity_card')->nullable()->index();
+            $table->string('tax_code')->nullable()->index();
             $table->date('birthday')->nullable();
             $table->string('avatar')->nullable();
             $table->integer('gender')->nullable()->default(Admins::GENDER_OTHER);
@@ -39,7 +39,7 @@ return new class extends Migration
             $table->integer('created_by')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
-            $table->integer('deleted_by')->nullable();
+            $table->integer('deleted_by')->nullable()->index();
         });
     }
 

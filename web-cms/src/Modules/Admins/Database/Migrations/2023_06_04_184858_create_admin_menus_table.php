@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Admins\Entities\AdminMenus;
 
 return new class extends Migration
 {
@@ -13,15 +14,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admin_emails', function (Blueprint $table) {
+        Schema::create('admin_menus', function (Blueprint $table) {
             $table->id()->index();
-            $table->string('code')->index();
-            $table->string('name');
-            $table->text('content');
-            $table->json('data')->nullable();
             $table->integer('permission_id')->nullable()->index();
-            $table->integer('created_by')->nullable()->index();
-            $table->integer('updated_by')->nullable()->index();
+            $table->boolean('type')->nullable()->default(AdminMenus::TYPE_MAIN);
+            $table->string('route')->nullable();
+            $table->boolean('status')->nullable()->default(AdminMenus::STATUS_ACTIVE);
+            $table->string('target')->nullable()->default('self');
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_emails');
+        Schema::dropIfExists('admin_menuses');
     }
 };

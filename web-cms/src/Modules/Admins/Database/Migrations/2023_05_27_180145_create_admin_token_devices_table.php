@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('device_name')->nullable();
             $table->string('device_id')->nullable();
             $table->enum('os', ['android', 'ios'])->nullable();
-            $table->ipAddress('ip')->nullable();
+            $table->ipAddress('ip')->nullable()->index();
             $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
         });

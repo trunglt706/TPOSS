@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer('service_id')->index();
             $table->integer('lead_id')->nullable()->index();
             $table->dateTime('date_convert')->nullable();
-            $table->string('ip')->nullable();
+            $table->string('ip')->nullable()->index();
             $table->string('device')->nullable();
             $table->string('verify_code')->nullable();
             $table->string('expired_code')->nullable();

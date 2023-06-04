@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('province_id')->nullable()->index();
             $table->integer('district_id')->nullable()->index();
             $table->integer('ward_id')->nullable()->index();
-            $table->string('code')->unique();
+            $table->string('code')->unique()->index();
             $table->string('name');
             $table->integer('gender')->nullable()->default(AdminLead::GENDER_OTHER);
             $table->string('position')->nullable();
@@ -32,12 +32,12 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->boolean('status')->nullable()->default(true);
             $table->integer('created_by')->nullable()->index();
-            $table->string('identity_card')->nullable();
-            $table->string('tax_code')->nullable();
+            $table->string('identity_card')->nullable()->index();
+            $table->string('tax_code')->nullable()->index();
             $table->string('bank_name')->nullable();
             $table->string('bank_address')->nullable();
             $table->string('bank_branch')->nullable();
-            $table->string('bank_account_number')->nullable();
+            $table->string('bank_account_number')->nullable()->index();
             $table->string('bank_account_name')->nullable();
             $table->boolean('is_primary')->nullable()->default(false);
             $table->timestamps();

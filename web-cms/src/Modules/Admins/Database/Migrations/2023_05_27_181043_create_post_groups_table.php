@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('post_groups', function (Blueprint $table) {
             $table->id()->index();
-            $table->string('slug')->unique();
+            $table->string('slug')->unique()->index();
             $table->string('name');
             $table->string('image')->nullable();
             $table->string('description')->nullable();

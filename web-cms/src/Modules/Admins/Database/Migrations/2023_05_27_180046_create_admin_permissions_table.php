@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('admin_permissions', function (Blueprint $table) {
             $table->id()->index();
             $table->string('name');
-            $table->string('extension')->unique();
+            $table->string('extension')->unique()->index();
             $table->string('icon')->nullable();
             $table->integer('order')->default(0);
             $table->string('description')->nullable();

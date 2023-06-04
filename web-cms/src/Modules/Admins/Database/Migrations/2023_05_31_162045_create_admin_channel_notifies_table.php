@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('admin_channel_notifies', function (Blueprint $table) {
             $table->id()->index();
-            $table->string('code')->unique();
+            $table->string('code')->unique()->index();
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('image')->nullable();

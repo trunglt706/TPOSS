@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('block_vendors', function (Blueprint $table) {
             $table->id()->index();
             $table->string('type', 10)->nullable()->default(BlockVendor::TYPE_IP);
-            $table->string('vendor');
+            $table->string('vendor')->index();
             $table->integer('created_by')->nullable()->index();
             $table->timestamps();
         });

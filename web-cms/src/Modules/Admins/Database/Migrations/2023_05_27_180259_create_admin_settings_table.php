@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('admin_settings', function (Blueprint $table) {
             $table->id()->index();
             $table->integer('group_id')->index();
-            $table->string('code')->unique();
+            $table->string('code')->unique()->index();
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('type')->nullable();
