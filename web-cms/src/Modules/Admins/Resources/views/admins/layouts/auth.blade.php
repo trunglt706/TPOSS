@@ -20,17 +20,16 @@
 
 
     <link href="../assets/css/vender.min.css" rel="stylesheet">
-    <link href="../assets/css/toastr.min.css" rel="stylesheet">
-    <link href="../assets/css/apexcharts.css" rel="stylesheet">
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <link href="../assets/css/bootstrap-extended.css" rel="stylesheet">
     <link href="../assets/css/colors.css" rel="stylesheet">
     <link href="../assets/css/components.css" rel="stylesheet">
 
     <link href="../assets/css/authentication.css" rel="stylesheet">
-    @yield('style')
 
     <title>{{ env('APP_NAME') }}</title>
+    @notifyCss
+    @yield('style')
 </head>
 
 <!-- BEGIN: Body-->
@@ -48,6 +47,8 @@
     </div>
     <!-- END: Content-->
 
+    <x-notify::notify />
+    @notifyJs
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
@@ -55,14 +56,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.5/perfect-scrollbar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js"></script>
     <script src="../assets/js/jquery.validate.min.js"></script>
-    <script src="../assets/js/jquery.blockUI.js"></script>
-    <script src="../assets/js/unison.js"></script>
-    <script src="../assets/js/toastr.min.js"></script>
-    <script src="../assets/js/apexcharts.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
 
     <script src="../assets/js/tooltips.min.js"></script>
-    <script src="../assets/js/menu.js"></script>
     <script src="../assets/js/main.js"></script>
 
     @yield('script')

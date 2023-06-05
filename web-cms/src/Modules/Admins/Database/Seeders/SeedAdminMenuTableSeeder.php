@@ -20,13 +20,19 @@ class SeedAdminMenuTableSeeder extends Seeder
         AdminMenus::create([
             'name' => 'permission_dashboard',
             'route' => route('admin.index'),
-            'icon' => 'evenodd'
+            'icon' => '<i class="fa-solid house-chimney-window"></i>'
+        ]);
+
+        //========== header
+        $setting = AdminMenus::create([
+            'name' => 'permission_other',
+            'type' => AdminMenus::TYPE_HEADER
         ]);
 
         //===== admin
         $admin = AdminMenus::create([
             'name' => 'permission_manager_admin',
-            'icon' => 'users'
+            'icon' => '<i class="fa-solid user-group"></i>'
         ]);
         AdminMenus::create([
             'name' => 'permission_admins',
@@ -42,7 +48,7 @@ class SeedAdminMenuTableSeeder extends Seeder
         //===== customer
         $customer = AdminMenus::create([
             'name' => 'permission_admin_customers',
-            'icon' => 'user-plus'
+            'icon' => '<i class="fa-solid people-group"></i>'
         ]);
         AdminMenus::create([
             'name' => 'permission_admin_customers',
@@ -63,14 +69,14 @@ class SeedAdminMenuTableSeeder extends Seeder
         //===== store
         AdminMenus::create([
             'name' => 'permission_stores',
-            'icon' => 'home',
+            'icon' => '<i class="fa-solid store"></i>',
             'route' => route('admin.stores.index'),
         ]);
 
         //===== financial
         $financial = AdminMenus::create([
             'name' => 'permission_manager_financial',
-            'icon' => 'evenodd'
+            'icon' => '<i class="fa-solid coins"></i>'
         ]);
         AdminMenus::create([
             'name' => 'permission_admin_orders',
@@ -101,14 +107,19 @@ class SeedAdminMenuTableSeeder extends Seeder
         //===== services
         AdminMenus::create([
             'name' => 'permission_services',
-            'icon' => 'aperture',
+            'icon' => '<i class="fa-solid box"></i>',
             'route' => route('admin.services.index'),
+        ]);
+        //========= header
+        $setting = AdminMenus::create([
+            'name' => 'permission_other',
+            'type' => AdminMenus::TYPE_HEADER
         ]);
 
         //===== report
         $report = AdminMenus::create([
             'name' => 'permission_report',
-            'icon' => 'activity'
+            'icon' => '<i class="fa-solid chart-simple"></i>'
         ]);
         AdminMenus::create([
             'name' => 'permission_report_revenue',
@@ -134,7 +145,7 @@ class SeedAdminMenuTableSeeder extends Seeder
         //===== setting
         $setting = AdminMenus::create([
             'name' => 'permission_other_setting',
-            'icon' => 'settings'
+            'icon' => '<i class="fa-solid screwdriver-wrench"></i>'
         ]);
         AdminMenus::create([
             'name' => 'permission_provinces',

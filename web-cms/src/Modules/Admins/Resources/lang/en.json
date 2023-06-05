@@ -80,5 +80,11 @@
     "permission_report": "Báo cáo",
     "permission_manager_admin": "Quản lý admins",
     "permission_manager_financial": "Quản lý tài chính",
-    "permission_other_setting": "Cài đặt khác"
+    "permission_other_setting": "Cài đặt khác",
+    "permission_report_revenue": "Báo cáo doanh thu",
+    "permission_report_financial": "Báo cáo tài chính",
+    "permission_report_invoice": "Báo cáo hóa đơn",
+    "permission_report_register": "Báo cáo đăng ký sử dụng",
+    "permission_main": "Danh mục chính",
+    "permission_other": "Danh mục khác"
 }

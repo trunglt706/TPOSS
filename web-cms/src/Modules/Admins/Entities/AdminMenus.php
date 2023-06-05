@@ -31,6 +31,7 @@ class AdminMenus extends Model
 
     const TYPE_MAIN = 1;
     const TYPE_SUB = 0;
+    const TYPE_HEADER = 2;
 
     const TARGET_SELF = 'self';
     const TARGET_BLANK = '_blank';

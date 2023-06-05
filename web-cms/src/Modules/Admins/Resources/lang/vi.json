@@ -85,4 +85,6 @@
     "permission_report_financial": "Báo cáo tài chính",
     "permission_report_invoice": "Báo cáo hóa đơn",
     "permission_report_register": "Báo cáo đăng ký sử dụng",
+    "permission_main": "Danh mục chính",
+    "permission_other": "Danh mục khác"
 }

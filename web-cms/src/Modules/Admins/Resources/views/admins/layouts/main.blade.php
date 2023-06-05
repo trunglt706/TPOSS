@@ -32,6 +32,7 @@
 
     <title>{{ env('APP_NAME') }}</title>
     @yield('style')
+    @notifyCss
 </head>
 
 <!-- BEGIN: Body-->
@@ -60,7 +61,8 @@
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
     <!-- END: Footer-->
 
-
+    <x-notify::notify />
+    @notifyJs
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
@@ -72,6 +74,7 @@
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/js/apexcharts.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+    <script src="https://kit.fontawesome.com/3e373898de.js" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/pickers/flatpickr/flatpickr.min.js') }}"></script>
     <script src="{{ asset('assets/js/dragula.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.full.min.js') }}"></script>
