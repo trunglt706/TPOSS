@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Modules\Admins\Entities\AdminLead;
 use Modules\Admins\Entities\AdminSetting;
 
@@ -37,7 +38,11 @@ class AdminLeadObserver
 
     public function deleted(AdminLead $lead)
     {
+        $lead->deleted_by = Auth::guard('admin')->user()->id;
         // check and delete avatar in s3
+        if ($lead->avatar) {
+            Storage::delete($lead->avatar);
+        }
     }
 
     public function restored(AdminLead $lead)

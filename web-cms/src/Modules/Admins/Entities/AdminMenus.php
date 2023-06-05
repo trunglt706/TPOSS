@@ -19,6 +19,7 @@ class AdminMenus extends Model
         'created_by',
         'parent_id',
         'icon',
+        'order'
     ];
 
     protected $casts = [
@@ -75,6 +76,11 @@ class AdminMenus extends Model
         return $query->where('status', self::STATUS_ACTIVE);
     }
 
+    public function scopeOrder($query)
+    {
+        return $query->where('order', 'desc');
+    }
+
     public static function get_status($id = '')
     {
         $list = [
@@ -91,5 +97,11 @@ class AdminMenus extends Model
             self::TYPE_SUB => [__('admins::menu_type_0'), COLORS['warning']],
         ];
         return ($id == '') ? $list : $list[$id];
+    }
+
+    public static function get_order($parent_id = 0)
+    {
+        $max = AdminMenus::parentId($parent_id)->count();
+        return $max + 1;
     }
 }

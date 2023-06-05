@@ -5,11 +5,11 @@ namespace Modules\Admins\Entities;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Stores\Entities\Stores;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AdminOrder extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'admin_orders';
 
     protected $fillable = [
@@ -115,6 +115,11 @@ class AdminOrder extends Model
     public function scopeApprove($query)
     {
         return $query->where('status', self::STATUS_APPROVED);
+    }
+
+    public function scopeNotDelete($query)
+    {
+        return $query->where('status', '<>', self::STATUS_DELETED);
     }
 
     public static function get_status($id = '')

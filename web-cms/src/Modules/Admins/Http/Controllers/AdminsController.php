@@ -10,7 +10,6 @@ class AdminsController extends Controller
 {
     public function index()
     {
-        notify()->success('Laravel Notify is awesome!');
         return view('admins::admins.pages.admins.index');
     }
 

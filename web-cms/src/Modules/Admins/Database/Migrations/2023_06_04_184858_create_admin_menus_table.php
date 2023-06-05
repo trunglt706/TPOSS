@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('target')->nullable()->default(AdminMenus::TARGET_SELF);
             $table->integer('parent_id')->nullable()->default(0)->index();
             $table->string('icon')->nullable();
+            $table->integer('order')->nullable()->default(0);
             $table->timestamps();
         });
     }

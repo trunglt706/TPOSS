@@ -164,7 +164,7 @@ return [
         Milon\Barcode\BarcodeServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-        Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
+        App\Providers\ConfigProvider::class,
         /*
          * Application Service Providers...
          */

@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Modules\Admins\Entities\AdminCustomer;
 use Modules\Admins\Entities\AdminLead;
 use Modules\Admins\Entities\AdminSetting;
@@ -38,7 +39,11 @@ class AdminCustomerObserver
 
     public function deleted(AdminCustomer $customer)
     {
+        $customer->deleted_by = Auth::guard('admin')->user()->id;
         // check and delete avatar in s3
+        if ($customer->avatar) {
+            Storage::delete($customer->avatar);
+        }
     }
 
     public function restored(AdminCustomer $customer)

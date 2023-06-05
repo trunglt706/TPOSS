@@ -34,6 +34,7 @@ use Modules\Admins\Http\Controllers\PaymentPortalController;
 use Modules\Admins\Http\Controllers\PermissionController;
 use Modules\Admins\Http\Controllers\PostController;
 use Modules\Admins\Http\Controllers\PostGroupController;
+use Modules\Admins\Http\Controllers\ProfileController;
 use Modules\Admins\Http\Controllers\ProvinceController;
 use Modules\Admins\Http\Controllers\RegisterUsingController;
 use Modules\Admins\Http\Controllers\ReportController;
@@ -52,6 +53,13 @@ Route::domain('admin.' . env('APP_URL'))->name('admin.')->group(function () {
 
     Route::middleware('guest')->group(function () {
         Route::get('', [HomeController::class, 'index'])->name('index');
+        Route::get('logout', [HomeController::class, 'logout'])->name('logout');
+
+        Route::prefix('profile')->group(function () {
+            Route::get('', [ProfileController::class, 'index'])->name('profile.index');
+            Route::post('info', [ProfileController::class, 'info'])->name('profile.info');
+            Route::post('account', [ProfileController::class, 'account'])->name('profile.account');
+        });
 
         Route::prefix('admins')->group(function () {
             Route::get('', [AdminsController::class, 'index'])->name('admins.index');

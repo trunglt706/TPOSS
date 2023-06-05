@@ -1,18 +1,12 @@
 @php
     use Modules\Admins\Entities\AdminMenus;
-    
-    $menu_admin = AdminMenus::with('roles')
-        ->type([AdminMenus::TYPE_MAIN, AdminMenus::TYPE_HEADER])
-        ->parentId(0)
-        ->active()
-        ->get();
 @endphp
 <!-- BEGIN: Main Menu-->
 <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item me-auto">
-                <a class="navbar-brand" href="./dashboard.html">
+                <a class="navbar-brand" href="{{ route('admin.index') }}">
                     <span class="brand-logo"><img src="../assets/images/logo.png" alt="NxCloud"></span>
                     <h2 class="brand-text">{{ env('APP_NAME') }}</h2>
                 </a>
@@ -45,7 +39,7 @@
                             <ul class="menu-content">
                                 @foreach ($item->roles as $role)
                                     <li>
-                                        <a class="d-flex align-items-center" href="#">
+                                        <a class="d-flex align-items-center" href="{{ $role->route }}">
                                             <i class="fa-regular fa-circle"></i>
                                             <span class="menu-item text-truncate">{{ __($role->name) }}</span>
                                         </a>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="utf-8">
@@ -7,7 +7,7 @@
     <link rel="icon" href="{{ asset('favicon.ico') }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0EABAF" />
-    <meta name="description" content="xCRM - NxCloud" />
+    <meta name="description" content="{{ env('APP_NAME') }}" />
 
     <!-- Fontawesome -->
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/all.css') }}" />
@@ -32,7 +32,6 @@
 
     <title>{{ env('APP_NAME') }}</title>
     @yield('style')
-    @notifyCss
 </head>
 
 <!-- BEGIN: Body-->
@@ -61,8 +60,6 @@
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
     <!-- END: Footer-->
 
-    <x-notify::notify />
-    @notifyJs
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>

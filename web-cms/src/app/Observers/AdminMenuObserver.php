@@ -17,6 +17,7 @@ class AdminMenuObserver
         $adminMenus->type = $adminMenus->type ?? AdminMenus::TYPE_MAIN;
         $adminMenus->target = $adminMenus->target ?? AdminMenus::TARGET_SELF;
         $adminMenus->level = $adminMenus->level ?? 0;
+        $adminMenus->order = $adminMenus->order ?? AdminMenus::get_order($adminMenus->parent_id);
     }
 
     /**

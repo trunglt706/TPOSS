@@ -43,6 +43,8 @@ return new class extends Migration
             $table->string('bank_account_number')->nullable()->index();
             $table->string('bank_account_name')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+            $table->integer('deleted_by')->nullable()->index();
         });
     }
 

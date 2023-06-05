@@ -4,16 +4,10 @@
 
 @section('content')
     <div class="content-wrapper">
-        <div class="content-header row">
-            <div class="content-header-left col-md-6 col-12 mb-1">
-                <h2 class="float-start mb-0">Dashboard</h2>
-            </div>
-        </div>
-
         <div class="content-body">
             <!-- Stats Horizontal Card -->
             <div class="row">
-                <div class="col-lg-3 col-sm-6 col-12">
+                <a href="" class="col-lg-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-header">
                             <div>
@@ -22,57 +16,117 @@
                             </div>
                             <div class="avatar bg-light-success p-50 m-0">
                                 <div class="avatar-content">
-                                    <i data-feather="users" class="font-medium-5"></i>
+                                    <i class="fa-solid fa-users-line font-medium-5"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
+                </a>
+                <a href="" class="col-lg-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2 class="fw-bolder mb-0">10</h2>
+                                <p class="card-text">Gói dịch vụ</p>
+                            </div>
+                            <div class="avatar bg-light-info p-50 m-0">
+                                <div class="avatar-content">
+                                    <i class="fa-solid fa-box font-medium-5"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="col-lg-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2 class="fw-bolder mb-0">10</h2>
+                                <p class="card-text">Bài viết hướng dẫn</p>
+                            </div>
+                            <div class="avatar bg-light-warning p-50 m-0">
+                                <div class="avatar-content">
+                                    <i class="fa-solid fa-book font-medium-5"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="col-lg-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2 class="fw-bolder mb-0">10</h2>
+                                <p class="card-text">Đơn hàng</p>
+                            </div>
+                            <div class="avatar bg-light-danger p-50 m-0">
+                                <div class="avatar-content">
+                                    <i class="fa-solid fa-file font-medium-5"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="col-lg-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2 class="fw-bolder mb-0">10</h2>
+                                <p class="card-text">Khách hàng</p>
+                            </div>
+                            <div class="avatar bg-light-warning p-50 m-0">
+                                <div class="avatar-content">
+                                    <i class="fa-solid fa-user-group font-medium-5"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="col-lg-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2 class="fw-bolder mb-0">10</h2>
+                                <p class="card-text">Khách hàng tiềm năng</p>
+                            </div>
+                            <div class="avatar bg-light-danger p-50 m-0">
+                                <div class="avatar-content">
+                                    <i class="fa-solid fa-user-plus font-medium-5"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="col-lg-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-header">
                             <div>
                                 <h2 class="fw-bolder mb-0">10</h2>
                                 <p class="card-text">Cửa hàng</p>
                             </div>
-                            <div class="avatar bg-light-danger p-50 m-0">
+                            <div class="avatar bg-light-info p-50 m-0">
                                 <div class="avatar-content">
-                                    <i data-feather="home" class="font-medium-5"></i>
+                                    <i class="fa-solid fa-store font-medium-5"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
+                </a>
+                <a href="" class="col-lg-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-header">
                             <div>
                                 <h2 class="fw-bolder mb-0">10</h2>
-                                <p class="card-text">Hóa đơn dịch vụ</p>
-                            </div>
-                            <div class="avatar bg-light-primary p-50 m-0">
-                                <div class="avatar-content">
-                                    <i data-feather="file-text" class="font-medium-5"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <h2 class="fw-bolder mb-0">13</h2>
                                 <p class="card-text">Đăng ký mới</p>
                             </div>
-                            <div class="avatar bg-light-warning p-50 m-0">
+                            <div class="avatar bg-light-success p-50 m-0">
                                 <div class="avatar-content">
-                                    <i data-feather="edit-3" class="font-medium-5"></i>
+                                    <i class="fa-solid fa-pen-ruler font-medium-5"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <!--/ Stats Horizontal Card -->
 
@@ -87,11 +141,12 @@
                                 <span class="card-subtitle text-muted">Commercial networks & enterprises</span>
                             </div>
                             <div class="d-flex align-items-center flex-wrap mt-sm-0 mt-1">
-                                <h5 class="fw-bolder mb-0 me-1">20</h5>
-                                <span class="badge badge-light-secondary">
-                                    <i class="text-danger font-small-3" data-feather="arrow-down"></i>
-                                    <span class="align-middle">20%</span>
-                                </span>
+                                <h5 class="fw-bolder mb-0 me-1">
+                                    <i class="text-danger font-small-3" data-feather="arrow-down"></i> 20
+                                </h5>
+                                <a href="" class="badge badge-light-secondary">
+                                    Xem thêm
+                                </a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -110,11 +165,12 @@
                                 <span class="card-subtitle text-muted">Commercial networks & enterprises</span>
                             </div>
                             <div class="d-flex align-items-center flex-wrap mt-sm-0 mt-1">
-                                <h5 class="fw-bolder mb-0 me-1">$ 100,000</h5>
-                                <span class="badge badge-light-secondary">
-                                    <i class="text-danger font-small-3" data-feather="arrow-down"></i>
-                                    <span class="align-middle">20%</span>
-                                </span>
+                                <h5 class="fw-bolder mb-0 me-1">
+                                    <i class="text-danger font-small-3" data-feather="arrow-down"></i> 100,000$
+                                </h5>
+                                <a class="badge badge-light-secondary">
+                                    Xem thêm
+                                </a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -127,8 +183,12 @@
             <div class="row">
                 <div class="col-lg-7 col-md-6 col-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div
+                            class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <h4 class="card-title">Lịch sử hoạt động mới</h4>
+                            <a href="" class="badge badge-light-secondary">
+                                Xem thêm
+                            </a>
                         </div>
                         <div class="card-body">
                             <ul class="timeline">
@@ -198,8 +258,12 @@
                 </div>
                 <div class="col-lg-5 col-md-6 col-12">
                     <div class="card card-employee-task">
-                        <div class="card-header">
+                        <div
+                            class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <h4 class="card-title">Khách hàng tiềm năng mới</h4>
+                            <a href="" class="badge badge-light-secondary">
+                                Xem thêm
+                            </a>
                         </div>
                         <div class="card-body pb-3">
                             <div class="employee-task d-flex justify-content-between align-items-center">

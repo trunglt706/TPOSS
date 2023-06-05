@@ -3,8 +3,11 @@
     <div class="navbar-container d-flex content">
         <div class="bookmark-wrapper d-flex align-items-center">
             <ul class="nav navbar-nav d-xl-none">
-                <li class="nav-item"><a class="nav-link menu-toggle" href="#"><i class="ficon"
-                            data-feather="menu"></i></a></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-toggle" href="#">
+                        <i class="ficon" data-feather="menu"></i>
+                    </a>
+                </li>
             </ul>
             <!-- BEGIN: Notification slide -->
             <ul class="nav navbar-nav bookmark-icons navbar-news">
@@ -31,166 +34,6 @@
                     <div class="search-input-close">
                         <i data-feather="x"></i>
                     </div>
-                    <!-- START: Search results -->
-                    <ul class="search-list search-list-main">
-                        <li class="d-flex align-items-center">
-                            <a href="#">
-                                <h6 class="section-label mt-75 mb-0">Projects</h6>
-                            </a>
-                        </li>
-                        <li class="auto-suggestion">
-                            <a class="d-flex align-items-center justify-content-between w-100" href="#">
-                                <div class="d-flex justify-content-start align-items-center">
-                                    <span class="me-75" data-feather="lock"></span>
-                                    <span>Timevn</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="auto-suggestion">
-                            <a class="d-flex align-items-center justify-content-between w-100" href="#">
-                                <div class="d-flex justify-content-start align-items-center">
-                                    <span class="me-75" data-feather="bookmark"></span>
-                                    <span>Project's name</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="d-flex align-items-center">
-                            <a href="#">
-                                <h6 class="section-label mt-75 mb-0">Files</h6>
-                            </a>
-                        </li>
-                        <li class="auto-suggestion">
-                            <a class="d-flex align-items-center justify-content-between w-100" href="#">
-                                <div class="d-flex">
-                                    <div class="me-75">
-                                        <img src="../assets/images/xls.png" alt="png" height="32">
-                                    </div>
-                                    <div class="search-data">
-                                        <p class="search-data-title mb-0">Two new item submitted</p>
-                                        <small class="text-muted">Marketing Manager</small>
-                                    </div>
-                                </div>
-                                <small class="search-data-size me-50 text-muted">&apos;17kb</small>
-                            </a>
-                        </li>
-                        <li class="auto-suggestion">
-                            <a class="d-flex align-items-center justify-content-between w-100" href="#">
-                                <div class="d-flex">
-                                    <div class="me-75">
-                                        <img src="../assets/images/jpg.png" alt="png" height="32">
-                                    </div>
-                                    <div class="search-data">
-                                        <p class="search-data-title mb-0">52 JPG file Generated</p>
-                                        <small class="text-muted">FontEnd Developer</small>
-                                    </div>
-                                </div>
-                                <small class="search-data-size me-50 text-muted">&apos;11kb</small>
-                            </a>
-                        </li>
-                        <li class="auto-suggestion">
-                            <a class="d-flex align-items-center justify-content-between w-100" href="#">
-                                <div class="d-flex">
-                                    <div class="me-75">
-                                        <img src="../assets/images/pdf.png" alt="png" height="32">
-                                    </div>
-                                    <div class="search-data">
-                                        <p class="search-data-title mb-0">25 PDF File Uploaded</p>
-                                        <small class="text-muted">Digital Marketing Manager</small>
-                                    </div>
-                                </div>
-                                <small class="search-data-size me-50 text-muted">&apos;150kb</small>
-                            </a>
-                        </li>
-                        <li class="auto-suggestion">
-                            <a class="d-flex align-items-center justify-content-between w-100" href="#">
-                                <div class="d-flex">
-                                    <div class="me-75">
-                                        <img src="../assets/images/doc.png" alt="png" height="32">
-                                    </div>
-                                    <div class="search-data">
-                                        <p class="search-data-title mb-0">Anna_Strong.doc</p>
-                                        <small class="text-muted">Web Designer</small>
-                                    </div>
-                                </div>
-                                <small class="search-data-size me-50 text-muted">&apos;256kb</small>
-                            </a>
-                        </li>
-                        <li class="d-flex align-items-center">
-                            <a href="#">
-                                <h6 class="section-label mt-75 mb-0">Members</h6>
-                            </a>
-                        </li>
-                        <li class="auto-suggestion">
-                            <a class="d-flex align-items-center justify-content-between py-50 w-100"
-                                href="app-user-view-account.html">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar me-75">
-                                        <img src="../assets/images/avatars/avatar-2.jpg" alt="png"
-                                            height="32">
-                                    </div>
-                                    <div class="search-data">
-                                        <p class="search-data-title mb-0">John Doe</p>
-                                        <small class="text-muted">UI designer</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="auto-suggestion">
-                            <a class="d-flex align-items-center justify-content-between py-50 w-100"
-                                href="app-user-view-account.html">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar me-75">
-                                        <img src="../assets/images/avatars/avatar-1.jpg" alt="png"
-                                            height="32">
-                                    </div>
-                                    <div class="search-data">
-                                        <p class="search-data-title mb-0">Michal Clark</p>
-                                        <small class="text-muted">FontEnd Developer</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="auto-suggestion">
-                            <a class="d-flex align-items-center justify-content-between py-50 w-100"
-                                href="app-user-view-account.html">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar me-75">
-                                        <img src="../assets/images/avatars/avatar-4.jpg" alt="png"
-                                            height="32">
-                                    </div>
-                                    <div class="search-data">
-                                        <p class="search-data-title mb-0">Milena Gibson</p>
-                                        <small class="text-muted">Digital Marketing Manager</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="auto-suggestion">
-                            <a class="d-flex align-items-center justify-content-between py-50 w-100"
-                                href="app-user-view-account.html">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar me-75">
-                                        <img src="../assets/images/avatars/avatar-6.jpg" alt="png"
-                                            height="32">
-                                    </div>
-                                    <div class="search-data">
-                                        <p class="search-data-title mb-0">Anna Strong</p>
-                                        <small class="text-muted">Web Designer</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <!-- No data -->
-                        <li class="auto-suggestion justify-content-between">
-                            <a class="d-flex align-items-center justify-content-between w-100">
-                                <div class="d-flex justify-content-start align-items-center">
-                                    <span class="me-75" data-feather="alert-circle"></span>
-                                    <span>No results found.</span>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- END: Search results -->
                 </div>
             </li>
             <li class="nav-item dropdown dropdown-notification me-25">
@@ -210,8 +53,8 @@
                             <div class="list-item d-flex align-items-start">
                                 <div class="me-1">
                                     <div class="avatar">
-                                        <img src="../assets/images/avatars/avatar-6.jpg" alt="avatar"
-                                            width="32" height="32">
+                                        <img src="../assets/images/avatars/avatar-6.jpg" alt="avatar" width="32"
+                                            height="32">
                                     </div>
                                 </div>
                                 <div class="list-item-body flex-grow-1">
@@ -224,7 +67,8 @@
                         </a>
                     </li>
                     <li class="dropdown-menu-footer">
-                        <a class="btn btn-primary w-100" href="#">Read all notifications</a>
+                        <a class="btn btn-primary w-100" href="{{ route('admin.notifications.index') }}">Read all
+                            notifications</a>
                     </li>
                 </ul>
             </li>
@@ -236,16 +80,18 @@
                         <span class="user-status">Admin</span>
                     </div>
                     <span class="avatar">
-                        <img class="round" src="../assets/images/avatars/avatar-4.jpg" alt="avatar"
-                            height="40" width="40">
+                        <img class="round" src="../assets/images/avatars/avatar-4.jpg" alt="avatar" height="40"
+                            width="40">
                         <span class="avatar-status-online"></span>
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
-                    <a class="dropdown-item" href="page-profile.html">
-                        <i class="me-50" data-feather="user"></i> Profile </a>
-                    <a class="dropdown-item" href="auth-login-cover.html">
-                        <i class="me-50" data-feather="power"></i> Logout </a>
+                    <a class="dropdown-item" href="{{ route('admin.profile.index') }}">
+                        <i class="me-50" data-feather="user"></i> Profile
+                    </a>
+                    <a class="dropdown-item" href="{{ route('admin.logout') }}">
+                        <i class="me-50" data-feather="power"></i> Logout
+                    </a>
                 </div>
             </li>
         </ul>

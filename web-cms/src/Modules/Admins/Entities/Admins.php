@@ -2,10 +2,10 @@
 
 namespace Modules\Admins\Entities;
 
-use App\Observers\AdminObserver;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +15,7 @@ use Nwidart\Modules\Module;
 
 class Admins extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
     protected $table = 'admins';
 
     // status
@@ -239,6 +239,11 @@ class Admins extends Authenticatable
     public function scopeIsRoot($query)
     {
         return $query->where('root', self::IS_ROOT);
+    }
+
+    public function scopeNotDelete($query)
+    {
+        return $query->where('status', '<>', self::STATUS_DELETED);
     }
 
     public static function get_status($id = '')
