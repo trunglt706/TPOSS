@@ -55,7 +55,6 @@ use Modules\Admins\Entities\Admins;
 use Modules\Admins\Entities\AdminServiceUsing;
 use Modules\Admins\Entities\AdminServiceUsingStore;
 use Modules\Admins\Entities\AdminSetting;
-use Modules\Admins\Entities\AdminSettingGroup;
 use Modules\Admins\Entities\AdminStoreFollow;
 use Modules\Admins\Entities\AdminTokenDevice;
 use Modules\Admins\Entities\Area;
@@ -111,7 +110,6 @@ class EventServiceProvider extends ServiceProvider
         AdminRoleDetail::observe(new AdminRoleDetailObserver);
         AdminRole::observe(new AdminRoleObserver);
         Services::observe(new AdminServiceObserver);
-        AdminSettingGroup::observe(new AdminSettingGroupObserver);
         AdminSetting::observe(new AdminSettingObserver);
         AdminStoreFollow::observe(new AdminStoreFollowObserver);
         AdminServiceUsing::observe(new AdminServiceUsingStore());

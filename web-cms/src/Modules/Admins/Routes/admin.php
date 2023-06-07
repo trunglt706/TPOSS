@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Admins\Http\Controllers\ActivityController;
 use Modules\Admins\Http\Controllers\AdminGroupController;
 use Modules\Admins\Http\Controllers\AdminsController;
 use Modules\Admins\Http\Controllers\AreaController;
@@ -68,6 +69,12 @@ Route::domain('admin.' . env('APP_URL'))->name('admin.')->group(function () {
             Route::post('/{id}', [AdminsController::class, 'store'])->where('id', '[0-9]+')->name('admins.store');
             Route::put('/{id}', [AdminsController::class, 'update'])->where('id', '[0-9]+')->name('admins.update');
             Route::delete('/{id}', [AdminsController::class, 'destroy'])->where('id', '[0-9]+')->name('admins.destroy');
+        });
+
+        Route::prefix('activities')->group(function () {
+            Route::get('', [ActivityController::class, 'index'])->name('activities.index');
+            Route::post('', [ActivityController::class, 'list'])->name('activities.list');
+            Route::get('/{id}', [ActivityController::class, 'detail'])->where('id', '[0-9]+')->name('activities.detail');
         });
 
         Route::prefix('admin_groups')->group(function () {

@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Modules\Admins\Entities\AdminSetting;
 use Modules\Admins\Entities\Service;
 
 class AdminServiceObserver
@@ -17,10 +16,7 @@ class AdminServiceObserver
         $support_device_default = json_encode([
             Service::SUPPORT_WEB
         ]);
-        $setting = AdminSetting::ofCode('support-device-default')->first();
-        if ($setting && $setting->value) {
-            $support_device_default = $setting->value;
-        }
+        $support_device_default = get_option('support-device-default');
         $service->support_device = $service->support_device ?? $support_device_default;
     }
 

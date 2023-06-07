@@ -22,7 +22,7 @@ class SeedRoleTableSeeder extends Seeder
         $admins = AdminPermission::create([
             'name' => 'permission_admins',
             'extension' => 'admins',
-            'icon' => 'user'
+            'icon' => '<i class="fa-solid fa-user-group"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT, AdminRole::ROLE_PERMISSION] as $role) {
             AdminRole::create([
@@ -35,7 +35,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_groups = AdminPermission::create([
             'name' => 'permission_admin_groups',
             'extension' => 'admin_groups',
-            'icon' => 'users'
+            'icon' => '<i class="fa-solid fa-users-line"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -48,7 +48,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_activities = AdminPermission::create([
             'name' => 'permission_admin_activities',
             'extension' => 'admin_activities',
-            'icon' => 'clock'
+            'icon' => '<i class="fa-solid fa-clock-rotate-left"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_VIEW_OWNER, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -61,7 +61,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_permissions = AdminPermission::create([
             'name' => 'permission_admin_permissions',
             'extension' => 'admin_permissions',
-            'icon' => 'check-circle'
+            'icon' => '<i class="fa-solid fa-circle-check"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE] as $role) {
             AdminRole::create([
@@ -74,7 +74,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_customers = AdminPermission::create([
             'name' => 'permission_admin_customers',
             'extension' => 'admin_customers',
-            'icon' => 'user-plus'
+            'icon' => '<i class="fa-solid fa-circle-user"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_VIEW_OWNER, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -87,7 +87,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_contacts = AdminPermission::create([
             'name' => 'permission_admin_contacts',
             'extension' => 'admin_contacts',
-            'icon' => 'user-minus'
+            'icon' => '<i class="fa-solid fa-user-minus"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE] as $role) {
             AdminRole::create([
@@ -100,7 +100,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_leads = AdminPermission::create([
             'name' => 'permission_admin_leads',
             'extension' => 'admin_leads',
-            'icon' => 'user-check'
+            'icon' => '<i class="fa-solid fa-user-check"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_VIEW_OWNER, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -113,7 +113,7 @@ class SeedRoleTableSeeder extends Seeder
         $register_usings = AdminPermission::create([
             'name' => 'permission_register_usings',
             'extension' => 'register_usings',
-            'icon' => 'user-x'
+            'icon' => '<i class="fa-solid fa-user-xmark"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -126,7 +126,7 @@ class SeedRoleTableSeeder extends Seeder
         $stores = AdminPermission::create([
             'name' => 'permission_stores',
             'extension' => 'stores',
-            'icon' => 'home'
+            'icon' => '<i class="fa-solid fa-store"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -139,7 +139,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_orders = AdminPermission::create([
             'name' => 'permission_admin_orders',
             'extension' => 'admin_orders',
-            'icon' => 'file'
+            'icon' => '<i class="fa-solid fa-file"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -152,7 +152,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_payments = AdminPermission::create([
             'name' => 'permission_admin_payments',
             'extension' => 'admin_payments',
-            'icon' => 'dollar-sign'
+            'icon' => '<i class="fa-solid fa-dollar-sign"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -165,7 +165,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_method_payments = AdminPermission::create([
             'name' => 'permission_admin_method_payments',
             'extension' => 'admin_method_payments',
-            'icon' => 'slack'
+            'icon' => '<i class="fa-solid fa-layer-group"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -178,7 +178,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_payment_portals = AdminPermission::create([
             'name' => 'permission_admin_payment_portals',
             'extension' => 'admin_payment_portals',
-            'icon' => 'shield'
+            'icon' => '<i class="fa-solid fa-shield"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -191,7 +191,7 @@ class SeedRoleTableSeeder extends Seeder
         $invoice_portals = AdminPermission::create([
             'name' => 'permission_invoice_portals',
             'extension' => 'invoice_portals',
-            'icon' => 'pocket'
+            'icon' => '<i class="fa-brands fa-first-order"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -204,7 +204,7 @@ class SeedRoleTableSeeder extends Seeder
         $invoices = AdminPermission::create([
             'name' => 'permission_invoices',
             'extension' => 'invoices',
-            'icon' => 'file-text'
+            'icon' => '<i class="fa-solid fa-file-lines"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -217,7 +217,7 @@ class SeedRoleTableSeeder extends Seeder
         $services = AdminPermission::create([
             'name' => 'permission_services',
             'extension' => 'services',
-            'icon' => 'aperture'
+            'icon' => '<i class="fa-solid fa-explosion"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT, AdminRole::ROLE_PERMISSION] as $role) {
             AdminRole::create([
@@ -230,7 +230,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_areas = AdminPermission::create([
             'name' => 'permission_admin_areas',
             'extension' => 'admin_areas',
-            'icon' => 'map-pin'
+            'icon' => '<i class="fa-solid fa-earth-americas"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE] as $role) {
             AdminRole::create([
@@ -243,7 +243,7 @@ class SeedRoleTableSeeder extends Seeder
         $provinces = AdminPermission::create([
             'name' => 'permission_provinces',
             'extension' => 'provinces',
-            'icon' => 'map-pin'
+            'icon' => '<i class="fa-solid fa-map-pin"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE] as $role) {
             AdminRole::create([
@@ -256,7 +256,7 @@ class SeedRoleTableSeeder extends Seeder
         $districts = AdminPermission::create([
             'name' => 'permission_districts',
             'extension' => 'districts',
-            'icon' => 'map-pin'
+            'icon' => '<i class="fa-solid fa-location-dot"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE] as $role) {
             AdminRole::create([
@@ -269,7 +269,7 @@ class SeedRoleTableSeeder extends Seeder
         $wards = AdminPermission::create([
             'name' => 'permission_wards',
             'extension' => 'wards',
-            'icon' => 'map-pin'
+            'icon' => '<i class="fa-solid fa-street-view"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE] as $role) {
             AdminRole::create([
@@ -282,7 +282,7 @@ class SeedRoleTableSeeder extends Seeder
         $backup_dbs = AdminPermission::create([
             'name' => 'permission_backup_dbs',
             'extension' => 'backup_dbs',
-            'icon' => 'database'
+            'icon' => '<i class="fa-solid fa-database"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -295,7 +295,7 @@ class SeedRoleTableSeeder extends Seeder
         $post_groups = AdminPermission::create([
             'name' => 'permission_post_groups',
             'extension' => 'post_groups',
-            'icon' => 'bookmark'
+            'icon' => '<i class="fa-solid fa-bookmark"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE] as $role) {
             AdminRole::create([
@@ -308,7 +308,7 @@ class SeedRoleTableSeeder extends Seeder
         $posts = AdminPermission::create([
             'name' => 'permission_posts',
             'extension' => 'posts',
-            'icon' => 'post'
+            'icon' => '<i class="fa-solid fa-book-bookmark"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
@@ -321,7 +321,7 @@ class SeedRoleTableSeeder extends Seeder
         $telescope = AdminPermission::create([
             'name' => 'permission_telescope',
             'extension' => 'telescope',
-            'icon' => 'post'
+            'icon' => '<i class="fa-solid fa-computer"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW] as $role) {
             AdminRole::create([
@@ -334,7 +334,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_emails = AdminPermission::create([
             'name' => 'permission_admin_emails',
             'extension' => 'admin_emails',
-            'icon' => 'mail'
+            'icon' => '<i class="fa-solid fa-envelope-circle-check"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE] as $role) {
             AdminRole::create([
@@ -347,7 +347,7 @@ class SeedRoleTableSeeder extends Seeder
         $admin_settings = AdminPermission::create([
             'name' => 'permission_admin_settings',
             'extension' => 'admin_settings',
-            'icon' => 'settings'
+            'icon' => '<i class="fa-solid fa-screwdriver-wrench"></i>'
         ]);
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_UPDATE] as $role) {
             AdminRole::create([

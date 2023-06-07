@@ -11,8 +11,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div>
-                                <h2 class="fw-bolder mb-0">10</h2>
-                                <p class="card-text">Quản trị viên</p>
+                                <h2 class="fw-bolder mb-0 total-admin">0</h2>
+                                <p class="card-text">{{ __('dashboard_admin') }}</p>
                             </div>
                             <div class="avatar bg-light-success p-50 m-0">
                                 <div class="avatar-content">
@@ -26,8 +26,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div>
-                                <h2 class="fw-bolder mb-0">10</h2>
-                                <p class="card-text">Gói dịch vụ</p>
+                                <h2 class="fw-bolder mb-0 total-service">0</h2>
+                                <p class="card-text">{{ __('dashboard_service') }}</p>
                             </div>
                             <div class="avatar bg-light-info p-50 m-0">
                                 <div class="avatar-content">
@@ -41,8 +41,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div>
-                                <h2 class="fw-bolder mb-0">10</h2>
-                                <p class="card-text">Bài viết hướng dẫn</p>
+                                <h2 class="fw-bolder mb-0 total-post">0</h2>
+                                <p class="card-text">{{ __('dashboard_post') }}</p>
                             </div>
                             <div class="avatar bg-light-warning p-50 m-0">
                                 <div class="avatar-content">
@@ -56,8 +56,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div>
-                                <h2 class="fw-bolder mb-0">10</h2>
-                                <p class="card-text">Đơn hàng</p>
+                                <h2 class="fw-bolder mb-0 total-order">0</h2>
+                                <p class="card-text">{{ __('dashboard_order') }}</p>
                             </div>
                             <div class="avatar bg-light-danger p-50 m-0">
                                 <div class="avatar-content">
@@ -71,8 +71,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div>
-                                <h2 class="fw-bolder mb-0">10</h2>
-                                <p class="card-text">Khách hàng</p>
+                                <h2 class="fw-bolder mb-0 total-client">0</h2>
+                                <p class="card-text">{{ __('dashboard_customer') }}</p>
                             </div>
                             <div class="avatar bg-light-warning p-50 m-0">
                                 <div class="avatar-content">
@@ -86,8 +86,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div>
-                                <h2 class="fw-bolder mb-0">10</h2>
-                                <p class="card-text">Khách hàng tiềm năng</p>
+                                <h2 class="fw-bolder mb-0 total-lead">0</h2>
+                                <p class="card-text">{{ __('dashboard_lead') }}</p>
                             </div>
                             <div class="avatar bg-light-danger p-50 m-0">
                                 <div class="avatar-content">
@@ -101,8 +101,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div>
-                                <h2 class="fw-bolder mb-0">10</h2>
-                                <p class="card-text">Cửa hàng</p>
+                                <h2 class="fw-bolder mb-0 total-store">0</h2>
+                                <p class="card-text">{{ __('dashboard_store') }}</p>
                             </div>
                             <div class="avatar bg-light-info p-50 m-0">
                                 <div class="avatar-content">
@@ -116,8 +116,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div>
-                                <h2 class="fw-bolder mb-0">10</h2>
-                                <p class="card-text">Đăng ký mới</p>
+                                <h2 class="fw-bolder mb-0 total-register">0</h2>
+                                <p class="card-text">{{ __('dashboard_register') }}</p>
                             </div>
                             <div class="avatar bg-light-success p-50 m-0">
                                 <div class="avatar-content">
@@ -137,15 +137,16 @@
                         <div
                             class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <div>
-                                <h4 class="card-title mb-25">Đăng ký mới</h4>
-                                <span class="card-subtitle text-muted">Commercial networks & enterprises</span>
+                                <h4 class="card-title mb-25">{{ __('dashboard_register') }}</h4>
+                                <span class="card-subtitle text-muted">{{ __('dashboard_register_this_month') }}</span>
                             </div>
                             <div class="d-flex align-items-center flex-wrap mt-sm-0 mt-1">
                                 <h5 class="fw-bolder mb-0 me-1">
-                                    <i class="text-danger font-small-3" data-feather="arrow-down"></i> 20
+                                    {{-- <i class="text-danger font-small-3" data-feather="arrow-down"></i> --}}
+                                    0
                                 </h5>
-                                <a href="" class="badge badge-light-secondary">
-                                    Xem thêm
+                                <a href="{{ route('admin.register_usings.index') }}" class="badge badge-light-secondary">
+                                    {{ __('btn_view_more') }}
                                 </a>
                             </div>
                         </div>
@@ -161,15 +162,16 @@
                         <div
                             class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <div>
-                                <h4 class="card-title mb-25">Doanh thu</h4>
-                                <span class="card-subtitle text-muted">Commercial networks & enterprises</span>
+                                <h4 class="card-title mb-25">{{ __('dashboard_revenue') }}</h4>
+                                <span class="card-subtitle text-muted">{{ __('dashboard_revenue_this_month') }}</span>
                             </div>
                             <div class="d-flex align-items-center flex-wrap mt-sm-0 mt-1">
                                 <h5 class="fw-bolder mb-0 me-1">
-                                    <i class="text-danger font-small-3" data-feather="arrow-down"></i> 100,000$
+                                    {{-- <i class="text-danger font-small-3" data-feather="arrow-down"></i>  --}}
+                                    0 {{ get_option('currency-default', 'vnd') }}
                                 </h5>
-                                <a class="badge badge-light-secondary">
-                                    Xem thêm
+                                <a href="{{ route('admin.report.revenue') }}" class="badge badge-light-secondary">
+                                    {{ __('btn_view_more') }}
                                 </a>
                             </div>
                         </div>
@@ -185,73 +187,28 @@
                     <div class="card">
                         <div
                             class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
-                            <h4 class="card-title">Lịch sử hoạt động mới</h4>
-                            <a href="" class="badge badge-light-secondary">
-                                Xem thêm
+                            <h4 class="card-title">{{ __('dashboard_activity_lasted') }}</h4>
+                            <a href="{{ route('admin.activities.index') }}" class="badge badge-light-secondary">
+                                {{ __('btn_view_more') }}
                             </a>
                         </div>
                         <div class="card-body">
                             <ul class="timeline">
+                                {{-- start item --}}
                                 <li class="timeline-item">
                                     <span class="timeline-point">
                                         <i data-feather="dollar-sign"></i>
                                     </span>
                                     <div class="timeline-event">
-                                        <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                        <a href="{{ route('admin.activities.detail', ['id' => 1]) }}"
+                                            class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
                                             <h6>12 Invoices have been paid</h6>
                                             <span class="timeline-event-time">12 min ago</span>
-                                        </div>
+                                        </a>
                                         <p>Invoices have been paid to the company.</p>
                                     </div>
                                 </li>
-                                <li class="timeline-item">
-                                    <span class="timeline-point">
-                                        <i data-feather="dollar-sign"></i>
-                                    </span>
-                                    <div class="timeline-event">
-                                        <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                                            <h6>12 Invoices have been paid</h6>
-                                            <span class="timeline-event-time">12 min ago</span>
-                                        </div>
-                                        <p>Invoices have been paid to the company.</p>
-                                    </div>
-                                </li>
-                                <li class="timeline-item">
-                                    <span class="timeline-point">
-                                        <i data-feather="dollar-sign"></i>
-                                    </span>
-                                    <div class="timeline-event">
-                                        <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                                            <h6>12 Invoices have been paid</h6>
-                                            <span class="timeline-event-time">12 min ago</span>
-                                        </div>
-                                        <p>Invoices have been paid to the company.</p>
-                                    </div>
-                                </li>
-                                <li class="timeline-item">
-                                    <span class="timeline-point">
-                                        <i data-feather="dollar-sign"></i>
-                                    </span>
-                                    <div class="timeline-event">
-                                        <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                                            <h6>12 Invoices have been paid</h6>
-                                            <span class="timeline-event-time">12 min ago</span>
-                                        </div>
-                                        <p>Invoices have been paid to the company.</p>
-                                    </div>
-                                </li>
-                                <li class="timeline-item">
-                                    <span class="timeline-point">
-                                        <i data-feather="dollar-sign"></i>
-                                    </span>
-                                    <div class="timeline-event">
-                                        <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                                            <h6>12 Invoices have been paid</h6>
-                                            <span class="timeline-event-time">12 min ago</span>
-                                        </div>
-                                        <p>Invoices have been paid to the company.</p>
-                                    </div>
-                                </li>
+                                {{-- end item --}}
                             </ul>
                         </div>
                     </div>
@@ -260,12 +217,13 @@
                     <div class="card card-employee-task">
                         <div
                             class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
-                            <h4 class="card-title">Khách hàng tiềm năng mới</h4>
-                            <a href="" class="badge badge-light-secondary">
-                                Xem thêm
+                            <h4 class="card-title">{{ __('dashboard_lead_lasted') }}</h4>
+                            <a href="{{ route('admin.leads.index') }}" class="badge badge-light-secondary">
+                                {{ __('btn_view_more') }}
                             </a>
                         </div>
                         <div class="card-body pb-3">
+                            {{-- start item --}}
                             <div class="employee-task d-flex justify-content-between align-items-center">
                                 <div class="d-flex flex-row">
                                     <div class="avatar me-75">
@@ -281,81 +239,7 @@
                                     <small class="text-muted me-75">9hr 20m</small>
                                 </div>
                             </div>
-                            <div class="employee-task d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar me-75">
-                                        <img src="../assets/images/avatars/avatar-2.jpg" class="rounded" width="42"
-                                            height="42" alt="Avatar" />
-                                    </div>
-                                    <div class="my-auto">
-                                        <h6 class="mb-0">Louisa Norton</h6>
-                                        <small>UI Designer</small>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="text-muted me-75">4hr 17m</small>
-                                </div>
-                            </div>
-                            <div class="employee-task d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar me-75">
-                                        <img src="../assets/images/avatars/avatar-3.jpg" class="rounded" width="42"
-                                            height="42" alt="Avatar" />
-                                    </div>
-                                    <div class="my-auto">
-                                        <h6 class="mb-0">Jayden Duncan</h6>
-                                        <small>Java Developer</small>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="text-muted me-75">12hr 8m</small>
-                                </div>
-                            </div>
-                            <div class="employee-task d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar me-75">
-                                        <img src="../assets/images/avatars/avatar-4.jpg" class="rounded" width="42"
-                                            height="42" alt="Avatar" />
-                                    </div>
-                                    <div class="my-auto">
-                                        <h6 class="mb-0">Cynthia Howell</h6>
-                                        <small>Anguler Developer</small>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="text-muted me-75">3hr 19m</small>
-                                </div>
-                            </div>
-                            <div class="employee-task d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar me-75">
-                                        <img src="../assets/images/avatars/avatar-5.jpg" class="rounded" width="42"
-                                            height="42" alt="Avatar" />
-                                    </div>
-                                    <div class="my-auto">
-                                        <h6 class="mb-0">Helena Payne</h6>
-                                        <small>Marketing</small>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="text-muted me-75">9hr 50m</small>
-                                </div>
-                            </div>
-                            <div class="employee-task d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar me-75">
-                                        <img src="../assets/images/avatars/avatar-6.jpg" class="rounded" width="42"
-                                            height="42" alt="Avatar" />
-                                    </div>
-                                    <div class="my-auto">
-                                        <h6 class="mb-0">Troy Jensen</h6>
-                                        <small>iOS Developer</small>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="text-muted me-75">4hr 48m</small>
-                                </div>
-                            </div>
+                            {{-- end item --}}
                         </div>
                     </div>
                 </div>

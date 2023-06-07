@@ -3,10 +3,6 @@
 namespace Modules\Admins\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\Admins\Entities\AdminGroup;
-use Modules\Admins\Entities\Admins;
-use Modules\Admins\Entities\Area;
-use Modules\Admins\Entities\BusinessType;
 
 class AdminsDatabaseSeeder extends Seeder
 {

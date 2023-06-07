@@ -63,7 +63,7 @@
     "permission_admin_payments": "Lịch sử thanh toán",
     "permission_admin_method_payments": "Phương thức thanh toán",
     "permission_admin_payment_portals": "Cổng thanh toán",
-    "permission_invoice_portals": "Đơn vị phát hành hóa đơn",
+    "permission_invoice_portals": "Đơn vị phát hành HĐ",
     "permission_invoices": "Hóa đơn đã phát hành",
     "permission_services": "Dịch vụ",
     "permission_admin_areas": "Danh sách khu vực",
@@ -88,5 +88,19 @@
     "permission_main": "Danh mục chính",
     "permission_other": "Danh mục khác",
 
-    "dashboard_admins": "Quản trị viên"
+    "dashboard_admin": "Quản trị viên",
+    "dashboard_service": "Gói dịch vụ",
+    "dashboard_post": "Bài viết hướng dẫn",
+    "dashboard_order": "Đơn hàng",
+    "dashboard_customer": "Khách hàng",
+    "dashboard_lead": "Khách hàng tiềm năng",
+    "dashboard_store": "Cửa hàng",
+    "dashboard_register": "Đăng ký mới",
+    "dashboard_register_this_month": "Tình hình đăng ký sử dụng dịch vụ trong tháng này",
+    "dashboard_revenue": "Doanh thu",
+    "dashboard_revenue_this_month": "Tình hình doanh thu trong tháng này",
+    "dashboard_activity_lasted": "Lịch sử hoạt động mới",
+    "dashboard_lead_lasted":"Khách hàng tiềm năng mới",
+
+    "btn_view_more": "Xem thêm"
 }

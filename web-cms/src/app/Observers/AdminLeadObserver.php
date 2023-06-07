@@ -5,7 +5,6 @@ namespace App\Observers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Modules\Admins\Entities\AdminLead;
-use Modules\Admins\Entities\AdminSetting;
 
 class AdminLeadObserver
 {
@@ -17,10 +16,7 @@ class AdminLeadObserver
         $lead->status = $lead->status ?? AdminLead::STATUS_ACTIVE;
 
         // check assigned from config
-        $setting = AdminSetting::ofCode('lead-assigned-default')->first();
-        if ($setting) {
-            $lead->assigned_id = $setting->value ?? '';
-        }
+        $lead->assigned_id = get_option('lead-assigned-default');
     }
 
     public function created(AdminLead $lead)

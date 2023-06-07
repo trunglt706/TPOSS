@@ -9,7 +9,7 @@ class AdminSettingObserver
 {
     public function creating(AdminSetting $setting)
     {
-        $setting->order = $setting->order ?? AdminSetting::get_order($setting->group_id ?? 0);
+        $setting->order = $setting->order ?? AdminSetting::get_order($setting->permission_id ?? 0);
         $setting->type = $setting->type ?? AdminSetting::TYPE_INPUT;
     }
 

@@ -5,7 +5,6 @@ namespace Modules\Admins\Entities;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Settings\Entities\SettingGroup;
 
 class AdminSetting extends Model
 {
@@ -20,7 +19,7 @@ class AdminSetting extends Model
     const TYPE_FILE = 'file';
 
     protected $fillable = [
-        'group_id',
+        'permission_id',
         'code',
         'name',
         'description',
@@ -56,17 +55,17 @@ class AdminSetting extends Model
         );
     }
 
-    public function group()
+    public function permission()
     {
-        return $this->hasOne(AdminSettingGroup::class, 'id', 'group_id');
+        return $this->hasOne(AdminPermission::class, 'id', 'permission_id');
     }
 
-    public function scopeGroupId($query, $group_id)
+    public function scopePermissionId($query, $permission_id)
     {
-        if (is_array($group_id)) {
-            return $query->whereIn('group_id', $group_id);
+        if (is_array($permission_id)) {
+            return $query->whereIn('permission_id', $permission_id);
         }
-        return $query->where('group_id', $group_id);
+        return $query->where('permission_id', $permission_id);
     }
 
     public function scopeOfCode($query, $code)
@@ -85,9 +84,9 @@ class AdminSetting extends Model
         return $query->where('type', $type);
     }
 
-    public static function get_order($group_id)
+    public static function get_order($permission_id)
     {
-        $max = AdminSetting::groupId($group_id)->count();
+        $max = AdminSetting::permissionId($permission_id)->count();
         return $max + 1;
     }
 }

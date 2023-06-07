@@ -5,6 +5,7 @@ namespace Modules\Admins\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Modules\Admins\Entities\AdminGroup;
 use Modules\Admins\Entities\Admins;
+use Modules\Admins\Jobs\GenerateDataAdmin;
 
 class SeedAdminTableSeeder extends Seeder
 {
@@ -35,5 +36,7 @@ class SeedAdminTableSeeder extends Seeder
             'root' => Admins::IS_ROOT,
             'supper' => Admins::IS_SUPPER,
         ]);
+
+        GenerateDataAdmin::dispatch($group->id);
     }
 }

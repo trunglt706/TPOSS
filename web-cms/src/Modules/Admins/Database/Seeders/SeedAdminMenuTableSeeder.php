@@ -20,7 +20,7 @@ class SeedAdminMenuTableSeeder extends Seeder
         AdminMenus::create([
             'name' => 'permission_dashboard',
             'route' => route('admin.index'),
-            'icon' => '<i class="fa-solid fa-house-circle-check"></i>'
+            'icon' => '<i class="fa-solid fa-gauge"></i>'
         ]);
 
         //========== header
@@ -32,7 +32,7 @@ class SeedAdminMenuTableSeeder extends Seeder
         //===== admin
         $admin = AdminMenus::create([
             'name' => 'permission_manager_admin',
-            'icon' => '<i class="fa-solid fa-users-line"></i>'
+            'icon' => '<i class="fa-solid fa-user-group"></i>'
         ]);
         AdminMenus::create([
             'name' => 'permission_admins',
@@ -48,7 +48,7 @@ class SeedAdminMenuTableSeeder extends Seeder
         //===== customer
         $customer = AdminMenus::create([
             'name' => 'permission_admin_customers',
-            'icon' => '<i class="fa-solid fa-user-group"></i>'
+            'icon' => '<i class="fa-solid fa-circle-user"></i>'
         ]);
         AdminMenus::create([
             'name' => 'permission_admin_customers',
@@ -65,12 +65,10 @@ class SeedAdminMenuTableSeeder extends Seeder
             'route' => route('admin.leads.index'),
             'parent_id' => $customer->id,
         ]);
-
-        //===== store
         AdminMenus::create([
             'name' => 'permission_stores',
-            'icon' => '<i class="fa-solid fa-store"></i>',
             'route' => route('admin.stores.index'),
+            'parent_id' => $customer->id,
         ]);
 
         //===== services

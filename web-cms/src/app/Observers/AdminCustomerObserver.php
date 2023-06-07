@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Modules\Admins\Entities\AdminCustomer;
 use Modules\Admins\Entities\AdminLead;
-use Modules\Admins\Entities\AdminSetting;
 
 class AdminCustomerObserver
 {
@@ -19,10 +18,7 @@ class AdminCustomerObserver
         $customer->type = $customer->type ?? AdminCustomer::TYPE_OLD;
 
         // check assigned from config
-        $setting = AdminSetting::ofCode('customer-assigned-default')->first();
-        if ($setting) {
-            $customer->assigned_id = $setting->value ?? '';
-        }
+        $customer->assigned_id = get_option('customer-assigned-default');
     }
 
     public function created(AdminCustomer $customer)

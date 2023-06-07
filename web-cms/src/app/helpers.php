@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Log;
 use Modules\Admins\Entities\AdminMenus;
+use Modules\Admins\Entities\AdminSetting;
 
 if (function_exists('menu_admins')) {
     function menu_admins()
@@ -143,6 +144,7 @@ if (!function_exists('convertNumberToWords')) {
         return $string;
     }
 }
+
 // function remove tag in DB
 if (!function_exists('remove_tag_script')) {
     function remove_tag_script($html)
@@ -175,6 +177,7 @@ if (!function_exists('remove_all_file')) {
         }
     }
 }
+
 if (!function_exists('rrmdir')) {
     function rrmdir($dir)
     {
@@ -201,6 +204,7 @@ if (!function_exists('unlink')) {
         return false;
     }
 }
+
 if (!function_exists('copydir')) {
     function copydir($from_dir, $to_dir)
     {
@@ -309,5 +313,19 @@ if (!function_exists('bytesToHuman')) {
             $bytes /= 1024;
         }
         return round($bytes, $fix) . ' ' . $units[$i];
+    }
+}
+
+if (!function_exists('get_option')) {
+    function get_option($code, $default = '')
+    {
+        $option = AdminSetting::ofCode($code)->first();
+        return $option->value ?? $default;
+    }
+}
+if (!function_exists('isJSON')) {
+    function isJSON($string)
+    {
+        return is_string($string) && is_array(json_decode($string, true)) ? true : false;
     }
 }
