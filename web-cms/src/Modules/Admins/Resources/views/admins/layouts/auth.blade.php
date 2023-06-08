@@ -42,7 +42,9 @@
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
-        @yield('content')
+        <div class="pjax-container">
+            @yield('content')
+        </div>
     </div>
     <!-- END: Content-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

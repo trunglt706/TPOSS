@@ -12,7 +12,7 @@ class AuthController extends Controller
         if ($request->post()) {
             return 1;
         }
-        return view('admins::admins.pages.auth.index');
+        return view('admins::admins.pages.auth.login');
     }
 
     public function forgot_password()
