@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0EABAF" />
     <meta name="description" content="{{ env('APP_NAME') }}" />
+    <meta http-equiv="x-pjax-version" content="v123">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Fontawesome -->
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/all.css') }}" />
@@ -46,7 +48,9 @@
     <div class="app-content content ">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
-        @yield('content')
+        <div class="pjax-container">
+            @yield('content')
+        </div>
     </div>
     <!-- END: Content-->
 
@@ -75,9 +79,24 @@
     <script src="{{ asset('assets/pickers/flatpickr/flatpickr.min.js') }}"></script>
     <script src="{{ asset('assets/js/dragula.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.pjax.js') }}"></script>
     <script src="{{ asset('assets/js/menu.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     @yield('script')
+    <script>
+        $(document).pjax('a.pjax', '.pjax-container');
+        // $(document).on('pjax:send', function() {
+        //     $('#loading').show()
+        // })
+        // $(document).on('pjax:complete', function() {
+        //     $('#loading').hide()
+        // })
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+    </script>
 </body>
 
 </html>

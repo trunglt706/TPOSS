@@ -145,12 +145,12 @@ class Admins extends Authenticatable
         return $this->hasOne(AdminGroup::class, 'id', 'group_id');
     }
 
-    public function activity()
+    public function activities()
     {
         return $this->hasMany(AdminActivity::class, 'created_by', 'id');
     }
 
-    public function notification()
+    public function notifications()
     {
         return $this->hasMany(AdminNotification::class, 'admin_id', 'id');
     }
@@ -160,7 +160,7 @@ class Admins extends Authenticatable
         return $this->hasMany(AdminTokenDevice::class, 'created_by', 'id');
     }
 
-    public function order()
+    public function orders()
     {
         return $this->hasMany(AdminOrder::class, 'created_by', 'id');
     }
@@ -195,7 +195,7 @@ class Admins extends Authenticatable
         return $query->where('phone', $phone);
     }
 
-    public function scopeCode($query, $code)
+    public function scopeOfCode($query, $code)
     {
         return $query->where('code', $code);
     }
