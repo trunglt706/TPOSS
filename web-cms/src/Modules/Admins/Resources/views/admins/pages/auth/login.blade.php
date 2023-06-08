@@ -17,7 +17,9 @@
                             <p class="card-text mb-2 text-center">
                                 Please sign-in to your account and get on with your work.
                             </p>
-                            <form class="auth-login-form mt-2" action="index.html" method="POST">
+                            <form class="auth-login-form mt-2 auth-login" action="{{ route('admin.login') }}"
+                                method="POST">
+                                @csrf
                                 <div class="mb-1">
                                     <label for="login-email" class="form-label">Email</label>
                                     <div class="input-group input-group-merge">
@@ -31,7 +33,7 @@
                                 <div class="mb-1">
                                     <div class="d-flex justify-content-between">
                                         <label class="form-label" for="login-password">Password</label>
-                                        <a href="#" onclick="showForm(1)">
+                                        <a href="{{ route('admin.forgot_password') }}" class="pjax">
                                             <small>Forgot Password?</small>
                                         </a>
                                     </div>
@@ -44,7 +46,7 @@
                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary w-100 mt-1" tabindex="4">
+                                <button type="submit" class="btn btn-primary w-100 mt-1" tabindex="4">
                                     <i data-feather="log-in"></i> Sign in
                                 </button>
                             </form>

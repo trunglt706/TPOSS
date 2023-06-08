@@ -19,13 +19,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link href="../assets/css/vender.min.css" rel="stylesheet">
-    <link href="../assets/css/bootstrap.css" rel="stylesheet">
-    <link href="../assets/css/bootstrap-extended.css" rel="stylesheet">
-    <link href="../assets/css/colors.css" rel="stylesheet">
-    <link href="../assets/css/components.css" rel="stylesheet">
+    <link href="{{ asset('assets/css/vender.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap-extended.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/colors.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/components.css') }}" rel="stylesheet">
 
-    <link href="../assets/css/authentication.css" rel="stylesheet">
+    <link href="{{ asset('assets/css/authentication.css') }}" rel="stylesheet">
 
     <title>{{ $title ?? env('APP_NAME') }}</title>
     @yield('style')
@@ -53,17 +53,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.5/perfect-scrollbar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js"></script>
-    <script src="../assets/js/jquery.validate.min.js"></script>
+    <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
 
-    <script src="../assets/js/tooltips.min.js"></script>
     <script src="{{ asset('assets/js/jquery.pjax.js') }}"></script>
-    <script src="../assets/js/main.js"></script>
+    <script src="{{ asset('assets/js/tooltips.min.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 
     @yield('script')
     <script>
         $(document).pjax('a.pjax', '.pjax-container');
-        $(document).on('submit', 'form[data-pjax]', function(event) {
+        $(document).on('submit', 'form.auth-login', function(event) {
             $.pjax.submit(event, '#pjax-container');
         })
         // $(document).on('pjax:send', function() {

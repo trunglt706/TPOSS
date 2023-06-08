@@ -45,10 +45,11 @@
                                     <i data-feather="send"></i> Send
                                 </button>
                             </form>
-                            <button type="button" onclick="showForm(0)" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Quay lại" class="btn btn-icon rounded-circle btn-outline-primary btn-close-top">
+                            <a href="{{ route('admin.login') }}" type="button" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="Quay lại"
+                                class="btn pjax btn-icon rounded-circle btn-outline-primary btn-close-top">
                                 <i data-feather="x"></i>
-                            </button>
+                            </a>
                         </div>
                     </div>
 
