@@ -48,7 +48,7 @@ class AdminTokenDevice extends Model
     const OS_IOS = 'ios';
     const OS_PC = 'pc';
 
-    public function scopeIp($query, $ip)
+    public function scopeOfIp($query, $ip)
     {
         if (is_array($ip)) {
             return $query->whereIn('ip', $ip);
@@ -69,7 +69,7 @@ class AdminTokenDevice extends Model
         return $query->where('device_id', $device_id);
     }
 
-    public function scopeToken($query, $token)
+    public function scopeOfToken($query, $token)
     {
         if (is_array($token)) {
             return $query->whereIn('token', $token);
@@ -77,7 +77,7 @@ class AdminTokenDevice extends Model
         return $query->where('token', $token);
     }
 
-    public function scopeOs($query, $os)
+    public function scopeOfOs($query, $os)
     {
         if (is_array($os)) {
             return $query->whereIn('os', $os);

@@ -88,5 +88,24 @@ class SeedSettingTableSeeder extends Seeder
                 'description' => 'Nếu cửa hàng thuộc khách hàng, hệ thống sẽ lấy phân công theo khách hàng'
             ]);
         }
+
+        //=============== admins
+        $admins = AdminPermission::extension('admins')->first();
+        if ($admin_customers) {
+            AdminSetting::create([
+                'code' => 'admin-url-firebase',
+                'permission_id' => $admins->id,
+                'name' => 'Đường dẫn firebase',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'https://fcm.googleapis.com/fcm/send',
+            ]);
+            AdminSetting::create([
+                'code' => 'admin-key-firebase',
+                'permission_id' => $admins->id,
+                'name' => 'Firebase key',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'AAAAu3FpqXg:APA91bFPk9cAT0wVh-YEk5OUYwpi23zHEiJ85GDRdbVk20cxCcFrt2pb8ZUe1qU4EklBpltcwPTLPdtIC9n7LeGQucHSfP9tAe97-GSlgQws25vBCXMzS3KOntB9iTR8IrB11sU5TUYs',
+            ]);
+        }
     }
 }
