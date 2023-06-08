@@ -355,5 +355,18 @@ class SeedRoleTableSeeder extends Seeder
                 'extension' => $role
             ]);
         }
+
+        //======== 		other
+        $other = AdminPermission::create([
+            'name' => 'permission_other',
+            'extension' => 'other',
+            'icon' => '<i class="fa-brands fa-slack"></i>'
+        ]);
+        foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_UPDATE] as $role) {
+            AdminRole::create([
+                'permission_id' => $other->id,
+                'extension' => $role
+            ]);
+        }
     }
 }

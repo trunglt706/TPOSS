@@ -21,5 +21,6 @@
     "Sales": true,
     "Tables": true,
     "Payments": true,
-    "Invoices": true
+    "Invoices": true,
+    "Partners": true
 }

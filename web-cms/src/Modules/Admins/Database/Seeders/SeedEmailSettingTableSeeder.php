@@ -87,5 +87,24 @@ class SeedEmailSettingTableSeeder extends Seeder
                 'permission_id' => $admin_customers->id,
             ]);
         }
+
+        // other
+        $other = AdminPermission::extension('other')->first();
+        if ($admin_customers) {
+            AdminEmails::create([
+                'name' => 'Thông báo mất tính hiệu kết nối đến máy chủ trung tâm',
+                'code' => 'close-connect-to-host-center',
+                'content' => '<div>Chào bàn, hiện tại máy chủ của đối tác ABC có IP là xxxxxx không nhận được tín hiệu từ máy chủ trung tâm. Vui lòng kiểm tra lại.</div>',
+                'data' => json_encode(['email', 'name', 'link', 'ip', 'partner_code', 'partner_name']),
+                'permission_id' => $other->id,
+            ]);
+            AdminEmails::create([
+                'name' => 'Máy chủ của đối tác vi phạm bản quyền',
+                'code' => 'validate-license-host-partner',
+                'content' => '<div>Chào bàn, hiện tại máy chủ của đối tác ABC có IP là xxxxxx không vi phạm bản quyền từ license hiện tại. Do vượt mức giới hạn ..... cho phép. Vui lòng kiểm tra lại.</div>',
+                'data' => json_encode(['email', 'name', 'link', 'ip', 'partner_code', 'partner_name']),
+                'permission_id' => $other->id,
+            ]);
+        }
     }
 }
