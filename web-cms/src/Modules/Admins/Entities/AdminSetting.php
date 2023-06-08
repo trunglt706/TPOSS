@@ -5,6 +5,7 @@ namespace Modules\Admins\Entities;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Cache;
 
 class AdminSetting extends Model
 {
@@ -26,7 +27,8 @@ class AdminSetting extends Model
         'type',
         'value',
         'data',
-        'order'
+        'order',
+        'group',
     ];
 
     protected $casts = [
@@ -84,9 +86,31 @@ class AdminSetting extends Model
         return $query->where('type', $type);
     }
 
+    public function scopeGroup($query, $group)
+    {
+        return $query->where('group', $group);
+    }
+
     public static function get_order($permission_id)
     {
         $max = AdminSetting::permissionId($permission_id)->count();
         return $max + 1;
+    }
+
+    public static function cache_all_setting()
+    {
+        Cache::forget('setting_admin');
+        return Cache::rememberForever('setting_admin', function () {
+            $data_config = AdminSetting::all(['code', 'value']);
+            $config_key = [];
+            if (!is_null($data_config)) {
+                foreach ($data_config as $value) {
+                    if (!isset($config_key[$value->code])) {
+                        $config_key[$value->code] = $value->value;
+                    }
+                }
+            }
+            return $config_key;
+        });
     }
 }

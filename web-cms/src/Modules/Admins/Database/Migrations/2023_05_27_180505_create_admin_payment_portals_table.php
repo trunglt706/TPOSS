@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('version')->nullable();
             $table->boolean('status')->nullable()->default(true);
             $table->integer('created_by')->index();
+            $table->boolean('private')->nullable()->default(false);
             $table->timestamps();
         });
     }

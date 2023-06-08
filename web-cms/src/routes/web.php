@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Admins\Entities\Admins;
-use Modules\Admins\Entities\AdminServiceUsing;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +15,6 @@ use Modules\Admins\Entities\AdminServiceUsing;
 
 Route::domain(env('APP_URL'))->group(function () {
     Route::get('/', function () {
-        $a = Admins::doesnthave('group')->toSql();
-        dd($a); // Show results of log
         return view('welcome');
     });
 });

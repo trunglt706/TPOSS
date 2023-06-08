@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('value');
             $table->string('data')->nullable();
             $table->integer('order')->nullable()->default(0);
+            $table->string('group')->nullable();
             $table->timestamps();
         });
     }

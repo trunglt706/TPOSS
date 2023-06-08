@@ -1,7 +1,7 @@
 <div class="card mb-0 card-reset-password" style="display: none;">
     <div class="card-body">
         <a href="#" class="brand-logo">
-            <img src="../assets/images/logo.png" height="32">
+            <img src="{{ asset($setting_admin['admin-seo-logo']) }}" height="32">
         </a>
 
         <p class="card-text mb-2 text-center">

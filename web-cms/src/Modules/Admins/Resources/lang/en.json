@@ -102,5 +102,6 @@
     "dashboard_activity_lasted": "Lịch sử hoạt động mới",
     "dashboard_lead_lasted":"Khách hàng tiềm năng mới",
 
-    "btn_view_more": "Xem thêm"
+    "btn_view_more": "Xem thêm",
+    "access_denied": "Access denied!"
 }

@@ -19,12 +19,14 @@ class AdminPaymentPortal extends Model
         'order',
         'version',
         'status',
-        'created_by'
+        'created_by',
+        'private'
     ];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
+        'private' => 'boolean',
     ];
 
     protected function order(): Attribute
@@ -69,6 +71,11 @@ class AdminPaymentPortal extends Model
     public function scopeActive($query)
     {
         return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public function scopePrivate($query, $private)
+    {
+        return $query->where('private', $private);
     }
 
     public static function get_status($id = '')

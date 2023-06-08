@@ -5,6 +5,7 @@ namespace App\Http\ViewComposers;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 use Modules\Admins\Entities\AdminMenus;
+use Modules\Admins\Entities\AdminSetting;
 
 class AdminComposer
 {
@@ -37,5 +38,12 @@ class AdminComposer
             });
         }
         $view->with('menu_admin', $menu_admin);
+
+        if (Cache::has('setting_admin')) {
+            $setting_admin = Cache::get('setting_admin');
+        } else {
+            $setting_admin = AdminSetting::cache_all_setting();
+        }
+        $view->with('setting_admin', $setting_admin);
     }
 }

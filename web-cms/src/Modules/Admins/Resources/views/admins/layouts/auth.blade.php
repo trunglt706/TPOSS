@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#0EABAF" />
     <meta name="description" content="{{ env('APP_NAME') }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="x-pjax-version" content="v123">
+    <meta http-equiv="x-pjax-version" content="v123" />
 
     <!-- Fontawesome -->
     <link rel="stylesheet" href="../assets/fontawesome/all.css" />
@@ -19,8 +19,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-
-
     <link href="../assets/css/vender.min.css" rel="stylesheet">
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <link href="../assets/css/bootstrap-extended.css" rel="stylesheet">
@@ -29,8 +27,7 @@
 
     <link href="../assets/css/authentication.css" rel="stylesheet">
 
-    <title>{{ env('APP_NAME') }}</title>
-    @notifyCss
+    <title>{{ $title ?? env('APP_NAME') }}</title>
     @yield('style')
 </head>
 
@@ -48,9 +45,6 @@
         @yield('content')
     </div>
     <!-- END: Content-->
-
-    <x-notify::notify />
-    @notifyJs
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
@@ -67,6 +61,9 @@
     @yield('script')
     <script>
         $(document).pjax('a.pjax', '.pjax-container');
+        $(document).on('submit', 'form[data-pjax]', function(event) {
+            $.pjax.submit(event, '#pjax-container');
+        })
         // $(document).on('pjax:send', function() {
         //     $('#loading').show()
         // })

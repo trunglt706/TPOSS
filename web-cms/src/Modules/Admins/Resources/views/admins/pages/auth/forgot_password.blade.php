@@ -1,13 +1,11 @@
 <div class="card mb-0 card-forgot-password" style="display: none;">
     <div class="card-body">
         <a href="#" class="brand-logo">
-            <img src="../assets/images/logo.png" height="32">
+            <img src="{{ asset($setting_admin['admin-seo-logo']) }}" height="32">
         </a>
-
         <p class="card-text mb-2 text-center">
             Please sign-in to your account and get on with your work.
         </p>
-
         <form class="auth-forgot-password-form mt-2" action="index.html" method="POST">
             <div class="mb-1">
                 <label for="forgot-password-email" class="form-label">Email</label>

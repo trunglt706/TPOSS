@@ -37,6 +37,8 @@ class SeedAdminTableSeeder extends Seeder
             'supper' => Admins::IS_SUPPER,
         ]);
 
-        GenerateDataAdmin::dispatch($group->id);
+        for ($i = 0; $i < 4; $i++) {
+            GenerateDataAdmin::dispatch($group->id);
+        }
     }
 }

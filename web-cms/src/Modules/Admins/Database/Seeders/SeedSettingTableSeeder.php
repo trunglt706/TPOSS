@@ -98,6 +98,7 @@ class SeedSettingTableSeeder extends Seeder
                 'name' => 'Đường dẫn firebase',
                 'type' => AdminSetting::TYPE_INPUT,
                 'value' => 'https://fcm.googleapis.com/fcm/send',
+                'group' => 'firebase'
             ]);
             AdminSetting::create([
                 'code' => 'admin-key-firebase',
@@ -105,6 +106,44 @@ class SeedSettingTableSeeder extends Seeder
                 'name' => 'Firebase key',
                 'type' => AdminSetting::TYPE_INPUT,
                 'value' => 'AAAAu3FpqXg:APA91bFPk9cAT0wVh-YEk5OUYwpi23zHEiJ85GDRdbVk20cxCcFrt2pb8ZUe1qU4EklBpltcwPTLPdtIC9n7LeGQucHSfP9tAe97-GSlgQws25vBCXMzS3KOntB9iTR8IrB11sU5TUYs',
+                'group' => 'firebase'
+            ]);
+        }
+
+        //=============== admin_settings
+        $admin_settings = AdminPermission::extension('admin_settings')->first();
+        if ($admin_settings) {
+            AdminSetting::create([
+                'code' => 'admin-seo-name',
+                'permission_id' => $admin_settings->id,
+                'name' => 'Tên hệ thống',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'Hệ thống quản lý đa dịch vụ',
+                'group' => 'seo'
+            ]);
+            AdminSetting::create([
+                'code' => 'admin-seo-favicon',
+                'permission_id' => $admins->id,
+                'name' => 'Favicon',
+                'type' => AdminSetting::TYPE_FILE,
+                'value' => 'favicon.ico',
+                'group' => 'seo'
+            ]);
+            AdminSetting::create([
+                'code' => 'admin-seo-logo',
+                'permission_id' => $admins->id,
+                'name' => 'Logo hệ thống',
+                'type' => AdminSetting::TYPE_FILE,
+                'value' => 'assets/images/logo.png',
+                'group' => 'seo'
+            ]);
+            AdminSetting::create([
+                'code' => 'admin-seo-copyright',
+                'permission_id' => $admins->id,
+                'name' => 'Bản quyền',
+                'type' => AdminSetting::TYPE_FILE,
+                'value' => 'TPOS',
+                'group' => 'seo'
             ]);
         }
     }

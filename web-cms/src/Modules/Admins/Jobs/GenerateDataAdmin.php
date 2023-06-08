@@ -8,6 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Modules\Admins\Entities\Admins;
+use Faker\Generator as Faker;
 
 class GenerateDataAdmin implements ShouldQueue
 {
@@ -29,16 +30,17 @@ class GenerateDataAdmin implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(Faker $faker)
     {
-        for ($i = 0; $i < 1000; $i++) {
-            $phone = 909000999 + $i;
+        for ($i = 0; $i < 500; $i++) {
             Admins::create([
-                'name' => "Admin $i",
-                'email' => "admin$i@gmail.com",
-                'phone' => "0$phone",
+                'name' => $faker->unique()->name(),
+                'email' => $faker->unique()->safeEmail(),
+                'phone' => $faker->unique()->phoneNumber(),
                 'group_id' => $this->admin_group_id,
                 'status' => Admins::STATUS_ACTIVE,
+                'address' => $faker->address(),
+                'tax_code' => $faker->creditCardNumber
             ]);
         }
     }
