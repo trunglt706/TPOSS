@@ -1,8 +1,4 @@
 @extends('admins::admins.layouts.auth')
-@php
-    $title = 'Đăng nhập';
-@endphp
-
 @section('content')
     <div class="content-wrapper">
         <div class="content-header row"></div>
@@ -15,13 +11,13 @@
                                 <img src="{{ asset($setting_admin['admin-seo-logo']) }}" height="32">
                             </a>
                             <p class="card-text mb-2 text-center">
-                                Please sign-in to your account and get on with your work.
+                                @lang('login_header')
                             </p>
                             <form class="auth-login-form mt-2 auth-login" action="{{ route('admin.login') }}"
                                 method="POST">
                                 @csrf
                                 <div class="mb-1">
-                                    <label for="login-email" class="form-label">Email</label>
+                                    <label for="login-email" class="form-label">@lang('email')</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i data-feather="mail"></i></span>
                                         <input type="text" class="form-control" id="login-email" name="login-email"
@@ -29,12 +25,11 @@
                                             autofocus />
                                     </div>
                                 </div>
-
                                 <div class="mb-1">
                                     <div class="d-flex justify-content-between">
-                                        <label class="form-label" for="login-password">Password</label>
-                                        <a href="{{ route('admin.forgot_password') }}" class="pjax">
-                                            <small>Forgot Password?</small>
+                                        <label class="form-label" for="login-password">@lang('password')</label>
+                                        <a href="{{ route('admin.forgot_password') }}">
+                                            <small>@lang('forgot_password')?</small>
                                         </a>
                                     </div>
                                     <div class="input-group input-group-merge form-password-toggle">
@@ -47,37 +42,32 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100 mt-1" tabindex="4">
-                                    <i data-feather="log-in"></i> Sign in
+                                    <i data-feather="log-in"></i> @lang('login')
                                 </button>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
 @section('script')
     <script>
-        $(function() {
-            'use strict';
-            // toastr.error('Đăng nhập thất bại!')
-
-            var loginForm = $('.auth-login-form');
-            if (loginForm.length) {
-                loginForm.validate({
-                    rules: {
-                        'login-email': {
-                            required: true,
-                            email: true
-                        },
-                        'login-password': {
-                            required: true
-                        }
+        var loginForm = $('.auth-login-form');
+        if (loginForm.length) {
+            loginForm.validate({
+                rules: {
+                    'login-email': {
+                        required: true,
+                        email: true
+                    },
+                    'login-password': {
+                        required: true
                     }
-                });
-            }
-        });
+                }
+            });
+        }
     </script>
 @endsection

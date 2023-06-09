@@ -103,5 +103,19 @@
     "dashboard_lead_lasted":"Khách hàng tiềm năng mới",
 
     "btn_view_more": "Xem thêm",
-    "access_denied": "Không có quyền truy cập!"
+    "access_denied": "Không có quyền truy cập!",
+
+    "email":"Email",
+    "password": "Mật khẩu",
+    "login": "Đăng nhập",
+    "forgot_password":"Quên mật khẩu",
+    "login_header":"Đăng nhập hệ thống",
+    "forgot_password_header":"Gửi yêu cầu khôi phục mật khẩu",
+    "send": "Gửi",
+    "password_confirm":"Mật khẩu xác nhận",
+    "reset": "Khôi phục",
+    "new_password": "Mật khẩu mới",
+    "reset_header":"Bắt đầu gửi yêu cầu khôi phục mật khẩu",
+    "confirm_leave_page": "Xác nhận rời khỏi chức năng này"
+
 }

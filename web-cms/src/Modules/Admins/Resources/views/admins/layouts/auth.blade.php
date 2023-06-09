@@ -9,7 +9,6 @@
     <meta name="theme-color" content="#0EABAF" />
     <meta name="description" content="{{ env('APP_NAME') }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="x-pjax-version" content="v123" />
 
     <!-- Fontawesome -->
     <link rel="stylesheet" href="../assets/fontawesome/all.css" />
@@ -24,7 +23,6 @@
     <link href="{{ asset('assets/css/bootstrap-extended.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/colors.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/components.css') }}" rel="stylesheet">
-
     <link href="{{ asset('assets/css/authentication.css') }}" rel="stylesheet">
 
     <title>{{ $title ?? env('APP_NAME') }}</title>
@@ -42,9 +40,7 @@
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
-        <div class="pjax-container">
-            @yield('content')
-        </div>
+        @yield('content')
     </div>
     <!-- END: Content-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -55,23 +51,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js"></script>
     <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
-
-    <script src="{{ asset('assets/js/jquery.pjax.js') }}"></script>
     <script src="{{ asset('assets/js/tooltips.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
     @yield('script')
     <script>
-        $(document).pjax('a.pjax', '.pjax-container');
-        $(document).on('submit', 'form.auth-login', function(event) {
-            $.pjax.submit(event, '#pjax-container');
-        })
-        // $(document).on('pjax:send', function() {
-        //     $('#loading').show()
-        // })
-        // $(document).on('pjax:complete', function() {
-        //     $('#loading').hide()
-        // })
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),

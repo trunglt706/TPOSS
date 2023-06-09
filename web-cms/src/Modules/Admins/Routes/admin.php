@@ -47,7 +47,7 @@ use Modules\Admins\Http\Controllers\WardController;
 
 Route::domain('admin.' . env('APP_URL'))->name('admin.')->group(function () {
     Route::middleware('guest')->controller(AuthController::class)->group(function () {
-        Route::any('login', 'login')->name('login');
+        Route::get('login', 'login')->name('login');
         Route::get('forgot_password', 'forgot_password')->name('forgot_password');
         Route::get('reset_password', 'reset_password')->name('reset_password');
     });
