@@ -21,6 +21,8 @@ class PartnerLicense extends Model
         'status'
     ];
 
+    protected $hidden = ['code'];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -34,7 +36,7 @@ class PartnerLicense extends Model
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
-    public function scopeCode($query, $code)
+    public function scopeOfCode($query, $code)
     {
         return $query->where('code', $code);
     }

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('version')->nullable();
+            $table->json('settings')->nullable();
+            $table->json('settings_default')->nullable();
             $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
         });

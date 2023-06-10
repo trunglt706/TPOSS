@@ -19,6 +19,12 @@ class AdminEmails extends Model
         'updated_by'
     ];
 
+    protected $hidden = [
+        'permission_id',
+        'created_by',
+        'updated_by'
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -42,12 +48,12 @@ class AdminEmails extends Model
     public function scopePermissionId($query, $permission_id)
     {
         if (is_array($permission_id)) {
-            return $query->whereIn('permission_id', $permission_id);
+            return $query->whereIntegerInRaw('permission_id', $permission_id);
         }
         return $query->where('permission_id', $permission_id);
     }
 
-    public function scopeCode($query, $code)
+    public function scopeOfCode($query, $code)
     {
         if (is_array($code)) {
             return $query->whereIn('code', $code);
@@ -58,7 +64,7 @@ class AdminEmails extends Model
     public function scopeOfCreated($query, $created_by)
     {
         if (is_array($created_by)) {
-            return $query->whereIn('created_by', $created_by);
+            return $query->whereIntegerInRaw('created_by', $created_by);
         }
         return $query->where('created_by', $created_by);
     }
@@ -66,7 +72,7 @@ class AdminEmails extends Model
     public function scopeOfUpdated($query, $updated_by)
     {
         if (is_array($updated_by)) {
-            return $query->whereIn('updated_by', $updated_by);
+            return $query->whereIntegerInRaw('updated_by', $updated_by);
         }
         return $query->where('updated_by', $updated_by);
     }

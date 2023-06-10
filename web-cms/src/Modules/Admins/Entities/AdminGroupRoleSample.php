@@ -17,6 +17,12 @@ class AdminGroupRoleSample extends Model
         'status'
     ];
 
+    protected $hidden = [
+        'permission_id',
+        'group_id',
+        'role_id',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -43,7 +49,7 @@ class AdminGroupRoleSample extends Model
     public function scopeGroupId($query, $group_id)
     {
         if (is_array($group_id)) {
-            return $query->whereIn('group_id', $group_id);
+            return $query->whereIntegerInRaw('group_id', $group_id);
         }
         return $query->where('group_id', $group_id);
     }
@@ -51,7 +57,7 @@ class AdminGroupRoleSample extends Model
     public function scopeRoleId($query, $role_id)
     {
         if (is_array($role_id)) {
-            return $query->whereIn('role_id', $role_id);
+            return $query->whereIntegerInRaw('role_id', $role_id);
         }
         return $query->where('role_id', $role_id);
     }

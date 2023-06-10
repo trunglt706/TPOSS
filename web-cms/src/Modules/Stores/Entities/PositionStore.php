@@ -15,6 +15,11 @@ class PositionStore extends Model
         'store_id'
     ];
 
+    protected $hidden = [
+        'position_id',
+        'store_id'
+    ];
+
     public function position()
     {
         return $this->hasOne(Positions::class, 'id', 'position_id');
@@ -28,7 +33,7 @@ class PositionStore extends Model
     public function scopePositionId($query, $position_id)
     {
         if (is_array($position_id)) {
-            return $query->whereIn('position_id', $position_id);
+            return $query->whereIntegerInRaw('position_id', $position_id);
         }
         return $query->where('position_id', $position_id);
     }
@@ -36,7 +41,7 @@ class PositionStore extends Model
     public function scopeStoreId($query, $store_id)
     {
         if (is_array($store_id)) {
-            return $query->whereIn('store_id', $store_id);
+            return $query->whereIntegerInRaw('store_id', $store_id);
         }
         return $query->where('store_id', $store_id);
     }

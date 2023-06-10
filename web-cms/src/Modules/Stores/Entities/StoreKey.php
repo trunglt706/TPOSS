@@ -22,6 +22,14 @@ class StoreKey extends Model
         'status'
     ];
 
+    protected $hidden = [
+        'store_id',
+        'key',
+        'pin',
+        'rgm',
+        'expire_date',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -52,27 +60,27 @@ class StoreKey extends Model
     public function scopeStoreId($query, $store_id)
     {
         if (is_array($store_id)) {
-            return $query->whereIn('store_id', $store_id);
+            return $query->whereIntegerInRaw('store_id', $store_id);
         }
         return $query->where('store_id', $store_id);
     }
 
-    public function scopeKey($query, $key)
+    public function scopeOfKey($query, $key)
     {
         return $query->where('key', $key);
     }
 
-    public function scopePin($query, $pin)
+    public function scopeOfPin($query, $pin)
     {
         return $query->where('pin', $pin);
     }
 
-    public function scopeRgm($query, $rgm)
+    public function scopeOfRgm($query, $rgm)
     {
         return $query->where('rgm', $rgm);
     }
 
-    public function scopeComputer($query, $computer)
+    public function scopeOfComputer($query, $computer)
     {
         return $query->where('computer', $computer);
     }

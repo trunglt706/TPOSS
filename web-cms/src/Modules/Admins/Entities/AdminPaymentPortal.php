@@ -20,7 +20,14 @@ class AdminPaymentPortal extends Model
         'version',
         'status',
         'created_by',
-        'private'
+        'private',
+        'settings',
+        'settings_default',
+    ];
+
+    protected $hidden = [
+        'settings',
+        'created_by'
     ];
 
     protected $casts = [
@@ -36,6 +43,20 @@ class AdminPaymentPortal extends Model
         );
     }
 
+    protected function settings(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => (json_decode($value, 1)),
+        );
+    }
+
+    protected function settingsDefault(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => (json_decode($value, 1)),
+        );
+    }
+
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
@@ -44,10 +65,10 @@ class AdminPaymentPortal extends Model
         return $this->hasOne(Admins::class, 'id', 'created_by');
     }
 
-    public function scopeCreatedBy($query, $created_by)
+    public function scopeOfCreated($query, $created_by)
     {
         if (is_array($created_by)) {
-            return $query->whereIn('created_by', $created_by);
+            return $query->whereIntegerInRaw('created_by', $created_by);
         }
         return $query->where('created_by', $created_by);
     }
@@ -60,7 +81,7 @@ class AdminPaymentPortal extends Model
         return $query->where('status', $status);
     }
 
-    public function scopeCode($query, $code)
+    public function scopeOfCode($query, $code)
     {
         if (is_array($code)) {
             return $query->whereIn('code', $code);

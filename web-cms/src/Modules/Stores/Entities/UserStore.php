@@ -17,6 +17,12 @@ class UserStore extends Model
         'status'
     ];
 
+    protected $hidden = [
+        'user_id',
+        'store_id',
+        'position_id',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -43,7 +49,7 @@ class UserStore extends Model
     public function scopeUserId($query, $user_id)
     {
         if (is_array($user_id)) {
-            return $query->whereIn('user_id', $user_id);
+            return $query->whereIntegerInRaw('user_id', $user_id);
         }
         return $query->where('user_id', $user_id);
     }
@@ -51,7 +57,7 @@ class UserStore extends Model
     public function scopeStoreId($query, $store_id)
     {
         if (is_array($store_id)) {
-            return $query->whereIn('store_id', $store_id);
+            return $query->whereIntegerInRaw('store_id', $store_id);
         }
         return $query->where('store_id', $store_id);
     }
@@ -59,7 +65,7 @@ class UserStore extends Model
     public function scopePositionId($query, $position_id)
     {
         if (is_array($position_id)) {
-            return $query->whereIn('position_id', $position_id);
+            return $query->whereIntegerInRaw('position_id', $position_id);
         }
         return $query->where('position_id', $position_id);
     }

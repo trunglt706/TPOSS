@@ -4,21 +4,20 @@ namespace Modules\Admins\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Stores\Entities\Stores;
 
-class CustomerStore extends Model
+class AdminCustomerFollow extends Model
 {
     use HasFactory;
-    protected $table = 'customer_stores';
+    protected $table = 'admin_customer_follows';
 
     protected $fillable = [
-        'customer_id',
-        'store_id'
+        'admin_id',
+        'customer_id'
     ];
 
     protected $hidden = [
-        'customer_id',
-        'store_id'
+        'admin_id',
+        'customer_id'
     ];
 
     protected $casts = [
@@ -26,14 +25,22 @@ class CustomerStore extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public function admin()
+    {
+        return $this->hasOne(Admins::class, 'id', 'admin_id');
+    }
+
     public function customer()
     {
         return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
     }
 
-    public function store()
+    public function scopeAdminId($query, $admin_id)
     {
-        return $this->hasOne(Stores::class, 'id', 'store_id');
+        if (is_array($admin_id)) {
+            return $query->whereIntegerInRaw('admin_id', $admin_id);
+        }
+        return $query->where('admin_id', $admin_id);
     }
 
     public function scopeCustomerId($query, $customer_id)
@@ -42,13 +49,5 @@ class CustomerStore extends Model
             return $query->whereIntegerInRaw('customer_id', $customer_id);
         }
         return $query->where('customer_id', $customer_id);
-    }
-
-    public function scopeStoreId($query, $store_id)
-    {
-        if (is_array($store_id)) {
-            return $query->whereIntegerInRaw('store_id', $store_id);
-        }
-        return $query->where('store_id', $store_id);
     }
 }

@@ -13,6 +13,7 @@
                             <p class="card-text mb-2 text-center">
                                 @lang('reset_header')
                             </p>
+                            @include('admins::admins.pages.auth.error')
                             <form class="auth-reset-password-form mt-2" action="{{ route('admin.reset_password') }}"
                                 method="POST">
                                 @csrf

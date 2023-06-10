@@ -31,6 +31,10 @@ class AdminSetting extends Model
         'group',
     ];
 
+    protected $hidden = [
+        'permission_id',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -65,7 +69,7 @@ class AdminSetting extends Model
     public function scopePermissionId($query, $permission_id)
     {
         if (is_array($permission_id)) {
-            return $query->whereIn('permission_id', $permission_id);
+            return $query->whereIntegerInRaw('permission_id', $permission_id);
         }
         return $query->where('permission_id', $permission_id);
     }
@@ -78,7 +82,7 @@ class AdminSetting extends Model
         return $query->where('code', $code);
     }
 
-    public function scopeType($query, $type)
+    public function scopeOfType($query, $type)
     {
         if (is_array($type)) {
             return $query->whereIn('type', $type);
@@ -86,7 +90,7 @@ class AdminSetting extends Model
         return $query->where('type', $type);
     }
 
-    public function scopeGroup($query, $group)
+    public function scopeOfGroup($query, $group)
     {
         return $query->where('group', $group);
     }

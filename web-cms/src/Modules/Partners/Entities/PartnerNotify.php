@@ -17,6 +17,8 @@ class PartnerNotify extends Model
         'ip',
     ];
 
+    protected $hidden = ['partner_id'];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -29,10 +31,13 @@ class PartnerNotify extends Model
 
     public function scopePartnerId($query, $partner_id)
     {
+        if (is_array($partner_id)) {
+            return $query->whereIntegerInRaw('partner_id', $partner_id);
+        }
         return $query->where('partner_id', $partner_id);
     }
 
-    public function scopeIp($query, $ip)
+    public function scopeOfIp($query, $ip)
     {
         return $query->where('ip', $ip);
     }

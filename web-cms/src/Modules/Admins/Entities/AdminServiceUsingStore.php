@@ -15,6 +15,11 @@ class AdminServiceUsingStore extends Model
         'store_id'
     ];
 
+    protected $hidden = [
+        'using_id',
+        'store_id'
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -33,7 +38,7 @@ class AdminServiceUsingStore extends Model
     public function scopeUsingId($query, $using_id)
     {
         if (is_array($using_id)) {
-            return $query->whereIn('using_id', $using_id);
+            return $query->whereIntegerInRaw('using_id', $using_id);
         }
         return $query->where('using_id', $using_id);
     }
@@ -41,7 +46,7 @@ class AdminServiceUsingStore extends Model
     public function scopeStoreId($query, $store_id)
     {
         if (is_array($store_id)) {
-            return $query->whereIn('store_id', $store_id);
+            return $query->whereIntegerInRaw('store_id', $store_id);
         }
         return $query->where('store_id', $store_id);
     }

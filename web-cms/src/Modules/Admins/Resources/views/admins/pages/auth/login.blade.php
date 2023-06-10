@@ -13,6 +13,7 @@
                             <p class="card-text mb-2 text-center">
                                 @lang('login_header')
                             </p>
+                            @include('admins::admins.pages.auth.error')
                             <form class="auth-login-form mt-2 auth-login" action="{{ route('admin.login') }}"
                                 method="POST">
                                 @csrf

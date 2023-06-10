@@ -26,7 +26,6 @@ use App\Observers\AdminRegisterUsingObserver;
 use App\Observers\AdminRoleDetailObserver;
 use App\Observers\AdminRoleObserver;
 use App\Observers\AdminServiceObserver;
-use App\Observers\AdminSettingGroupObserver;
 use App\Observers\AdminSettingObserver;
 use App\Observers\AdminStoreFollowObserver;
 use App\Observers\AdminTokenDeviceObserver;

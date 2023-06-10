@@ -4,22 +4,20 @@ namespace Modules\Admins\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Stores\Entities\Stores;
-use Nwidart\Modules\Facades\Module;
 
-class AdminStoreFollow extends Model
+class AdminLeadFollow extends Model
 {
     use HasFactory;
-    protected $table = 'admin_store_follows';
+    protected $table = 'admin_lead_follows';
 
     protected $fillable = [
         'admin_id',
-        'store_id'
+        'lead_id'
     ];
 
     protected $hidden = [
         'admin_id',
-        'store_id'
+        'lead_id'
     ];
 
     protected $casts = [
@@ -32,12 +30,9 @@ class AdminStoreFollow extends Model
         return $this->hasOne(Admins::class, 'id', 'admin_id');
     }
 
-    public function store()
+    public function lead()
     {
-        if (Module::has('Stores')) {
-            return $this->hasOne(Stores::class, 'id', 'store_id');
-        }
-        return null;
+        return $this->hasOne(AdminLead::class, 'id', 'lead_id');
     }
 
     public function scopeAdminId($query, $admin_id)
@@ -48,11 +43,11 @@ class AdminStoreFollow extends Model
         return $query->where('admin_id', $admin_id);
     }
 
-    public function scopeStoreId($query, $store_id)
+    public function scopeLeadId($query, $lead_id)
     {
-        if (is_array($store_id)) {
-            return $query->whereIntegerInRaw('store_id', $store_id);
+        if (is_array($lead_id)) {
+            return $query->whereIntegerInRaw('lead_id', $lead_id);
         }
-        return $query->where('store_id', $store_id);
+        return $query->where('lead_id', $lead_id);
     }
 }

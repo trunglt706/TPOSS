@@ -16,7 +16,14 @@ class InvoicePortal extends Model
         'name',
         'description',
         'version',
-        'status'
+        'status',
+        'settings',
+        'settings_default'
+    ];
+
+    protected $hidden = [
+        'settings',
+        'settings_default'
     ];
 
     protected $casts = [
@@ -31,6 +38,20 @@ class InvoicePortal extends Model
         );
     }
 
+    protected function settings(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => (json_decode($value, 1)),
+        );
+    }
+
+    protected function settingsDefault(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => (json_decode($value, 1)),
+        );
+    }
+
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
@@ -39,7 +60,7 @@ class InvoicePortal extends Model
         return $this->hasMany(AdminInvoice::class, 'portal_id', 'id');
     }
 
-    public function scopeCode($query, $code)
+    public function scopeOfCode($query, $code)
     {
         if (is_array($code)) {
             return $query->whereIn('code', $code);

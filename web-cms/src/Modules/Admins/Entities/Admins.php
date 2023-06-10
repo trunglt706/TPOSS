@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Stores\Entities\Stores;
 use Nwidart\Modules\Module;
+use Illuminate\Support\Str;
 
 class Admins extends Authenticatable
 {
@@ -80,6 +81,13 @@ class Admins extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'deleted_at',
+        'deleted_by',
+        'created_by',
+        'last_activity',
+        'expired_date',
+        'updated_at',
+        'last_login'
     ];
 
     /**
@@ -94,7 +102,7 @@ class Admins extends Authenticatable
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'expired_date' => 'date:Y-m-d',
-        'deleted_at' => 'datetime-m-d H:i:s',
+        'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     protected function identityCard(): Attribute
@@ -136,6 +144,13 @@ class Admins extends Authenticatable
     {
         return Attribute::make(
             set: fn (string $value) => ((bool)$value),
+        );
+    }
+
+    protected function phone(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => (get_option('hide-email-admin', true) ? Str::mask($value, '*', - (strlen($value)), (strlen($value) - 3)) : $value),
         );
     }
 
@@ -185,12 +200,12 @@ class Admins extends Authenticatable
 
     // scope
 
-    public function scopeEmail($query, $email)
+    public function scopeOfEmail($query, $email)
     {
         return $query->where('email', $email);
     }
 
-    public function scopePhone($query, $phone)
+    public function scopeOfPhone($query, $phone)
     {
         return $query->where('phone', $phone);
     }
@@ -203,7 +218,7 @@ class Admins extends Authenticatable
     public function scopeGroupId($query, $group_id)
     {
         if (is_array($group_id)) {
-            return $query->whereIn('group_id', $group_id);
+            return $query->whereIntegerInRaw('group_id', $group_id);
         }
         return $query->where('group_id', $group_id);
     }

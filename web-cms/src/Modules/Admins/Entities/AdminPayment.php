@@ -23,6 +23,13 @@ class AdminPayment extends Model
         'created_by'
     ];
 
+    protected $hidden = [
+        'order_id',
+        'method_id',
+        'portal_id',
+        'created_by'
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -58,7 +65,7 @@ class AdminPayment extends Model
     public function scopeOrderId($query, $order_id)
     {
         if (is_array($order_id)) {
-            return $query->whereIn('order_id', $order_id);
+            return $query->whereIntegerInRaw('order_id', $order_id);
         }
         return $query->where('order_id', $order_id);
     }
@@ -66,7 +73,7 @@ class AdminPayment extends Model
     public function scopeMethodId($query, $method_id)
     {
         if (is_array($method_id)) {
-            return $query->whereIn('method_id', $method_id);
+            return $query->whereIntegerInRaw('method_id', $method_id);
         }
         return $query->where('method_id', $method_id);
     }
@@ -74,20 +81,20 @@ class AdminPayment extends Model
     public function scopePortalId($query, $portal_id)
     {
         if (is_array($portal_id)) {
-            return $query->whereIn('portal_id', $portal_id);
+            return $query->whereIntegerInRaw('portal_id', $portal_id);
         }
         return $query->where('portal_id', $portal_id);
     }
 
-    public function scopeCreatedBy($query, $created_by)
+    public function scopeOfCreated($query, $created_by)
     {
         if (is_array($created_by)) {
-            return $query->whereIn('created_by', $created_by);
+            return $query->whereIntegerInRaw('created_by', $created_by);
         }
         return $query->where('created_by', $created_by);
     }
 
-    public function scopeType($query, $type)
+    public function scopeOfType($query, $type)
     {
         if (is_array($type)) {
             return $query->whereIn('type', $type);

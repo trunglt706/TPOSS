@@ -18,6 +18,11 @@ class PartnerHistory extends Model
         'last_inactive',
     ];
 
+    protected $hidden = [
+        'license_id',
+        'partner_id',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -38,7 +43,7 @@ class PartnerHistory extends Model
     public function scopeLicenseId($query, $license_id)
     {
         if (is_array($license_id)) {
-            return $query->whereIn('license_id', $license_id);
+            return $query->whereIntegerInRaw('license_id', $license_id);
         }
         return $query->where('license_id', $license_id);
     }
@@ -46,7 +51,7 @@ class PartnerHistory extends Model
     public function scopePartnerId($query, $partner_id)
     {
         if (is_array($partner_id)) {
-            return $query->whereIn('partner_id', $partner_id);
+            return $query->whereIntegerInRaw('partner_id', $partner_id);
         }
         return $query->where('partner_id', $partner_id);
     }

@@ -1,5 +1,8 @@
 <?php
 
+use Modules\Admins\Entities\Admins;
+use Modules\Stores\Entities\Users;
+
 return [
 
     /*
@@ -66,11 +69,11 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => Users::class,
         ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
+            'model' => Admins::class,
         ],
     ],
 

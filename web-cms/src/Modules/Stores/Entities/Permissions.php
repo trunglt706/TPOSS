@@ -19,6 +19,10 @@ class Permissions extends Model
         'status'
     ];
 
+    protected $hidden = [
+        'permission_id',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -49,7 +53,7 @@ class Permissions extends Model
     public function scopePermissionId($query, $permission_id)
     {
         if (is_array($permission_id)) {
-            return $query->whereIn('permission_id', $permission_id);
+            return $query->whereIntegerInRaw('permission_id', $permission_id);
         }
         return $query->where('permission_id', $permission_id);
     }

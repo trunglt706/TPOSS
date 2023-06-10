@@ -18,6 +18,12 @@ class StorePermission extends Model
         'status'
     ];
 
+    protected $hidden = [
+        'customer_id',
+        'store_id',
+        'permission_id',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -44,7 +50,7 @@ class StorePermission extends Model
     public function scopeCustomerId($query, $customer_id)
     {
         if (is_array($customer_id)) {
-            return $query->whereIn('customer_id', $customer_id);
+            return $query->whereIntegerInRaw('customer_id', $customer_id);
         }
         return $query->where('customer_id', $customer_id);
     }
@@ -52,7 +58,7 @@ class StorePermission extends Model
     public function scopeStoreId($query, $store_id)
     {
         if (is_array($store_id)) {
-            return $query->whereIn('store_id', $store_id);
+            return $query->whereIntegerInRaw('store_id', $store_id);
         }
         return $query->where('store_id', $store_id);
     }
@@ -60,7 +66,7 @@ class StorePermission extends Model
     public function scopePermissionId($query, $permission_id)
     {
         if (is_array($permission_id)) {
-            return $query->whereIn('permission_id', $permission_id);
+            return $query->whereIntegerInRaw('permission_id', $permission_id);
         }
         return $query->where('permission_id', $permission_id);
     }

@@ -21,6 +21,11 @@ class Partners extends Model
         'status',
     ];
 
+    protected $hidden = [
+        'created_by',
+        'deleted_by',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -56,18 +61,24 @@ class Partners extends Model
         return $this->hasMany(PartnerNotify::class, 'partner_id', 'id');
     }
 
-    public function scopeCode($query, $code)
+    public function scopeOfCode($query, $code)
     {
         return $query->where('code', $code);
     }
 
-    public function scopeDeletedBy($query, $deleted_by)
+    public function scopeOfDeleted($query, $deleted_by)
     {
+        if(is_array($deleted_by)) {
+            return $query->whereIntegerInRaw('deleted_by', $deleted_by);
+        }
         return $query->where('deleted_by', $deleted_by);
     }
 
-    public function scopeCreatedBy($query, $created_by)
+    public function scopeOfCreated($query, $created_by)
     {
+        if (is_array($created_by)) {
+            return $query->whereIntegerInRaw('created_by', $created_by);
+        }
         return $query->where('created_by', $created_by);
     }
 

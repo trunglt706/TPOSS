@@ -20,7 +20,7 @@ class SeedSettingTableSeeder extends Seeder
         AdminSetting::truncate();
 
         //=============== admin_customers
-        $admin_customers = AdminPermission::extension('admin_customers')->first();
+        $admin_customers = AdminPermission::ofExtension('admin_customers')->first();
         if ($admin_customers) {
             AdminSetting::create([
                 'code' => 'customer-assigned-default',
@@ -38,11 +38,18 @@ class SeedSettingTableSeeder extends Seeder
                 'data' => json_encode(Stores::get_currency()),
                 'value' => Stores::CURRENCY_VN,
             ]);
+            AdminSetting::create([
+                'code' => 'hide-phone-customer',
+                'permission_id' => $admin_customers->id,
+                'name' => 'Ẩn số điện thoại khách hàng',
+                'type' => AdminSetting::TYPE_CHECKBOX,
+                'value' => true,
+            ]);
         }
 
         //=============== admin_leads
-        $admin_leads = AdminPermission::extension('admin_leads')->first();
-        if ($admin_customers) {
+        $admin_leads = AdminPermission::ofExtension('admin_leads')->first();
+        if ($admin_leads) {
             AdminSetting::create([
                 'code' => 'lead-assigned-default',
                 'permission_id' => $admin_leads->id,
@@ -51,10 +58,17 @@ class SeedSettingTableSeeder extends Seeder
                 'data' => 'admins',
                 'value' => ''
             ]);
+            AdminSetting::create([
+                'code' => 'hide-phone-lead',
+                'permission_id' => $admin_leads->id,
+                'name' => 'Ẩn số điện thoại khách hàng tiềm năng',
+                'type' => AdminSetting::TYPE_CHECKBOX,
+                'value' => true,
+            ]);
         }
 
         //=============== services
-        $services = AdminPermission::extension('services')->first();
+        $services = AdminPermission::ofExtension('services')->first();
         if ($admin_customers) {
             AdminSetting::create([
                 'code' => 'support-device-default',
@@ -67,7 +81,7 @@ class SeedSettingTableSeeder extends Seeder
         }
 
         //=============== stores
-        $stores = AdminPermission::extension('stores')->first();
+        $stores = AdminPermission::ofExtension('stores')->first();
         if ($admin_customers) {
             AdminSetting::create([
                 'code' => 'admin-area-default',
@@ -90,7 +104,7 @@ class SeedSettingTableSeeder extends Seeder
         }
 
         //=============== admins
-        $admins = AdminPermission::extension('admins')->first();
+        $admins = AdminPermission::ofExtension('admins')->first();
         if ($admin_customers) {
             AdminSetting::create([
                 'code' => 'admin-url-firebase',
@@ -108,10 +122,18 @@ class SeedSettingTableSeeder extends Seeder
                 'value' => 'AAAAu3FpqXg:APA91bFPk9cAT0wVh-YEk5OUYwpi23zHEiJ85GDRdbVk20cxCcFrt2pb8ZUe1qU4EklBpltcwPTLPdtIC9n7LeGQucHSfP9tAe97-GSlgQws25vBCXMzS3KOntB9iTR8IrB11sU5TUYs',
                 'group' => 'firebase'
             ]);
+            AdminSetting::create([
+                'code' => 'hide-phone-admin',
+                'permission_id' => $admins->id,
+                'name' => 'Ẩn số điện thoại quản trị viên',
+                'type' => AdminSetting::TYPE_CHECKBOX,
+                'value' => true,
+                'group' => 'admin'
+            ]);
         }
 
         //=============== admin_settings
-        $admin_settings = AdminPermission::extension('admin_settings')->first();
+        $admin_settings = AdminPermission::ofExtension('admin_settings')->first();
         if ($admin_settings) {
             AdminSetting::create([
                 'code' => 'admin-seo-name',
@@ -144,6 +166,18 @@ class SeedSettingTableSeeder extends Seeder
                 'type' => AdminSetting::TYPE_FILE,
                 'value' => 'TPOS',
                 'group' => 'seo'
+            ]);
+        }
+
+        //=============== register_usings
+        $register_usings = AdminPermission::ofExtension('register_usings')->first();
+        if ($register_usings) {
+            AdminSetting::create([
+                'code' => 'hide-phone-register',
+                'permission_id' => $register_usings->id,
+                'name' => 'Ẩn số điện thoại đăng ký',
+                'type' => AdminSetting::TYPE_CHECKBOX,
+                'value' => true,
             ]);
         }
     }

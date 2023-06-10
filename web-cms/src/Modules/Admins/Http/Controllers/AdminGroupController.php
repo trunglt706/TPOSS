@@ -17,6 +17,10 @@ class AdminGroupController extends Controller
         return view('admins::index');
     }
 
+    public function list(Request $request) {
+        
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class Posts extends Model
 {
@@ -23,6 +24,11 @@ class Posts extends Model
         'content',
         'status',
         'created_by'
+    ];
+
+    protected $hidden = [
+        'created_by',
+        'group_id'
     ];
 
     protected $casts = [
@@ -58,10 +64,10 @@ class Posts extends Model
         return $this->hasOne(Admins::class, 'id', 'created_by');
     }
 
-    public function scopeCreatedBy($query, $created_by)
+    public function scopeOfCreated($query, $created_by)
     {
         if (is_array($created_by)) {
-            return $query->whereIn('created_by', $created_by);
+            return $query->whereIntegerInRaw('created_by', $created_by);
         }
         return $query->where('created_by', $created_by);
     }
@@ -74,7 +80,7 @@ class Posts extends Model
         return $query->where('status', $status);
     }
 
-    public function scopeSlug($query, $slug)
+    public function scopeOfSlug($query, $slug)
     {
         if (is_array($slug)) {
             return $query->whereIn('slug', $slug);
@@ -85,7 +91,7 @@ class Posts extends Model
     public function scopeGroupId($query, $group_id)
     {
         if (is_array($group_id)) {
-            return $query->whereIn('group_id', $group_id);
+            return $query->whereIntegerInRaw('group_id', $group_id);
         }
         return $query->where('group_id', $group_id);
     }
@@ -140,5 +146,14 @@ class Posts extends Model
     {
         $max = Posts::groupId($group_id)->count();
         return $max + 1;
+    }
+
+    public static function get_slug($name, $order = 0)
+    {
+        $slug = Str::slug($name);
+        if (PostGroup::ofSlug($slug)->exists()) {
+            return $slug . '-' . $order;
+        }
+        return $slug;
     }
 }

@@ -47,9 +47,9 @@ class CheckAndUpdateAdminExpired extends Command
             // send notify email to admin expired to warning
 
             // send notify to list admin has permission manager admin
-            $list_admin = AdminRoleDetail::whereHas('permission', function ($query) {
+            $list_admin = AdminRoleDetail::has('permission', function ($query) {
                 $query->extension('admins');
-            })->whereHas('role', function ($query) {
+            })->has('role', function ($query) {
                 $query->extension('view');
             })->pluck('admin_id')->distinct('admin_id')->toArray();
             if (!is_null($list_admin)) {

@@ -10,9 +10,11 @@ class AdminPostObserver
 {
     public function creating(Posts $post)
     {
+        $order = $post->order ?? Posts::get_order($post->group_id ?? 0);
         $post->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
-        $post->order = $post->order ?? Posts::get_order($post->group_id ?? 0);
+        $post->order = $order;
         $post->status = $post->status ?? Posts::STATUS_SUSPEND;
+        $post->slug = Posts::get_slug($post->name, $order);
     }
 
     public function created(Posts $post)
@@ -22,6 +24,7 @@ class AdminPostObserver
 
     public function updating(Posts $post)
     {
+        $post->slug = Posts::get_slug($post->name);
     }
 
     public function updated(Posts $post)

@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id()->index();
             $table->string('code')->unique();
-            $table->integer('client_id')->nullable()->index();
+            $table->integer('customer_id')->nullable()->index();
             $table->integer('position_id')->nullable()->index();
             $table->string('name');
             $table->string('phone')->nullable();

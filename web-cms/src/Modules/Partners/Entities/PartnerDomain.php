@@ -17,6 +17,10 @@ class PartnerDomain extends Model
         'status',
     ];
 
+    protected $hidden = [
+        'partner_id',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -31,13 +35,16 @@ class PartnerDomain extends Model
         return $this->hasOne(Partners::class, 'id', 'partner_id');
     }
 
-    public function scopeDomain($query, $domain)
+    public function scopeOfDomain($query, $domain)
     {
         return $query->where('domain', $domain);
     }
 
     public function scopePartnerId($query, $partner_id)
     {
+        if (is_array($partner_id)) {
+            return $query->whereIntegerInRaw('partner_id', $partner_id);
+        }
         return $query->where('partner_id', $partner_id);
     }
 

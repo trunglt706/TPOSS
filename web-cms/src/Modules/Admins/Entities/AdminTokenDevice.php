@@ -21,6 +21,10 @@ class AdminTokenDevice extends Model
         'status'
     ];
 
+    protected $hidden = [
+        'token',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',

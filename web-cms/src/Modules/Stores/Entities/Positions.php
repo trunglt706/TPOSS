@@ -22,6 +22,10 @@ class Positions extends Model
         'basic_salary'
     ];
 
+    protected $hidden = [
+        'customer_id',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -52,7 +56,7 @@ class Positions extends Model
     public function scopeCustomerId($query, $customer_id)
     {
         if (is_array($customer_id)) {
-            return $query->whereIn('customer_id', $customer_id);
+            return $query->whereIntegerInRaw('customer_id', $customer_id);
         }
         return $query->where('customer_id', $customer_id);
     }

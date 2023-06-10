@@ -7,10 +7,8 @@ use Modules\Admins\Entities\AdminMenus;
 
 class AdminMenuObserver
 {
-    /**
-     * Handle the AdminMenus "created" event.
-     */
-    public function created(AdminMenus $adminMenus): void
+
+    public function creating(AdminMenus $adminMenus): void
     {
         $adminMenus->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
         $adminMenus->status = $adminMenus->status ?? AdminMenus::STATUS_ACTIVE;
@@ -21,11 +19,23 @@ class AdminMenuObserver
     }
 
     /**
+     * Handle the AdminMenus "created" event.
+     */
+    public function created(AdminMenus $adminMenus): void
+    {
+        AdminMenus::load_menus();
+    }
+
+    public function updating(AdminMenus $adminMenus): void
+    {
+    }
+
+    /**
      * Handle the AdminMenus "updated" event.
      */
     public function updated(AdminMenus $adminMenus): void
     {
-        //
+        AdminMenus::load_menus();
     }
 
     /**
@@ -33,7 +43,7 @@ class AdminMenuObserver
      */
     public function deleted(AdminMenus $adminMenus): void
     {
-        //
+        AdminMenus::load_menus();
     }
 
     /**
@@ -41,7 +51,7 @@ class AdminMenuObserver
      */
     public function restored(AdminMenus $adminMenus): void
     {
-        //
+        AdminMenus::load_menus();
     }
 
     /**
@@ -49,6 +59,6 @@ class AdminMenuObserver
      */
     public function forceDeleted(AdminMenus $adminMenus): void
     {
-        //
+        AdminMenus::load_menus();
     }
 }

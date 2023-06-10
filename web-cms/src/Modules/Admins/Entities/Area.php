@@ -18,6 +18,10 @@ class Area extends Model
         'created_by'
     ];
 
+    protected $hidden = [
+        'created_by',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -36,10 +40,10 @@ class Area extends Model
         return $this->hasOne(Admins::class, 'id', 'created_by');
     }
 
-    public function scopeCreatedBy($query, $created_by)
+    public function scopeOfCreated($query, $created_by)
     {
         if (is_array($created_by)) {
-            return $query->whereIn('created_by', $created_by);
+            return $query->whereIntegerInRaw('created_by', $created_by);
         }
         return $query->where('created_by', $created_by);
     }

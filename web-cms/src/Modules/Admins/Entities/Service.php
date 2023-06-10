@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Stores\Entities\Stores;
+use Illuminate\Support\Str;
 
 class Service extends Model
 {
@@ -25,6 +26,10 @@ class Service extends Model
         'max_stores',
         'total_amount',
         'created_by'
+    ];
+
+    protected $hidden = [
+        'created_by',
     ];
 
     protected $casts = [
@@ -79,6 +84,13 @@ class Service extends Model
         );
     }
 
+    protected function phone(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => (get_option('hide-phone-register', true) ? Str::mask($value, '*', - (strlen($value)), (strlen($value) - 3)) : $value),
+        );
+    }
+
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
@@ -98,15 +110,15 @@ class Service extends Model
         return $this->hasOne(Admins::class, 'id', 'created_by');
     }
 
-    public function scopeCode($query, $code)
+    public function scopeOfCode($query, $code)
     {
         return $query->where('code', $code);
     }
 
-    public function scopeCreatedBy($query, $created_by)
+    public function scopeOfCreated($query, $created_by)
     {
         if (is_array($created_by)) {
-            return $query->whereIn('created_by', $created_by);
+            return $query->whereIntegerInRaw('created_by', $created_by);
         }
         return $query->where('created_by', $created_by);
     }

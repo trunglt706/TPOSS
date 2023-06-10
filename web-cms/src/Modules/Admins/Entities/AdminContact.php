@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class AdminContact extends Model
 {
@@ -37,6 +38,21 @@ class AdminContact extends Model
         'gender',
         'position',
         'is_primary'
+    ];
+
+    protected $hidden = [
+        'customer_id',
+        'province_id',
+        'district_id',
+        'ward_id',
+        'created_by',
+        'identity_card',
+        'tax_code',
+        'bank_name',
+        'bank_address',
+        'bank_branch',
+        'bank_account_number',
+        'bank_account_name',
     ];
 
     protected $casts = [
@@ -73,6 +89,13 @@ class AdminContact extends Model
         );
     }
 
+    protected function phone(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => (get_option('hide-phone-customer', true) ? Str::mask($value, '*', - (strlen($value)), (strlen($value) - 3)) : $value),
+        );
+    }
+
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
@@ -104,7 +127,7 @@ class AdminContact extends Model
     public function scopeProvinceId($query, $province_id)
     {
         if (is_array($province_id)) {
-            return $query->whereIn('province_id', $province_id);
+            return $query->whereIntegerInRaw('province_id', $province_id);
         }
         return $query->where('province_id', $province_id);
     }
@@ -112,7 +135,7 @@ class AdminContact extends Model
     public function scopeDistrictId($query, $district_id)
     {
         if (is_array($district_id)) {
-            return $query->whereIn('district_id', $district_id);
+            return $query->whereIntegerInRaw('district_id', $district_id);
         }
         return $query->where('district_id', $district_id);
     }
@@ -120,7 +143,7 @@ class AdminContact extends Model
     public function scopeWardId($query, $ward_id)
     {
         if (is_array($ward_id)) {
-            return $query->whereIn('ward_id', $ward_id);
+            return $query->whereIntegerInRaw('ward_id', $ward_id);
         }
         return $query->where('ward_id', $ward_id);
     }
@@ -128,7 +151,7 @@ class AdminContact extends Model
     public function scopeCustomerId($query, $customer_id)
     {
         if (is_array($customer_id)) {
-            return $query->whereIn('customer_id', $customer_id);
+            return $query->whereIntegerInRaw('customer_id', $customer_id);
         }
         return $query->where('customer_id', $customer_id);
     }
@@ -136,12 +159,12 @@ class AdminContact extends Model
     public function scopeOfCreated($query, $created_by)
     {
         if (is_array($created_by)) {
-            return $query->whereIn('created_by', $created_by);
+            return $query->whereIntegerInRaw('created_by', $created_by);
         }
         return $query->where('created_by', $created_by);
     }
 
-    public function scopePhone($query, $phone)
+    public function scopeOfPhone($query, $phone)
     {
         if (is_array($phone)) {
             return $query->whereIn('phone', $phone);
@@ -149,7 +172,7 @@ class AdminContact extends Model
         return $query->where('phone', $phone);
     }
 
-    public function scopeEmail($query, $email)
+    public function scopeOfEmail($query, $email)
     {
         if (is_array($email)) {
             return $query->whereIn('email', $email);
@@ -157,7 +180,7 @@ class AdminContact extends Model
         return $query->where('email', $email);
     }
 
-    public function scopeIdentityCard($query, $identity_card)
+    public function scopeOfIdentityCard($query, $identity_card)
     {
         if (is_array($identity_card)) {
             return $query->whereIn('identity_card', $identity_card);
@@ -165,7 +188,7 @@ class AdminContact extends Model
         return $query->where('identity_card', $identity_card);
     }
 
-    public function scopeTaxCode($query, $tax_code)
+    public function scopeOfTaxCode($query, $tax_code)
     {
         if (is_array($tax_code)) {
             return $query->whereIn('tax_code', $tax_code);
@@ -173,7 +196,7 @@ class AdminContact extends Model
         return $query->where('tax_code', $tax_code);
     }
 
-    public function scopeCode($query, $code)
+    public function scopeOfCode($query, $code)
     {
         if (is_array($code)) {
             return $query->whereIn('code', $code);

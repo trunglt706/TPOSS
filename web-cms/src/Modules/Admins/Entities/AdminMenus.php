@@ -4,6 +4,7 @@ namespace Modules\Admins\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Cache;
 
 class AdminMenus extends Model
 {
@@ -20,6 +21,11 @@ class AdminMenus extends Model
         'parent_id',
         'icon',
         'order'
+    ];
+
+    protected $hidden = [
+        'created_by',
+        'parent_id',
     ];
 
     protected $casts = [
@@ -42,7 +48,7 @@ class AdminMenus extends Model
         return $this->hasMany(AdminMenus::class, 'parent_id', 'id')->active();
     }
 
-    public function scopeType($query, $type)
+    public function scopeOfType($query, $type)
     {
         if (is_array($type)) {
             return $query->whereIn('type', $type);
@@ -50,7 +56,7 @@ class AdminMenus extends Model
         return $query->where('type', $type);
     }
 
-    public function scopeRoute($query, $route)
+    public function scopeOfRoute($query, $route)
     {
         if (is_array($route)) {
             return $query->whereIn('route', $route);
@@ -76,7 +82,7 @@ class AdminMenus extends Model
         return $query->where('status', self::STATUS_ACTIVE);
     }
 
-    public function scopeOrder($query)
+    public function scopeOfOrder($query)
     {
         return $query->where('order', 'desc');
     }
@@ -103,5 +109,19 @@ class AdminMenus extends Model
     {
         $max = AdminMenus::parentId($parent_id)->count();
         return $max + 1;
+    }
+
+    public static function load_menus()
+    {
+        $menu_admin = Cache::rememberForever('menu_admin', function () {
+            $menu_admin = AdminMenus::with('roles')
+                ->ofType([AdminMenus::TYPE_MAIN, AdminMenus::TYPE_HEADER])
+                ->parentId(0)
+                ->active()
+                ->order()
+                ->get();
+            return $menu_admin;
+        });
+        return $menu_admin;
     }
 }

@@ -15,7 +15,7 @@ class AdminSettingObserver
 
     public function created(AdminSetting $setting)
     {
-        //
+        AdminSetting::cache_all_setting();
     }
 
     public function updating(AdminSetting $setting)
@@ -24,6 +24,7 @@ class AdminSettingObserver
 
     public function updated(AdminSetting $setting)
     {
+        AdminSetting::cache_all_setting();
     }
 
     public function deleted(AdminSetting $setting)
@@ -31,15 +32,16 @@ class AdminSettingObserver
         if ($setting->type == AdminSetting::TYPE_FILE && $setting->value) {
             Storage::delete($setting->value);
         }
+        AdminSetting::cache_all_setting();
     }
 
     public function restored(AdminSetting $setting)
     {
-        //
+        AdminSetting::cache_all_setting();
     }
 
     public function forceDeleted(AdminSetting $setting)
     {
-        //
+        AdminSetting::cache_all_setting();
     }
 }

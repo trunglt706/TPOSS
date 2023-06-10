@@ -16,6 +16,11 @@ class AdminOrderStore extends Model
         'store_id'
     ];
 
+    protected $hidden = [
+        'order_id',
+        'store_id'
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -34,7 +39,7 @@ class AdminOrderStore extends Model
     public function scopeOrderId($query, $order_id)
     {
         if (is_array($order_id)) {
-            return $query->whereIn('order_id', $order_id);
+            return $query->whereIntegerInRaw('order_id', $order_id);
         }
         return $query->where('order_id', $order_id);
     }
@@ -42,7 +47,7 @@ class AdminOrderStore extends Model
     public function scopeStoreId($query, $store_id)
     {
         if (is_array($store_id)) {
-            return $query->whereIn('store_id', $store_id);
+            return $query->whereIntegerInRaw('store_id', $store_id);
         }
         return $query->where('store_id', $store_id);
     }

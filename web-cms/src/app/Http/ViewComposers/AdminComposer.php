@@ -27,15 +27,7 @@ class AdminComposer
         if (Cache::has('menu_admin')) {
             $menu_admin = Cache::get('menu_admin');
         } else {
-            $menu_admin = Cache::rememberForever('menu_admin', function () {
-                $menu_admin = AdminMenus::with('roles')
-                    ->type([AdminMenus::TYPE_MAIN, AdminMenus::TYPE_HEADER])
-                    ->parentId(0)
-                    ->active()
-                    ->order()
-                    ->get();
-                return $menu_admin;
-            });
+            $menu_admin = AdminMenus::load_menus();
         }
         $view->with('menu_admin', $menu_admin);
 

@@ -29,6 +29,14 @@ class RegisterUsing extends Model
         'expired_code'
     ];
 
+    protected $hidden = [
+        'business_type_id',
+        'service_id',
+        'lead_id',
+        'verify_code',
+        'expired_code'
+    ];
+
     protected function ip(): Attribute
     {
         return Attribute::make(
@@ -69,12 +77,12 @@ class RegisterUsing extends Model
         return $this->hasOne(AdminLead::class, 'id', 'lead_id');
     }
 
-    public function scopeEmail($query, $email)
+    public function scopeOfEmail($query, $email)
     {
         return $query->where('email', $email);
     }
 
-    public function scopePhone($query, $phone)
+    public function scopeOfPhone($query, $phone)
     {
         return $query->where('phone', $phone);
     }
@@ -82,7 +90,7 @@ class RegisterUsing extends Model
     public function scopeLeadId($query, $lead_id)
     {
         if (is_array($lead_id)) {
-            return $query->whereIn('lead_id', $lead_id);
+            return $query->whereIntegerInRaw('lead_id', $lead_id);
         }
         return $query->where('lead_id', $lead_id);
     }
@@ -90,7 +98,7 @@ class RegisterUsing extends Model
     public function scopeServiceId($query, $service_id)
     {
         if (is_array($service_id)) {
-            return $query->whereIn('service_id', $service_id);
+            return $query->whereIntegerInRaw('service_id', $service_id);
         }
         return $query->where('service_id', $service_id);
     }
@@ -98,7 +106,7 @@ class RegisterUsing extends Model
     public function scopeBusinessTypeId($query, $business_type_id)
     {
         if (is_array($business_type_id)) {
-            return $query->whereIn('business_type_id', $business_type_id);
+            return $query->whereIntegerInRaw('business_type_id', $business_type_id);
         }
         return $query->where('business_type_id', $business_type_id);
     }
@@ -111,7 +119,7 @@ class RegisterUsing extends Model
         return $query->where('status', $status);
     }
 
-    public function scopeIp($query, $ip)
+    public function scopeOfIp($query, $ip)
     {
         if (is_array($ip)) {
             return $query->whereIn('ip', $ip);

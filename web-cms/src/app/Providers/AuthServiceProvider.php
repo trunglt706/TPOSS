@@ -11,7 +11,6 @@ use Modules\Admins\Entities\AdminPermission;
 use Modules\Admins\Entities\AdminRole;
 use Modules\Admins\Entities\AdminRoleDetail;
 use Modules\Admins\Entities\Admins;
-use Modules\Stores\Entities\Users;
 
 class AuthServiceProvider extends ServiceProvider
 {

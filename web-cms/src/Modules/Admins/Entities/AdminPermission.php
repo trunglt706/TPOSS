@@ -40,7 +40,7 @@ class AdminPermission extends Model
         return $this->hasMany(AdminRole::class, 'permission_id', 'id');
     }
 
-    public function scopeExtension($query, $extension)
+    public function scopeOfExtension($query, $extension)
     {
         if (is_array($extension)) {
             return $query->whereIn('extension', $extension);

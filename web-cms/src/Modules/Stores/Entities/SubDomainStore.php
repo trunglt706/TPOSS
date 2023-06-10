@@ -15,6 +15,11 @@ class SubDomainStore extends Model
         'store_id'
     ];
 
+    protected $hidden = [
+        'sub_domain_id',
+        'store_id'
+    ];
+
     public function sub_domain()
     {
         return $this->hasOne(SubDomain::class, 'id', 'sub_domain_id');
@@ -28,7 +33,7 @@ class SubDomainStore extends Model
     public function scopeSubDomainId($query, $sub_domain_id)
     {
         if (is_array($sub_domain_id)) {
-            return $query->whereIn('sub_domain_id', $sub_domain_id);
+            return $query->whereIntegerInRaw('sub_domain_id', $sub_domain_id);
         }
         return $query->where('sub_domain_id', $sub_domain_id);
     }
@@ -36,7 +41,7 @@ class SubDomainStore extends Model
     public function scopeStoreId($query, $store_id)
     {
         if (is_array($store_id)) {
-            return $query->whereIn('store_id', $store_id);
+            return $query->whereIntegerInRaw('store_id', $store_id);
         }
         return $query->where('store_id', $store_id);
     }

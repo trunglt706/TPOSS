@@ -39,7 +39,7 @@ class AdminChannelNotify extends Model
         );
     }
 
-    public function scopeCode($query, $code)
+    public function scopeOfCode($query, $code)
     {
         return $query->where('code', $code);
     }

@@ -24,6 +24,12 @@ class AdminActivity extends Model
         'status'
     ];
 
+    protected $hidden = [
+        'permission_id',
+        'role_id',
+        'admin_id',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -52,7 +58,10 @@ class AdminActivity extends Model
 
     public function admin()
     {
-        return $this->hasOne(Admins::class, 'id', 'admin_id');
+        return $this->hasOne(Admins::class, 'id', 'admin_id')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function permission()
@@ -68,7 +77,7 @@ class AdminActivity extends Model
     public function scopePermissionId($query, $permission_id)
     {
         if (is_array($permission_id)) {
-            return $query->whereIn('permission_id', $permission_id);
+            return $query->whereIntegerInRaw('permission_id', $permission_id);
         }
         return $query->where('permission_id', $permission_id);
     }
@@ -76,7 +85,7 @@ class AdminActivity extends Model
     public function scopeRoleId($query, $role_id)
     {
         if (is_array($role_id)) {
-            return $query->whereIn('role_id', $role_id);
+            return $query->whereIntegerInRaw('role_id', $role_id);
         }
         return $query->where('role_id', $role_id);
     }
@@ -84,7 +93,7 @@ class AdminActivity extends Model
     public function scopeAdminId($query, $admin_id)
     {
         if (is_array($admin_id)) {
-            return $query->whereIn('admin_id', $admin_id);
+            return $query->whereIntegerInRaw('admin_id', $admin_id);
         }
         return $query->where('admin_id', $admin_id);
     }
@@ -97,7 +106,7 @@ class AdminActivity extends Model
         return $query->where('status', $status);
     }
 
-    public function scopeIp($query, $ip)
+    public function scopeOfIp($query, $ip)
     {
         if (is_array($ip)) {
             return $query->whereIn('ip', $ip);
@@ -105,12 +114,12 @@ class AdminActivity extends Model
         return $query->where('ip', $ip);
     }
 
-    public function scopeLink($query, $link)
+    public function scopeOfLink($query, $link)
     {
         return $query->where('link', $link);
     }
 
-    public function scopeDevice($query, $device)
+    public function scopeOfDevice($query, $device)
     {
         if (is_array($device)) {
             return $query->whereIn('device', $device);

@@ -19,6 +19,11 @@ class AdminInvoice extends Model
         'status'
     ];
 
+    protected $hidden = [
+        'order_id',
+        'portal_id',
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -48,7 +53,7 @@ class AdminInvoice extends Model
     public function scopeOrderId($query, $order_id)
     {
         if (is_array($order_id)) {
-            return $query->whereIn('order_id', $order_id);
+            return $query->whereIntegerInRaw('order_id', $order_id);
         }
         return $query->where('order_id', $order_id);
     }
@@ -56,7 +61,7 @@ class AdminInvoice extends Model
     public function scopePortalId($query, $portal_id)
     {
         if (is_array($portal_id)) {
-            return $query->whereIn('portal_id', $portal_id);
+            return $query->whereIntegerInRaw('portal_id', $portal_id);
         }
         return $query->where('portal_id', $portal_id);
     }

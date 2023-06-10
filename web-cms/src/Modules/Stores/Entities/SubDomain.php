@@ -22,10 +22,16 @@ class SubDomain extends Model
         'created_by'
     ];
 
+    protected $hidden = [
+        'customer_id',
+        'active_date',
+        'created_by'
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'active_date' => 'datetime-m-d H:i:s',
+        'active_date' => 'datetime:Y-m-d H:i:s',
     ];
 
     const STATUS_ACTIVE = 1;
@@ -41,7 +47,7 @@ class SubDomain extends Model
         return $this->hasOne(Admins::class, 'id', 'created_by');
     }
 
-    public function scopeDomain($query, $domain)
+    public function scopeOfDomain($query, $domain)
     {
         return $query->where('domain', $domain);
     }
@@ -49,15 +55,15 @@ class SubDomain extends Model
     public function scopeCustomerId($query, $customer_id)
     {
         if (is_array($customer_id)) {
-            return $query->whereIn('customer_id', $customer_id);
+            return $query->whereIntegerInRaw('customer_id', $customer_id);
         }
         return $query->where('customer_id', $customer_id);
     }
 
-    public function scopeCreatedBy($query, $created_by)
+    public function scopeOfCreated($query, $created_by)
     {
         if (is_array($created_by)) {
-            return $query->whereIn('created_by', $created_by);
+            return $query->whereIntegerInRaw('created_by', $created_by);
         }
         return $query->where('created_by', $created_by);
     }

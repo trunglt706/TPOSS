@@ -13,6 +13,7 @@
                             <p class="card-text mb-2 text-center">
                                 @lang('forgot_password_header')
                             </p>
+                            @include('admins::admins.pages.auth.error')
                             <form class="auth-forgot-password-form mt-2" action="{{ route('admin.forgot_password') }}"
                                 method="POST">
                                 @csrf
