@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('order')->default(0);
             $table->string('description')->nullable();
             $table->boolean('status')->default(true);
+            $table->string('group')->nullable();
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace Modules\Admins\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 
 class AdminGroup extends Model
 {
@@ -28,6 +29,44 @@ class AdminGroup extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($group) {
+            $group->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $group->order = $group->order ?? self::get_order();
+        });
+
+        static::created(function ($group) {
+            // add to table admin_group_role_samples
+            foreach (AdminPermission::all() as $permission) {
+                AdminGroupRoleSample::firstOrCreate([
+                    'permission_id' => $permission->id,
+                    'group_id' => $group->id,
+                    'status' => $group->id == 1 ? AdminGroupRoleSample::STATUS_ACTIVE : AdminGroupRoleSample::STATUS_SUSPEND
+                ]);
+                foreach (AdminRole::permissionId($permission->id)->get() as $role) {
+                    AdminGroupRoleSample::firstOrCreate([
+                        'permission_id' => $permission->id,
+                        'group_id' => $group->id,
+                        'role_id' => $role->id,
+                        'status' => $group->id == 1 ? AdminGroupRoleSample::STATUS_ACTIVE : AdminGroupRoleSample::STATUS_SUSPEND
+                    ]);
+                }
+            }
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($group) {
+            // delete table admin_group_role_samples
+            AdminGroupRoleSample::groupId($group->id)->delete();
+        });
+    }
+
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
@@ -38,7 +77,10 @@ class AdminGroup extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function scopeOfCreated($query, $created_by)

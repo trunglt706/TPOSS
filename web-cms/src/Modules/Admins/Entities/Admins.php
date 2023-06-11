@@ -8,11 +8,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Stores\Entities\Stores;
 use Nwidart\Modules\Module;
 use Illuminate\Support\Str;
+use Modules\Admins\Emails\EmailAdminActive;
+use Modules\Admins\Emails\EmailAdminInfo;
+use Modules\Admins\Emails\EmailAdminSuspended;
 
 class Admins extends Authenticatable
 {
@@ -105,6 +111,85 @@ class Admins extends Authenticatable
         'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($admin) {
+            $admin->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $admin->password = $admin->password ?? self::get_password_default();
+            $admin->gender = $admin->gender ?? self::GENDER_OTHER;
+            $admin->status = $admin->status ?? self::STATUS_UN_ACTIVE;
+            $admin->root = $admin->root ?? self::NOT_ROOT;
+            $admin->supper = $admin->supper ?? self::NOT_SUPPER;
+            $admin->code = $admin->code ?? self::get_code_default();
+        });
+
+        static::created(function ($admin) {
+            // add to admin_role_details
+            foreach (AdminGroupRoleSample::groupId($admin->group_id ?? null)->get() as $permission) {
+                AdminRoleDetail::firstOrCreate([
+                    'permission_id' => $permission->permission_id,
+                    'admin_id' => $admin->id,
+                    'role_id' => $permission->role_id ?? null,
+                    'status' => $admin->root == self::IS_ROOT ? AdminRoleDetail::STATUS_ACTIVE : $permission->status,
+                ]);
+            }
+            // check and send email
+            if ($admin->status == Admins::STATUS_UN_ACTIVE) {
+                try {
+                    Mail::to($admin->email)->send(new EmailAdminActive($admin));
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
+            } else if ($admin->status == Admins::STATUS_ACTIVE) {
+                try {
+                    Mail::to($admin->email)->send(new EmailAdminInfo($admin));
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
+            }
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($admin) {
+            if ($admin->status == Admins::STATUS_SUSPEND) {
+                try {
+                    Mail::to($admin->email)->send(new EmailAdminSuspended($admin));
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
+            }
+        });
+
+        static::deleted(function ($admin) {
+            $admin->status = self::STATUS_DELETED;
+            $admin->deleted_by = Auth::guard('admin')->user()->id;
+
+            // delete admin_role_details
+            AdminRoleDetail::adminId($admin->id)->delete();
+
+            // check and delete avatar in s3
+            if ($admin->avatar) {
+                Storage::delete($admin->avatar);
+            }
+        });
+
+        static::restored(function ($admin) {
+            $admin->status = self::STATUS_ACTIVE;
+
+            // add to admin_role_details
+            foreach (AdminGroupRoleSample::groupId($admin->group_id ?? null)->get() as $permission) {
+                AdminRoleDetail::firstOrCreate([
+                    'permission_id' => $permission->permission_id,
+                    'admin_id' => $admin->id,
+                    'role_id' => $permission->role_id ?? null,
+                    'status' => $admin->root == self::IS_ROOT ? AdminRoleDetail::STATUS_ACTIVE : $permission->status,
+                ]);
+            }
+        });
+    }
+
     protected function identityCard(): Attribute
     {
         return Attribute::make(
@@ -182,12 +267,18 @@ class Admins extends Authenticatable
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'created_by', 'id');
+        return $this->hasOne(Admins::class, 'created_by', 'id')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function deletedBy()
     {
-        return $this->hasOne(Admins::class, 'deleted_by', 'id');
+        return $this->hasOne(Admins::class, 'deleted_by', 'id')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function storeAssigned()
@@ -199,7 +290,6 @@ class Admins extends Authenticatable
     }
 
     // scope
-
     public function scopeOfEmail($query, $email)
     {
         return $query->where('email', $email);

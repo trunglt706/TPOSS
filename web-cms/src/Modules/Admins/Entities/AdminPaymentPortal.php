@@ -5,6 +5,8 @@ namespace Modules\Admins\Entities;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AdminPaymentPortal extends Model
 {
@@ -36,6 +38,28 @@ class AdminPaymentPortal extends Model
         'private' => 'boolean',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($portal) {
+            $portal->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $portal->order = $portal->order ?? self::get_order();
+            $portal->status = $portal->status ?? self::STATUS_SUSPEND;
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($portal) {
+            Storage::delete($portal->image);
+        });
+    }
+
     protected function order(): Attribute
     {
         return Attribute::make(
@@ -62,7 +86,10 @@ class AdminPaymentPortal extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function scopeOfCreated($query, $created_by)

@@ -5,6 +5,7 @@ namespace Modules\Admins\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class AdminMenus extends Model
 {
@@ -17,14 +18,12 @@ class AdminMenus extends Model
         'status',
         'route',
         'target',
-        'created_by',
         'parent_id',
         'icon',
         'order'
     ];
 
     protected $hidden = [
-        'created_by',
         'parent_id',
     ];
 
@@ -32,6 +31,38 @@ class AdminMenus extends Model
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            $parent_id = $model->parent_id ?? 0;
+            $model->status = $model->status ?? self::STATUS_ACTIVE;
+            $model->type = $model->type ?? self::TYPE_MAIN;
+            $model->target = $model->target ?? self::TARGET_SELF;
+            $model->parent_id = $parent_id;
+            $model->order = $model->order ?? self::get_order($parent_id);
+        });
+
+        static::created(function ($model) {
+            self::load_menus();
+        });
+
+        static::updating(function ($model) {
+            self::load_menus();
+        });
+
+        static::updated(function ($model) {
+            self::load_menus();
+        });
+
+        static::deleting(function ($model) {
+            $model->roles()->delete();
+        });
+
+        static::deleted(function ($model) {
+            self::load_menus();
+        });
+    }
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
@@ -54,6 +85,11 @@ class AdminMenus extends Model
             return $query->whereIn('type', $type);
         }
         return $query->where('type', $type);
+    }
+
+    public function scopeOfName($query, $name)
+    {
+        return $query->where('name', $name);
     }
 
     public function scopeOfRoute($query, $route)

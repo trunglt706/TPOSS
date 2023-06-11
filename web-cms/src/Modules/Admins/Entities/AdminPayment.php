@@ -5,6 +5,8 @@ namespace Modules\Admins\Entities;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AdminPayment extends Model
 {
@@ -36,6 +38,28 @@ class AdminPayment extends Model
         'total' => 'integer',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($payment) {
+            $payment->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $payment->type = $payment->type ?? self::TYPE_THU;
+            $payment->status = $payment->status ?? self::STATUS_FAILED;
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($payment) {
+            Storage::delete($payment->attachment);
+        });
+    }
+
     const STATUS_SUCCESS = 1;
     const STATUS_FAILED = 2;
 
@@ -59,7 +83,10 @@ class AdminPayment extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function scopeOrderId($query, $order_id)

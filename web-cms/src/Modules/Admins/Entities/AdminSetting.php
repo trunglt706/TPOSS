@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class AdminSetting extends Model
 {
@@ -39,6 +40,32 @@ class AdminSetting extends Model
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($setting) {
+            $setting->order = $setting->order ?? self::get_order($setting->permission_id ?? 0);
+            $setting->type = $setting->type ?? self::TYPE_INPUT;
+        });
+
+        static::created(function ($model) {
+            self::cache_all_setting();
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+            self::cache_all_setting();
+        });
+
+        static::deleted(function ($setting) {
+            if ($setting->type == self::TYPE_FILE && $setting->value) {
+                Storage::delete($setting->value);
+            }
+            self::cache_all_setting();
+        });
+    }
 
     protected function data(): Attribute
     {

@@ -20,6 +20,24 @@ class PositionStore extends Model
         'store_id'
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+        });
+    }
+
     public function position()
     {
         return $this->hasOne(Positions::class, 'id', 'position_id');

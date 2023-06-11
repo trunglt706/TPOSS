@@ -37,6 +37,40 @@ class RegisterUsing extends Model
         'expired_code'
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'expired_code' => 'datetime',
+        'date_convert' => 'datetime',
+    ];
+
+    protected static function booted()
+    {
+        static::creating(function ($client) {
+            $status = $client->status ?? self::STATUS_WAIT;
+            $client->ip = $client->ip ?? get_ip();
+            $client->device = $client->device ?? get_device();
+            $client->status = $status;
+
+            if ($status == self::STATUS_WAIT) {
+                $client->verify_code = generateRandomString(10);
+                $client->expired_code = Carbon::now()->addMinutes(15);
+            }
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+        });
+    }
+
     protected function ip(): Attribute
     {
         return Attribute::make(
@@ -50,13 +84,6 @@ class RegisterUsing extends Model
             set: fn (string $value) => (strtoupper($value)),
         );
     }
-
-    protected $casts = [
-        'created_at' => 'datetime:Y-m-d H:i:s',
-        'updated_at' => 'datetime:Y-m-d H:i:s',
-        'expired_code' => 'datetime',
-        'date_convert' => 'datetime',
-    ];
 
     const STATUS_WAIT = 0;
     const STATUS_APPROVED = 1;

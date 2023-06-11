@@ -26,6 +26,24 @@ class CustomerStore extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+        });
+    }
+
     public function customer()
     {
         return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');

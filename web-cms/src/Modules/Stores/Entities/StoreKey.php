@@ -36,6 +36,24 @@ class StoreKey extends Model
         'expire_date' => 'date:Y-m-d'
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+        });
+    }
+
     protected function pin(): Attribute
     {
         return Attribute::make(

@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Posts extends Model
@@ -37,6 +39,30 @@ class Posts extends Model
         'order' => 'integer',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($post) {
+            $order = $post->order ?? self::get_order($post->group_id ?? 0);
+            $post->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $post->order = $order;
+            $post->status = $post->status ?? Posts::STATUS_SUSPEND;
+            $post->slug = self::get_slug($post->name, $order);
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($post) {
+            Storage::delete($post->image);
+        });
+    }
+
     protected function order(): Attribute
     {
         return Attribute::make(
@@ -61,7 +87,10 @@ class Posts extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function scopeOfCreated($query, $created_by)

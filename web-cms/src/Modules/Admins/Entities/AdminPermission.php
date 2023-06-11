@@ -17,13 +17,47 @@ class AdminPermission extends Model
         'icon',
         'order',
         'description',
-        'status'
+        'status',
+        'group'
     ];
+
+    protected $hidden = [];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($permission) {
+            $permission->order = $permission->order ?? self::get_order();
+            $permission->status = $permission->status ?? self::STATUS_ACTIVE;
+        });
+
+        static::created(function ($permission) {
+            // add to group role sample
+            AdminGroup::each(function ($group) use ($permission) {
+                AdminGroupRoleSample::firstOrCreate([
+                    'permission_id' => $permission->id,
+                    'group_id' => $group->id,
+                    'status' => AdminGroupRoleSample::STATUS_SUSPEND
+                ]);
+            });
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($permission) {
+            AdminRole::permissionId($permission->id)->delete();
+            // delete out group role sample
+            AdminGroupRoleSample::permissionId($permission->id)->delete();
+        });
+    }
 
     protected function order(): Attribute
     {
@@ -46,6 +80,11 @@ class AdminPermission extends Model
             return $query->whereIn('extension', $extension);
         }
         return $query->where('extension', $extension);
+    }
+
+    public function scopeOfGroup($query, $group)
+    {
+        return $query->where('group', $group);
     }
 
     public function scopeStatus($query, $status)

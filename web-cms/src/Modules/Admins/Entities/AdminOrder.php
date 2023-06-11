@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class AdminOrder extends Model
 {
@@ -44,12 +45,51 @@ class AdminOrder extends Model
         'start_date' => 'datetime:Y-m-d',
         'end_date' => 'datetime:Y-m-d',
         'discount_value' => 'integer',
-        'discount_total' => 'integer',
-        'vat_total' => 'integer',
+        'discount_total' => 'double',
+        'vat_total' => 'double',
         'vat_value' => 'integer',
-        'sub_total' => 'integer',
-        'total' => 'integer',
+        'sub_total' => 'double',
+        'total' => 'double',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($order) {
+            $discount_total = $order->discount_value;
+            if ($order->discount_type == self::DISCOUNT_TYPE_PERCENT) {
+                $discount_total = $order->discount_value * $order->sub_total / 100;
+            }
+            $vat_total = $order->vat_value * ($order->sub_total - $discount_total) / 100;
+
+            $order->discount_total = $discount_total;
+            $order->vat_total = $vat_total;
+            $order->total = $order->sub_total - $discount_total + $vat_total;
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($order) {
+            $discount_total = $order->discount_value;
+            if ($order->discount_type == self::DISCOUNT_TYPE_PERCENT) {
+                $discount_total = $order->discount_value * $order->sub_total / 100;
+            }
+            $vat_total = $order->vat_value * ($order->sub_total - $discount_total) / 100;
+
+            $order->discount_total = $discount_total;
+            $order->vat_total = $vat_total;
+            $order->total = $order->sub_total - $discount_total + $vat_total;
+            $order->created_by = Auth::guard('admin')->user()->id;
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($order) {
+            $order->status = self::STATUS_DELETED;
+            $order->deleted_by = Auth::guard('admin')->user()->id;
+        });
+    }
 
     const DISCOUNT_TYPE_PERCENT = 1;
     const DISCOUNT_TYPE_VND = 0;
@@ -71,12 +111,18 @@ class AdminOrder extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function deletedBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'deleted_by');
+        return $this->hasOne(Admins::class, 'id', 'deleted_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function scopeCustomerId($query, $customer_id)

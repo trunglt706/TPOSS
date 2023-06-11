@@ -16,7 +16,11 @@ class AdminInvoice extends Model
         'portal_id',
         'data',
         'link',
-        'status'
+        'status',
+        'sub_total',
+        'before_vat',
+        'after_vat',
+        'description'
     ];
 
     protected $hidden = [
@@ -27,7 +31,29 @@ class AdminInvoice extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
+        'sub_total' => 'double',
+        'before_vat' => 'double',
+        'after_vat' => 'double',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($invoice) {
+            $invoice->status = $invoice->status ?? self::STATUS_WAIT;
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+        });
+    }
 
     protected function data(): Attribute
     {

@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BackupDB extends Model
 {
@@ -33,6 +35,26 @@ class BackupDB extends Model
         'size' => 'integer',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            $model->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+            Storage::delete($model->link);
+        });
+    }
+
     protected function size(): Attribute
     {
         return Attribute::make(
@@ -48,7 +70,10 @@ class BackupDB extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function scopeOfCreated($query, $created_by)

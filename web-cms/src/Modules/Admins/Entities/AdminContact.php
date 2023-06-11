@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AdminContact extends Model
@@ -60,6 +62,29 @@ class AdminContact extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'birthday' => 'date:Y-m-d',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($contact) {
+            $contact->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $contact->code = $contact->code ?? self::get_code_default();
+            $contact->gender = $contact->gender ?? AdminLead::GENDER_OTHER;
+            $contact->status = $contact->status ?? self::STATUS_ACTIVE;
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($contact) {
+            Storage::delete($contact->avatar);
+        });
+    }
 
     protected function code(): Attribute
     {
@@ -121,7 +146,10 @@ class AdminContact extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function scopeProvinceId($query, $province_id)

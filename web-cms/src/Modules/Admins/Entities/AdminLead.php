@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Vanthao03596\HCVN\Models\District;
 use Vanthao03596\HCVN\Models\Province;
 use Vanthao03596\HCVN\Models\Ward;
@@ -70,6 +72,34 @@ class AdminLead extends Model
         'converted_at' => 'datetime:Y-m-d H:i:s',
         'birthday' => 'date:Y-m-d',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($lead) {
+            $lead->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $lead->code = $lead->code ?? self::get_code_default();
+            $lead->gender = $lead->gender ?? self::GENDER_OTHER;
+            $lead->status = $lead->status ?? self::STATUS_ACTIVE;
+
+            // check assigned from config
+            $lead->assigned_id = get_option('lead-assigned-default', 0);
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($lead) {
+            $lead->deleted_by = Auth::guard('admin')->user()->id;
+            // check and delete avatar in s3
+            Storage::delete($lead->avatar);
+        });
+    }
 
     protected function code(): Attribute
     {
@@ -142,12 +172,18 @@ class AdminLead extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function assigned()
     {
-        return $this->hasOne(Admins::class, 'id', 'assigned_id');
+        return $this->hasOne(Admins::class, 'id', 'assigned_id')->withDefault([
+            'id' => 0,
+            'name' => __('no_selected')
+        ]);
     }
 
     public function customer()

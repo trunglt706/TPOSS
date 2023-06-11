@@ -5,6 +5,8 @@ namespace Modules\Admins\Entities;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Modules\Stores\Entities\Stores;
 use Illuminate\Support\Str;
 
@@ -41,6 +43,33 @@ class Service extends Model
         'max_stores' => 'integer',
         'total_amount' => 'integer',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($service) {
+            $service->status = $service->status ?? self::STATUS_ACTIVE;
+            $service->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+
+            $support_default = json_encode([
+                Service::SUPPORT_WEB
+            ]);
+            $support_device_default = get_option('support-device-default', $support_default);
+            $service->support_device = $service->support_device ?? $support_device_default;
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+            Storage::delete($model->image);
+        });
+    }
 
     protected function supportDevice(): Attribute
     {
@@ -107,7 +136,10 @@ class Service extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function scopeOfCode($query, $code)

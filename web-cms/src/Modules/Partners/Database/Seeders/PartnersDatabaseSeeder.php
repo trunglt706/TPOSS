@@ -14,8 +14,13 @@ class PartnersDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        // seed role
+        // $this->call(SeedRoleTableSeeder::class);
 
-        // $this->call("OthersTableSeeder");
+        // seed menu
+        $this->call(SeedMenuTableSeeder::class);
+
+        // // seed setting
+        // $this->call(SeedSettingTableSeeder::class);
     }
 }

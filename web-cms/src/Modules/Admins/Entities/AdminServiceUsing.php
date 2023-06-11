@@ -41,6 +41,33 @@ class AdminServiceUsing extends Model
         'max_stores' => 'integer',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($service) {
+            $support_device_default = json_encode([
+                Service::SUPPORT_WEB
+            ]);
+            $setting = Service::find($service->service_id ?? 0);
+            if ($setting && $setting->support_device) {
+                $support_device_default = $setting->support_device;
+            }
+            $service->support_device = $service->support_device ?? $support_device_default;
+            $service->status = $service->status ?? self::STATUS_ACTIVE;
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+        });
+    }
+
     protected function supportDevice(): Attribute
     {
         return Attribute::make(
@@ -103,7 +130,10 @@ class AdminServiceUsing extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function scopeServiceId($query, $service_id)

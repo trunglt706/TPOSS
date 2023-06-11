@@ -9,53 +9,71 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Permissions extends Model
 {
     use HasFactory;
-    protected $table = 'store_roles';
+    protected $table = 'admin_permissions';
 
     protected $fillable = [
-        'permission_id',
+        'name',
         'extension',
         'icon',
         'order',
-        'status'
+        'description',
+        'status',
+        'group'
     ];
 
-    protected $hidden = [
-        'permission_id',
-    ];
+    protected $hidden = [];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    protected function extension(): Attribute
+    protected static function booted()
     {
-        return Attribute::make(
-            set: fn (string $value) => (str_replace(' ', '', $value)),
-        );
+        static::creating(function ($permission) {
+            $permission->order = $permission->order ?? self::get_order();
+            $permission->status = $permission->status ?? self::STATUS_ACTIVE;
+        });
+
+        static::created(function ($permission) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($permission) {
+        });
     }
 
     protected function order(): Attribute
     {
         return Attribute::make(
-            set: fn (string $value) => ((int)$value),
+            set: fn (string $value) => ((int)($value)),
         );
     }
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
-    public function permission()
+    public function roles()
     {
-        return $this->hasOne(AdminPermission::class, 'id', 'permission_id');
+        return $this->hasMany(Roles::class, 'permission_id', 'id');
     }
 
-    public function scopePermissionId($query, $permission_id)
+    public function scopeOfExtension($query, $extension)
     {
-        if (is_array($permission_id)) {
-            return $query->whereIntegerInRaw('permission_id', $permission_id);
+        if (is_array($extension)) {
+            return $query->whereIn('extension', $extension);
         }
-        return $query->where('permission_id', $permission_id);
+        return $query->where('extension', $extension);
+    }
+
+    public function scopeOfGroup($query, $group)
+    {
+        return $query->where('group', $group);
     }
 
     public function scopeStatus($query, $status)
@@ -74,9 +92,15 @@ class Permissions extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => [__('stores.status_1'), COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => [__('stores.status_2'), COLORS['warning'], 'lock-on'],
+            self::STATUS_ACTIVE => [__('stores::status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('stores::status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
+    }
+
+    public static function get_order()
+    {
+        $max = static::count();
+        return $max + 1;
     }
 }

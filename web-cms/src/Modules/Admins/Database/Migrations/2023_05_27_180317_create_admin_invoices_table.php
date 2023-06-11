@@ -17,6 +17,10 @@ return new class extends Migration
             $table->id()->index();
             $table->integer('order_id')->index();
             $table->integer('portal_id')->index();
+            $table->double('sub_total')->nullable()->default(0);
+            $table->double('before_vat')->nullable()->default(0);
+            $table->double('after_vat')->nullable()->default(0);
+            $table->string('description')->nullable();
             $table->json('data');
             $table->string('link')->nullable();
             $table->boolean('status')->nullable()->default(true);

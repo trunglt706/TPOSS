@@ -30,6 +30,24 @@ class PartnerHistory extends Model
         'last_inactive' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+        });
+    }
+
     public function license()
     {
         return $this->hasOne(PartnerLicense::class, 'id', 'license_id');

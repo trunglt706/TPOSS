@@ -18,7 +18,7 @@ class SeedEmailSettingTableSeeder extends Seeder
         AdminEmails::truncate();
 
         // admins
-        $admin = AdminPermission::extension('admins')->first();
+        $admin = AdminPermission::ofExtension('admins')->first();
         if ($admin) {
             AdminEmails::create([
                 'name' => 'Kích hoạt tài khoản quản trị',
@@ -44,7 +44,7 @@ class SeedEmailSettingTableSeeder extends Seeder
         }
 
         // admin_customers
-        $admin_customers = AdminPermission::extension('admin_customers')->first();
+        $admin_customers = AdminPermission::ofExtension('admin_customers')->first();
         if ($admin_customers) {
             AdminEmails::create([
                 'name' => 'Chỉ định khách hàng',
@@ -77,7 +77,7 @@ class SeedEmailSettingTableSeeder extends Seeder
         }
 
         // admin_leads
-        $admin_customers = AdminPermission::extension('admin_leads')->first();
+        $admin_customers = AdminPermission::ofExtension('admin_leads')->first();
         if ($admin_customers) {
             AdminEmails::create([
                 'name' => 'Chỉ định khách hàng tiềm nằng',
@@ -89,7 +89,7 @@ class SeedEmailSettingTableSeeder extends Seeder
         }
 
         // other
-        $other = AdminPermission::extension('other')->first();
+        $other = AdminPermission::ofExtension('other')->first();
         if ($admin_customers) {
             AdminEmails::create([
                 'name' => 'Thông báo mất tính hiệu kết nối đến máy chủ trung tâm',

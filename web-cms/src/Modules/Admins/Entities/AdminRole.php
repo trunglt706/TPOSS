@@ -27,6 +27,37 @@ class AdminRole extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($role) {
+            $role->status = $role->status ?? self::STATUS_ACTIVE;
+            $role->order = $role->order ?? self::get_order($role->group_id ?? 0);
+        });
+
+        static::created(function ($role) {
+            // add to group role sample
+            AdminGroup::each(function ($group) use ($role) {
+                AdminGroupRoleSample::firstOrCreate([
+                    'group_id' => $group->id,
+                    'role_id' => $role->id,
+                    'permission_id' => $role->permission_id
+                ]);
+            });
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($role) {
+            AdminRoleDetail::roleId($role->id)->delete();
+            // delete out group role sample
+            AdminGroupRoleSample::roleId($role->id)->delete();
+        });
+    }
+
     const ROLE_VIEW = 'view';
     const ROLE_VIEW_OWNER = 'view_owner';
     const ROLE_INSERT = 'insert';

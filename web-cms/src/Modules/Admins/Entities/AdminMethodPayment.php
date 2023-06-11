@@ -5,6 +5,8 @@ namespace Modules\Admins\Entities;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AdminMethodPayment extends Model
 {
@@ -31,6 +33,29 @@ class AdminMethodPayment extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($method) {
+            $method->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $method->status = $method->status ?? self::STATUS_ACTIVE;
+            $method->order = $method->order ?? self::get_order();
+            $method->has_portal = $method->has_portal ?? false;
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($method) {
+            Storage::delete($method->image);
+        });
+    }
+
     protected function order(): Attribute
     {
         return Attribute::make(
@@ -50,7 +75,10 @@ class AdminMethodPayment extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function scopeOfCreated($query, $created_by)

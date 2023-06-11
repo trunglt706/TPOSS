@@ -25,9 +25,30 @@ class AdminLeadFollow extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+        });
+    }
+
     public function admin()
     {
-        return $this->hasOne(Admins::class, 'id', 'admin_id');
+        return $this->hasOne(Admins::class, 'id', 'admin_id')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function lead()

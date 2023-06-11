@@ -116,6 +116,6 @@
     "reset": "Khôi phục",
     "new_password": "Mật khẩu mới",
     "reset_header":"Bắt đầu gửi yêu cầu khôi phục mật khẩu",
-    "confirm_leave_page": "Xác nhận rời khỏi chức năng này"
-
+    "confirm_leave_page": "Xác nhận rời khỏi chức năng này",
+    "no_selected": "Chưa chọn"
 }

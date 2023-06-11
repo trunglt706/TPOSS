@@ -5,6 +5,8 @@ namespace Modules\Admins\Entities;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostGroup extends Model
@@ -32,6 +34,34 @@ class PostGroup extends Model
         'order' => 'integer',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($group) {
+            $order = $group->order ?? self::get_order();
+            $group->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $group->order = $order;
+            $group->status = $group->status ?? self::STATUS_SUSPEND;
+            $group->slug = self::get_slug($group->name, $order);
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($group) {
+            $group->slug = self::get_slug($group->name);
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($group) {
+            // delete all post of group
+            $group->posts->delete();
+            // check and delete image in s3
+            Storage::delete($group->image);
+        });
+    }
+
     protected function order(): Attribute
     {
         return Attribute::make(
@@ -49,7 +79,10 @@ class PostGroup extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function scopeOfCreated($query, $created_by)

@@ -30,6 +30,26 @@ class AdminTokenDevice extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($token) {
+            $token->status = $token->status ?? self::STATUS_ACTIVE;
+            $token->ip = $token->ip ?? get_ip();
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+        });
+    }
+
     protected function token(): Attribute
     {
         return Attribute::make(

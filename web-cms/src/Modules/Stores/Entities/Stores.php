@@ -13,6 +13,8 @@ use Vanthao03596\HCVN\Models\District;
 use Vanthao03596\HCVN\Models\Province;
 use Vanthao03596\HCVN\Models\Ward;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Stores extends Model
@@ -67,6 +69,42 @@ class Stores extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($store) {
+            $store->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $store->code = $store->code ?? self::get_code_default();
+            $store->status = $store->status ?? self::STATUS_UN_ACTIVE;
+            if (!$store->currency) {
+                $store->currency = get_option('currency-default', self::CURRENCY_VN);
+            }
+            if (!$store->admin_area_id) {
+                $store->admin_area_id = get_option('admin-area-default');
+            }
+            if (!$store->assigned_id) {
+                $customer = AdminCustomer::find($store->customer_id ?? 0);
+                if ($customer) {
+                    $store->assigned_id = $customer->assigned_id ?? 0;
+                } else {
+                    $store->assigned_id = get_option('store-assigned-default');
+                }
+            }
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($model) {
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+            Storage::delete($model->logo);
+        });
+    }
+
     const STATUS_UN_ACTIVE = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
@@ -114,7 +152,10 @@ class Stores extends Model
 
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function scopeServiceId($query, $service_id)

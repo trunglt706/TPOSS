@@ -4,6 +4,7 @@ namespace Modules\Admins\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 
 class AdminEmails extends Model
 {
@@ -30,14 +31,40 @@ class AdminEmails extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($email) {
+            $email->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+        });
+
+        static::created(function ($model) {
+        });
+
+        static::updating(function ($email) {
+            $email->updated_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+        });
+
+        static::updated(function ($model) {
+        });
+
+        static::deleted(function ($model) {
+        });
+    }
+
     public function createdBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'created_by');
+        return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function updatedBy()
     {
-        return $this->hasOne(Admins::class, 'id', 'updated_by');
+        return $this->hasOne(Admins::class, 'id', 'updated_by')->withDefault([
+            'id' => 0,
+            'name' => __('dashboard_admin')
+        ]);
     }
 
     public function permission()
