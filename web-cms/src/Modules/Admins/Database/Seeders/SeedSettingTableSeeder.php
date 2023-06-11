@@ -17,13 +17,6 @@ class SeedSettingTableSeeder extends Seeder
      */
     public function run()
     {
-        AdminSetting::whereIn('permission_id', function ($query) {
-            $query->select('id')->from('admin_permissions')->ofExtension([
-                'admin_customers', 'admin_leads', 'services', 'stores', 'admins',
-                'admin_settings', 'register_usings'
-            ]);
-        })->delete();
-
         //=============== admin_customers
         $admin_customers = AdminPermission::ofExtension('admin_customers')->first();
         if ($admin_customers) {
@@ -33,7 +26,8 @@ class SeedSettingTableSeeder extends Seeder
                 'name' => 'Chỉ định khách hàng mặc định cho admin',
                 'type' => AdminSetting::TYPE_SELECT,
                 'data' => 'admins',
-                'value' => ''
+                'value' => '',
+                'group' => 'admin_customers',
             ]);
             AdminSetting::create([
                 'code' => 'currency-default',
@@ -42,6 +36,7 @@ class SeedSettingTableSeeder extends Seeder
                 'type' => AdminSetting::TYPE_SELECT,
                 'data' => json_encode(Stores::get_currency()),
                 'value' => Stores::CURRENCY_VN,
+                'group' => 'admin_customers',
             ]);
             AdminSetting::create([
                 'code' => 'hide-phone-customer',
@@ -49,6 +44,7 @@ class SeedSettingTableSeeder extends Seeder
                 'name' => 'Ẩn số điện thoại khách hàng',
                 'type' => AdminSetting::TYPE_CHECKBOX,
                 'value' => true,
+                'group' => 'admin_customers',
             ]);
         }
 
@@ -61,7 +57,8 @@ class SeedSettingTableSeeder extends Seeder
                 'name' => 'Chỉ định khách hàng tiềm năng mặc định cho admin',
                 'type' => AdminSetting::TYPE_SELECT,
                 'data' => 'admins',
-                'value' => ''
+                'value' => '',
+                'group' => 'admin_leads',
             ]);
             AdminSetting::create([
                 'code' => 'hide-phone-lead',
@@ -69,6 +66,7 @@ class SeedSettingTableSeeder extends Seeder
                 'name' => 'Ẩn số điện thoại khách hàng tiềm năng',
                 'type' => AdminSetting::TYPE_CHECKBOX,
                 'value' => true,
+                'group' => 'admin_leads',
             ]);
         }
 
@@ -82,6 +80,7 @@ class SeedSettingTableSeeder extends Seeder
                 'type' => AdminSetting::TYPE_SELECT,
                 'data' => json_encode([Service::SUPPORT_WEB, Service::SUPPORT_WINDOW, Service::SUPPORT_MAC, Service::SUPPORT_ANDROID, Service::SUPPORT_IOS]),
                 'value' => Service::SUPPORT_WEB,
+                'group' => 'services',
             ]);
         }
 
@@ -95,7 +94,8 @@ class SeedSettingTableSeeder extends Seeder
                 'type' => AdminSetting::TYPE_SELECT,
                 'data' => 'admin_areas',
                 'value' => '',
-                'description' => 'Nếu cửa hàng thuộc khách hàng, hệ thống sẽ lấy khu vực theo khách hàng'
+                'description' => 'Nếu cửa hàng thuộc khách hàng, hệ thống sẽ lấy khu vực theo khách hàng',
+                'group' => 'stores',
             ]);
             AdminSetting::create([
                 'code' => 'store-assigned-default',
@@ -104,7 +104,8 @@ class SeedSettingTableSeeder extends Seeder
                 'type' => AdminSetting::TYPE_SELECT,
                 'data' => 'admins',
                 'value' => '',
-                'description' => 'Nếu cửa hàng thuộc khách hàng, hệ thống sẽ lấy phân công theo khách hàng'
+                'description' => 'Nếu cửa hàng thuộc khách hàng, hệ thống sẽ lấy phân công theo khách hàng',
+                'group' => 'stores',
             ]);
         }
 
@@ -183,6 +184,7 @@ class SeedSettingTableSeeder extends Seeder
                 'name' => 'Ẩn số điện thoại đăng ký',
                 'type' => AdminSetting::TYPE_CHECKBOX,
                 'value' => true,
+                'group' => 'register_usings',
             ]);
         }
     }

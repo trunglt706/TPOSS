@@ -14,7 +14,9 @@ class SeedMenuTableSeeder extends Seeder
      */
     public function run()
     {
-        AdminMenus::ofName('permission_partner')->first()->delete();
+        AdminMenus::ofName('permission_partner')->each(function ($model) {
+            $model->delete();
+        });
 
         //===== setting
         $partner = AdminMenus::create([

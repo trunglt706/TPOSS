@@ -61,17 +61,10 @@ class AdminSetting extends Model
 
         static::deleted(function ($setting) {
             if ($setting->type == self::TYPE_FILE && $setting->value) {
-                if($setting->value) Storage::delete($setting->value);
+                if ($setting->value) Storage::delete($setting->value);
             }
             self::cache_all_setting();
         });
-    }
-
-    protected function data(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => (json_decode($value, 1)),
-        );
     }
 
     protected function order(): Attribute
@@ -119,6 +112,9 @@ class AdminSetting extends Model
 
     public function scopeOfGroup($query, $group)
     {
+        if (is_array($group)) {
+            return $query->where('group', $group);
+        }
         return $query->where('group', $group);
     }
 

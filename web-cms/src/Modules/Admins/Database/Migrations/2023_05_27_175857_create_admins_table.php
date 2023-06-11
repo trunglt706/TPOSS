@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('code')->nullable()->index();
             $table->string('name');
             $table->integer('group_id')->nullable()->index();
-            $table->string('email', 50)->unique();
+            $table->string('email', 50);
             $table->string('phone', 20)->nullable();
             $table->string('address')->nullable();
             $table->text('description')->nullable();

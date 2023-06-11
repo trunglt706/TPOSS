@@ -54,6 +54,7 @@ class AdminPermission extends Model
 
         static::deleted(function ($permission) {
             $permission->roles()->delete();
+            $permission->settings()->delete();
             // delete out group role sample
             AdminGroupRoleSample::permissionId($permission->id)->delete();
         });
@@ -68,6 +69,11 @@ class AdminPermission extends Model
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
+
+    public function settings()
+    {
+        return $this->hasMany(AdminSetting::class, 'permission_id', 'id');
+    }
 
     public function roles()
     {

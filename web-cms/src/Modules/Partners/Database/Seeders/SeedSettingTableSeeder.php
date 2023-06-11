@@ -15,12 +15,6 @@ class SeedSettingTableSeeder extends Seeder
      */
     public function run()
     {
-        AdminSetting::has('permission', function ($query) {
-            $query->ofExtension([
-                'partners'
-            ]);
-        })->delete();
-
         //=============== admin_customers
         $partners = AdminPermission::ofExtension('partners')->first();
         if ($partners) {

@@ -3,13 +3,14 @@
 namespace Modules\Admins\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Modules\Admins\Entities\Admins;
+use Modules\Admins\Entities\AdminPermission;
+use Modules\Admins\Entities\AdminSetting;
 
 class AuthController extends Controller
 {
     public function login()
     {
-        return Admins::first();
+        return AdminSetting::with('permission')->get();
         $title = __('login');
         return view('admins::admins.pages.auth.login', compact('title'));
     }
