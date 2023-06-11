@@ -10,11 +10,11 @@
                             <a href="#" class="brand-logo">
                                 <img src="{{ asset($setting_admin['admin-seo-logo']) }}" height="32">
                             </a>
-                            <p class="card-text mb-2 text-center">
+                            <h4 class="card-text mb-2 text-center">
                                 @lang('login_header')
-                            </p>
+                            </h4>
                             @include('admins::admins.pages.auth.error')
-                            <form class="auth-login-form mt-2 auth-login" action="{{ route('admin.login') }}"
+                            <form class="auth-login-form mt-2 auth-login" action="{{ route('admin.login_post') }}"
                                 method="POST">
                                 @csrf
                                 <div class="mb-1">
@@ -41,6 +41,9 @@
                                             aria-describedby="login-password" />
                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                     </div>
+                                </div>
+                                <div class="mt-1">
+                                    {!! NoCaptcha::display() !!}
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100 mt-1" tabindex="4">
                                     <i data-feather="log-in"></i> @lang('login')

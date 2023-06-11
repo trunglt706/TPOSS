@@ -10,14 +10,13 @@
                             <a href="#" class="brand-logo">
                                 <img src="{{ asset($setting_admin['admin-seo-logo']) }}" height="32">
                             </a>
-                            <p class="card-text mb-2 text-center">
+                            <h4 class="card-text mb-2 text-center">
                                 @lang('reset_header')
-                            </p>
+                            </h4>
                             @include('admins::admins.pages.auth.error')
-                            <form class="auth-reset-password-form mt-2" action="{{ route('admin.reset_password') }}"
+                            <form class="auth-reset-password-form mt-2" action="{{ route('admin.reset_password_post') }}"
                                 method="POST">
                                 @csrf
-                                <input type="hidden" name="email" value="{{ $email ?? '' }}">
                                 <input type="hidden" name="token" value="{{ $token ?? '' }}">
                                 <div class="mb-1">
                                     <div class="d-flex justify-content-between">
@@ -26,7 +25,7 @@
                                     <div class="input-group input-group-merge form-password-toggle">
                                         <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
                                         <input type="password" class="form-control form-control-merge" id="reset-password"
-                                            name="reset-password" tabindex="2"
+                                            name="new_password" tabindex="2"
                                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                             aria-describedby="reset-password" />
                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
@@ -39,11 +38,14 @@
                                     <div class="input-group input-group-merge form-password-toggle">
                                         <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
                                         <input type="password" class="form-control form-control-merge"
-                                            id="reset-confirm-password" name="reset-confirm-password" tabindex="2"
+                                            id="reset-confirm-password" name="confirm_password" tabindex="2"
                                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                             aria-describedby="reset-confirm-password" />
                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                     </div>
+                                </div>
+                                <div class="mb-1">
+                                    {!! NoCaptcha::display() !!}
                                 </div>
                                 <button type="button" class="btn btn-primary w-100 mt-1" tabindex="4">
                                     <i data-feather="send"></i> @lang('reset')

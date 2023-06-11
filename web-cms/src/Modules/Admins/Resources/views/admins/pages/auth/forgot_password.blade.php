@@ -10,11 +10,11 @@
                             <a href="#" class="brand-logo">
                                 <img src="{{ asset($setting_admin['admin-seo-logo']) }}" height="32">
                             </a>
-                            <p class="card-text mb-2 text-center">
+                            <h4 class="card-text mb-2 text-center">
                                 @lang('forgot_password_header')
-                            </p>
+                            </h4>
                             @include('admins::admins.pages.auth.error')
-                            <form class="auth-forgot-password-form mt-2" action="{{ route('admin.forgot_password') }}"
+                            <form class="auth-forgot-password-form mt-2" action="{{ route('admin.forgot_password_post') }}"
                                 method="POST">
                                 @csrf
                                 <div class="mb-1">
@@ -25,6 +25,9 @@
                                             placeholder="example@domain.com" aria-describedby="login-email" tabindex="1"
                                             autofocus />
                                     </div>
+                                </div>
+                                <div class="mb-1">
+                                    {!! NoCaptcha::display() !!}
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100 mt-1" tabindex="4">
                                     <i data-feather="send"></i> @lang('send')

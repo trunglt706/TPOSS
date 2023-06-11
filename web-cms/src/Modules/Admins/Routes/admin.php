@@ -48,8 +48,11 @@ use Modules\Admins\Http\Controllers\WardController;
 Route::domain('admin.' . env('APP_URL'))->name('admin.')->group(function () {
     Route::middleware('guest')->controller(AuthController::class)->group(function () {
         Route::get('login', 'login')->name('login');
+        Route::post('login', 'login_post')->name('login_post');
         Route::get('forgot_password', 'forgot_password')->name('forgot_password');
+        Route::post('forgot_password', 'forgot_password_post')->name('forgot_password_post');
         Route::get('reset_password', 'reset_password')->name('reset_password');
+        Route::post('reset_password', 'reset_password_post')->name('reset_password_post');
     });
 
     Route::middleware('checkAdmin')->group(function () {
