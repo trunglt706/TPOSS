@@ -87,7 +87,7 @@ class AdminOrder extends Model
 
         static::deleted(function ($order) {
             $order->status = self::STATUS_DELETED;
-            $order->deleted_by = Auth::guard('admin')->user()->id;
+            $order->deleted_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
         });
     }
 

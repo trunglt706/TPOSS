@@ -134,13 +134,13 @@ class Admins extends Authenticatable
                 ]);
             }
             // check and send email
-            if ($admin->status == Admins::STATUS_UN_ACTIVE) {
+            if ($admin->status == self::STATUS_UN_ACTIVE) {
                 try {
                     Mail::to($admin->email)->send(new EmailAdminActive($admin));
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
-            } else if ($admin->status == Admins::STATUS_ACTIVE) {
+            } else if ($admin->status == self::STATUS_ACTIVE) {
                 try {
                     Mail::to($admin->email)->send(new EmailAdminInfo($admin));
                 } catch (\Throwable $th) {
@@ -153,26 +153,28 @@ class Admins extends Authenticatable
         });
 
         static::updated(function ($admin) {
-            if ($admin->status == Admins::STATUS_SUSPEND) {
+            if ($admin->status == self::STATUS_SUSPEND) {
                 try {
                     Mail::to($admin->email)->send(new EmailAdminSuspended($admin));
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
+            } else if ($admin->status == self::STATUS_DELETED) {
+                // delete admin_role_details
+                $admin->role_details()->delete();
+                // check and delete avatar in s3
+                if($admin->avatar) Storage::delete($admin->avatar);
             }
         });
 
         static::deleted(function ($admin) {
             $admin->status = self::STATUS_DELETED;
-            $admin->deleted_by = Auth::guard('admin')->user()->id;
+            $admin->deleted_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
 
             // delete admin_role_details
-            AdminRoleDetail::adminId($admin->id)->delete();
-
+            $admin->role_details()->delete();
             // check and delete avatar in s3
-            if ($admin->avatar) {
-                Storage::delete($admin->avatar);
-            }
+            if($admin->avatar) Storage::delete($admin->avatar);
         });
 
         static::restored(function ($admin) {
@@ -240,6 +242,11 @@ class Admins extends Authenticatable
     }
 
     // relations
+    public function role_details()
+    {
+        return $this->hasMany(AdminRoleDetail::class, 'admin_id', 'id');
+    }
+
     public function group()
     {
         return $this->hasOne(AdminGroup::class, 'id', 'group_id');

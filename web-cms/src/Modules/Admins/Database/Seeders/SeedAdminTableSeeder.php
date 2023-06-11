@@ -16,8 +16,9 @@ class SeedAdminTableSeeder extends Seeder
      */
     public function run()
     {
-        AdminGroup::truncate();
-        Admins::truncate();
+        AdminGroup::each(function ($group) {
+            $group->delete();
+        });
 
         $group = AdminGroup::create([
             'name' => 'Quản trị viên',

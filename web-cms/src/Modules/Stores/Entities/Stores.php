@@ -101,7 +101,7 @@ class Stores extends Model
         });
 
         static::deleted(function ($model) {
-            Storage::delete($model->logo);
+            if($model->logo) Storage::delete($model->logo);
         });
     }
 

@@ -17,7 +17,12 @@ class SeedSettingTableSeeder extends Seeder
      */
     public function run()
     {
-        AdminSetting::truncate();
+        AdminSetting::whereIn('permission_id', function ($query) {
+            $query->select('id')->from('admin_permissions')->ofExtension([
+                'admin_customers', 'admin_leads', 'services', 'stores', 'admins',
+                'admin_settings', 'register_usings'
+            ]);
+        })->delete();
 
         //=============== admin_customers
         $admin_customers = AdminPermission::ofExtension('admin_customers')->first();

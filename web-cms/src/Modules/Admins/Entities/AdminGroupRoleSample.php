@@ -72,6 +72,14 @@ class AdminGroupRoleSample extends Model
         return $query->where('group_id', $group_id);
     }
 
+    public function scopePermissionId($query, $permission_id)
+    {
+        if (is_array($permission_id)) {
+            return $query->whereIntegerInRaw('permission_id', $permission_id);
+        }
+        return $query->where('permission_id', $permission_id);
+    }
+
     public function scopeRoleId($query, $role_id)
     {
         if (is_array($role_id)) {

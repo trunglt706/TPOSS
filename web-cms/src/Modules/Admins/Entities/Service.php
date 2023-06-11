@@ -67,7 +67,7 @@ class Service extends Model
         });
 
         static::deleted(function ($model) {
-            Storage::delete($model->image);
+            if($model->image) Storage::delete($model->image);
         });
     }
 

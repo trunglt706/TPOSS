@@ -56,7 +56,7 @@ class AdminPaymentPortal extends Model
         });
 
         static::deleted(function ($portal) {
-            Storage::delete($portal->image);
+            if($portal->image) Storage::delete($portal->image);
         });
     }
 

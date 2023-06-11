@@ -82,7 +82,7 @@ class AdminContact extends Model
         });
 
         static::deleted(function ($contact) {
-            Storage::delete($contact->avatar);
+            if($contact->avatar) Storage::delete($contact->avatar);
         });
     }
 

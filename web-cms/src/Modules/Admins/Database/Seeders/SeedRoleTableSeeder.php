@@ -15,8 +15,14 @@ class SeedRoleTableSeeder extends Seeder
      */
     public function run()
     {
-        AdminPermission::truncate();
-        AdminRole::truncate();
+        AdminPermission::ofExtension([
+            'admins', 'admin_method_payments', 'admin_payment_portals', 'invoice_portals', 'invoices',
+            'services', 'admin_areas', 'provinces', 'districts', 'wards', 'backup_dbs', 'stores',
+            'post_groups', 'posts', 'telescope', 'admin_emails', 'admin_settings', 'other',
+            'admin_payments', 'admin_orders', 'permission_stores', 'register_usings', 'admin_leads', 'admin_contacts', 'admin_customers', 'admin_groups', 'admin_permissions', 'admin_activities'
+        ])->each(function ($model) {
+            $model->delete();
+        });
 
         //======== admins
         $admins = AdminPermission::create([

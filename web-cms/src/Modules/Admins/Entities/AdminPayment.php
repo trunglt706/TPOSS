@@ -56,7 +56,7 @@ class AdminPayment extends Model
         });
 
         static::deleted(function ($payment) {
-            Storage::delete($payment->attachment);
+            if($payment->attachment) Storage::delete($payment->attachment);
         });
     }
 

@@ -14,7 +14,13 @@ class SeedAdminMenuTableSeeder extends Seeder
      */
     public function run()
     {
-        AdminMenus::truncate();
+        AdminMenus::ofName([
+            'permission_dashboard', 'permission_main', 'permission_manager_admin',
+            'permission_admin_customers', 'permission_services', 'permission_manager_financial',
+            'permission_other', 'permission_report', 'permission_other_setting'
+        ])->each(function ($model) {
+            $model->delete();
+        });
 
         //===== dashboard
         AdminMenus::create([

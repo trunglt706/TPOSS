@@ -58,7 +58,7 @@ class PostGroup extends Model
             // delete all post of group
             $group->posts->delete();
             // check and delete image in s3
-            Storage::delete($group->image);
+            if($group->image) Storage::delete($group->image);
         });
     }
 

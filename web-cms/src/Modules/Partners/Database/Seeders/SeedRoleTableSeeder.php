@@ -15,7 +15,9 @@ class SeedRoleTableSeeder extends Seeder
      */
     public function run()
     {
-        AdminPermission::ofGroup('partners')->delete();
+        AdminPermission::ofGroup('partners')->each(function ($model) {
+            $model->delete();
+        });
 
         //======== partners
         $partners = AdminPermission::create([

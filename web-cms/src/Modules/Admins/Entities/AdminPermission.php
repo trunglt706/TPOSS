@@ -53,7 +53,7 @@ class AdminPermission extends Model
         });
 
         static::deleted(function ($permission) {
-            AdminRole::permissionId($permission->id)->delete();
+            $permission->roles()->delete();
             // delete out group role sample
             AdminGroupRoleSample::permissionId($permission->id)->delete();
         });
@@ -84,6 +84,9 @@ class AdminPermission extends Model
 
     public function scopeOfGroup($query, $group)
     {
+        if (is_array($group)) {
+            return $query->whereIn('group', $group);
+        }
         return $query->where('group', $group);
     }
 

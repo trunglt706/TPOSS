@@ -95,9 +95,9 @@ class AdminLead extends Model
         });
 
         static::deleted(function ($lead) {
-            $lead->deleted_by = Auth::guard('admin')->user()->id;
+            $lead->deleted_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
             // check and delete avatar in s3
-            Storage::delete($lead->avatar);
+            if($lead->avatar) Storage::delete($lead->avatar);
         });
     }
 

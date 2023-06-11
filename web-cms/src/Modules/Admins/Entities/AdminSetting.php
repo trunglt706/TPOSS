@@ -61,7 +61,7 @@ class AdminSetting extends Model
 
         static::deleted(function ($setting) {
             if ($setting->type == self::TYPE_FILE && $setting->value) {
-                Storage::delete($setting->value);
+                if($setting->value) Storage::delete($setting->value);
             }
             self::cache_all_setting();
         });

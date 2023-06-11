@@ -5,7 +5,6 @@ namespace Modules\Admins\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
 
 class AdminMenus extends Model
 {
@@ -55,11 +54,8 @@ class AdminMenus extends Model
             self::load_menus();
         });
 
-        static::deleting(function ($model) {
-            $model->roles()->delete();
-        });
-
         static::deleted(function ($model) {
+            $model->roles()->delete();
             self::load_menus();
         });
     }
@@ -89,6 +85,9 @@ class AdminMenus extends Model
 
     public function scopeOfName($query, $name)
     {
+        if (is_array($name)) {
+            return $query->whereIn('name', $name);
+        }
         return $query->where('name', $name);
     }
 

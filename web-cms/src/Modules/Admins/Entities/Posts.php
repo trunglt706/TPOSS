@@ -59,7 +59,7 @@ class Posts extends Model
         });
 
         static::deleted(function ($post) {
-            Storage::delete($post->image);
+            if($post->image) Storage::delete($post->image);
         });
     }
 

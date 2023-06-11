@@ -62,13 +62,21 @@ class AdminGroup extends Model
         });
 
         static::deleted(function ($group) {
+            $group->admins()->each(function ($admin) {
+                $admin->delete();
+            });
             // delete table admin_group_role_samples
-            AdminGroupRoleSample::groupId($group->id)->delete();
+            $group->role_samples()->delete();
         });
     }
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
+
+    public function role_samples()
+    {
+        return $this->hasMany(AdminGroupRoleSample::class, 'group_id', 'id');
+    }
 
     public function admins()
     {

@@ -51,7 +51,7 @@ class BackupDB extends Model
         });
 
         static::deleted(function ($model) {
-            Storage::delete($model->link);
+            if($model->link) Storage::delete($model->link);
         });
     }
 

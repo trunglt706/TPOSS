@@ -94,9 +94,9 @@ class AdminCustomer extends Model
         });
 
         static::deleted(function ($customer) {
-            $customer->deleted_by = Auth::guard('admin')->user()->id;
+            $customer->deleted_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
             // check and delete avatar in s3
-            Storage::delete($customer->avatar);
+            if($customer->avatar) Storage::delete($customer->avatar);
         });
     }
 

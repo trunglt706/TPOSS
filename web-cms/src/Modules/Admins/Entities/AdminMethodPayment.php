@@ -52,7 +52,7 @@ class AdminMethodPayment extends Model
         });
 
         static::deleted(function ($method) {
-            Storage::delete($method->image);
+            if($method->image) Storage::delete($method->image);
         });
     }
 
