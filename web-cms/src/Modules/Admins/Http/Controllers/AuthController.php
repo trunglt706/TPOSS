@@ -13,6 +13,7 @@ class AuthController extends Controller
 {
     public function login()
     {
+        return Admins::onlyTrashed()->get();
         $title = __('login');
         return view('admins::admins.pages.auth.login', compact('title'));
     }

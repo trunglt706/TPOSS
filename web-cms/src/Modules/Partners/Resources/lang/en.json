@@ -4,5 +4,9 @@
     "permission_partner_domains": "Danh sách domain",
     "permission_partner_histories": "Lịch sử bản quyền",
     "permission_partner_notifies": "Lịch sử hoạt động",
-    "permission_partner_licenses": "Danh sách bản quyền"
+    "permission_partner_licenses": "Danh sách bản quyền",
+    
+    "status_1": "Kích hoạt",
+    "status_2": "Đã khóa",
+    "status_3": "Đã xóa"
 }

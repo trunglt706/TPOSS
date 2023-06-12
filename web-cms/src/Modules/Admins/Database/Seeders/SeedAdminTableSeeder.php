@@ -19,6 +19,7 @@ class SeedAdminTableSeeder extends Seeder
         AdminGroup::each(function ($group) {
             $group->delete();
         });
+        Admins::onlyTrashed()->forceDelete();
 
         $group = AdminGroup::create([
             'name' => 'Quản trị viên',

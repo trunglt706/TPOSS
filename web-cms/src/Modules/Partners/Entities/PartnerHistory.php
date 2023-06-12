@@ -14,8 +14,10 @@ class PartnerHistory extends Model
     protected $fillable = [
         'license_id',
         'partner_id',
-        'last_active',
-        'last_inactive',
+        'max_customers',
+        'max_leads',
+        'max_stores',
+        'status'
     ];
 
     protected $hidden = [
@@ -26,8 +28,10 @@ class PartnerHistory extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'last_active' => 'datetime:Y-m-d H:i:s',
-        'last_inactive' => 'datetime:Y-m-d H:i:s',
+        'status' => 'boolean',
+        'max_customers' => 'integer',
+        'max_leads' => 'integer',
+        'max_stores' => 'integer',
     ];
 
     protected static function booted()
@@ -47,6 +51,9 @@ class PartnerHistory extends Model
         static::deleted(function ($model) {
         });
     }
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_SUSPEND = 2;
 
     public function license()
     {
@@ -72,6 +79,28 @@ class PartnerHistory extends Model
             return $query->whereIntegerInRaw('partner_id', $partner_id);
         }
         return $query->where('partner_id', $partner_id);
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        if (is_array($status)) {
+            return $query->whereIn('status', $status);
+        }
+        return $query->where('status', $status);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public static function get_status($id = '')
+    {
+        $list = [
+            self::STATUS_ACTIVE => [__('partners::status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('partners::status_2'), COLORS['warning'], 'lock-on'],
+        ];
+        return ($id == '') ? $list : $list[$id];
     }
 
     public function scopeDate($query, $date)

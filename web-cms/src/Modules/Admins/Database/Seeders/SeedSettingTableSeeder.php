@@ -46,6 +46,15 @@ class SeedSettingTableSeeder extends Seeder
                 'value' => true,
                 'group' => 'admin_customers',
             ]);
+            AdminSetting::create([
+                'code' => 'time-force-delete-customers',
+                'permission_id' => $admin_customers->id,
+                'name' => 'Thời gian hệ thống bắt buộc xóa các khách hàng đã xóa tạm',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 6,
+                'group' => 'admin_customers',
+                'description' => 'Thời gian tính theo tháng'
+            ]);
         }
 
         //=============== admin_leads
@@ -68,6 +77,15 @@ class SeedSettingTableSeeder extends Seeder
                 'value' => true,
                 'group' => 'admin_leads',
             ]);
+            AdminSetting::create([
+                'code' => 'time-force-delete-leads',
+                'permission_id' => $admin_leads->id,
+                'name' => 'Thời gian hệ thống bắt buộc xóa các khách hàng tiềm năng đã xóa tạm',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 6,
+                'group' => 'admin_leads',
+                'description' => 'Thời gian tính theo tháng'
+            ]);
         }
 
         //=============== services
@@ -81,6 +99,15 @@ class SeedSettingTableSeeder extends Seeder
                 'data' => json_encode([Service::SUPPORT_WEB, Service::SUPPORT_WINDOW, Service::SUPPORT_MAC, Service::SUPPORT_ANDROID, Service::SUPPORT_IOS]),
                 'value' => Service::SUPPORT_WEB,
                 'group' => 'services',
+            ]);
+            AdminSetting::create([
+                'code' => 'time-force-delete-services',
+                'permission_id' => $services->id,
+                'name' => 'Thời gian hệ thống bắt buộc xóa các dịch vụ đã xóa tạm',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 6,
+                'group' => 'services',
+                'description' => 'Thời gian tính theo tháng'
             ]);
         }
 
@@ -106,6 +133,15 @@ class SeedSettingTableSeeder extends Seeder
                 'value' => '',
                 'description' => 'Nếu cửa hàng thuộc khách hàng, hệ thống sẽ lấy phân công theo khách hàng',
                 'group' => 'stores',
+            ]);
+            AdminSetting::create([
+                'code' => 'time-force-delete-stores',
+                'permission_id' => $stores->id,
+                'name' => 'Thời gian hệ thống bắt buộc xóa các cửa hàng đã xóa tạm',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 6,
+                'group' => 'stores',
+                'description' => 'Thời gian tính theo tháng'
             ]);
         }
 
@@ -135,6 +171,15 @@ class SeedSettingTableSeeder extends Seeder
                 'type' => AdminSetting::TYPE_CHECKBOX,
                 'value' => true,
                 'group' => 'admin'
+            ]);
+            AdminSetting::create([
+                'code' => 'time-force-delete-admin',
+                'permission_id' => $admins->id,
+                'name' => 'Thời gian hệ thống bắt buộc xóa các quản trị viên đã xóa tạm',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 6,
+                'group' => 'admin',
+                'description' => 'Thời gian tính theo tháng'
             ]);
         }
 

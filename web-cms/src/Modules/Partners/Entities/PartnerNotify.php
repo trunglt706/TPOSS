@@ -15,6 +15,8 @@ class PartnerNotify extends Model
         'partner_id',
         'content',
         'ip',
+        'refType',
+        'refTo'
     ];
 
     protected $hidden = ['partner_id'];
@@ -41,6 +43,9 @@ class PartnerNotify extends Model
         static::deleted(function ($model) {
         });
     }
+
+    const TYPE_EMAIL = 'email';
+    const TYPE_NOTIFY = 'notify';
 
     public function partner()
     {

@@ -17,8 +17,11 @@ return new class extends Migration
             $table->id()->index();
             $table->integer('partner_id')->index();
             $table->integer('license_id')->index();
-            $table->dateTime('last_active')->nullable();
-            $table->dateTime('last_inactive')->nullable();
+            $table->string('description')->nullable();
+            $table->integer('max_customers')->nullable()->default();
+            $table->integer('max_leads')->nullable()->default();
+            $table->integer('max_stores')->nullable()->default();
+            $table->boolean('status')->nullable()->default(true)->comment('status of license');
             $table->timestamps();
         });
     }

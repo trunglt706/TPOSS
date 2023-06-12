@@ -2,6 +2,8 @@
 
 namespace Modules\Partners\Entities;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Admins\Entities\Admins;
@@ -15,6 +17,10 @@ class Partners extends Model
         'code',
         'name',
         'logo',
+        'phone',
+        'email',
+        'address',
+        'tax_code',
         'created_by',
         'deleted_by',
         'description',
@@ -49,6 +55,27 @@ class Partners extends Model
 
         static::deleted(function ($model) {
         });
+    }
+
+    protected function code(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function taxCode(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
+    }
+
+    protected function phone(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => (get_option('hide-phone-partners', true) ? Str::mask($value, '*', - (strlen($value)), (strlen($value) - 3)) : $value),
+        );
     }
 
     const STATUS_ACTIVE = 1;
@@ -90,9 +117,19 @@ class Partners extends Model
         return $query->where('code', $code);
     }
 
+    public function scopeOfPhone($query, $phone)
+    {
+        return $query->where('phone', $phone);
+    }
+
+    public function scopeOfTaxCode($query, $tax_code)
+    {
+        return $query->where('tax_code', $tax_code);
+    }
+
     public function scopeOfDeleted($query, $deleted_by)
     {
-        if(is_array($deleted_by)) {
+        if (is_array($deleted_by)) {
             return $query->whereIntegerInRaw('deleted_by', $deleted_by);
         }
         return $query->where('deleted_by', $deleted_by);
@@ -140,3 +177,4 @@ class Partners extends Model
         $_to = Carbon::parse($to)->startOfDay()->format('Y-m-d H:i:s');
         return $query->whereBetween('created_at', [$_from, $_to]);
     }
+}

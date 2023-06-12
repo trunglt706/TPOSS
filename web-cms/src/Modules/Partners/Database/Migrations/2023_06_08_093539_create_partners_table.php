@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('code')->unique()->index();
             $table->string('name');
             $table->string('logo')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('tax_code')->nullable();
             $table->string('description')->nullable();
             $table->integer('created_by')->nullable()->index();
             $table->boolean('status')->nullable()->default(true);
