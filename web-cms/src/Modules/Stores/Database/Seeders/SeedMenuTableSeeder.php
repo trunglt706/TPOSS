@@ -24,6 +24,7 @@ class SeedMenuTableSeeder extends Seeder
                 'name' => 'permission_stores',
                 'route' => route('admin.stores.index'),
                 'parent_id' => $customer->id,
+                'extension' => 'stores',
             ]);
         }
     }

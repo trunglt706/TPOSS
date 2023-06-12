@@ -25,12 +25,12 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             @foreach ($menu_admin as $item)
-                @if ($item->type == AdminMenus::TYPE_HEADER && $item->roles_count > 0)
-                    <li class=" navigation-header">
+                @if ($item->type == AdminMenus::TYPE_HEADER)
+                    <li class="navigation-header">
                         <span>{{ __($item->name) }}</span>
                         <i data-feather="more-horizontal"></i>
                     </li>
-                @else
+                @elseif($item->roles_count > 0 && (is_null($item->extension) || \Gate::allows($item->extension)))
                     <li class="nav-item">
                         <a class="d-flex align-items-center" href="{{ $item->roles_count > 0 ? '#' : $item->route }}">
                             {!! $item->icon !!}
@@ -39,14 +39,16 @@
                         @if ($item->roles_count > 0)
                             <ul class="menu-content">
                                 @foreach ($item->roles as $role)
-                                    @can($role->route)
+                                    @if (auth('admin')->user()->can('isAdmin') ||
+                                            auth('admin')->user()->can($role->extension . '|view') ||
+                                            auth('admin')->user()->can($role->extension . '|view_owner'))
                                         <li>
                                             <a class="d-flex align-items-center" href="{{ $role->route }}">
                                                 <i class="fa-regular fa-circle"></i>
                                                 <span class="menu-item text-truncate">{{ __($role->name) }}</span>
                                             </a>
                                         </li>
-                                    @endcan
+                                    @endif
                                 @endforeach
                             </ul>
                         @endif

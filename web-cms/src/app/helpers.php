@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Modules\Admins\Entities\AdminSetting;
 
@@ -319,5 +320,11 @@ if (!function_exists('isJSON')) {
     function isJSON($string)
     {
         return is_string($string) && is_array(json_decode($string, true)) ? true : false;
+    }
+}
+if (!function_exists('allows')) {
+    function allows($role)
+    {
+        return Gate::allows($role);
     }
 }

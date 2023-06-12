@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pickers/flatpickr/flatpickr.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pickers/form-flat-pickr.css') }}">
 
-    <title>{{ 'Admin | ' . $title ?? env('APP_NAME') }}</title>
+    <title>Admin | {{ $title ?? env('APP_NAME') }}</title>
     @yield('style')
 </head>
 

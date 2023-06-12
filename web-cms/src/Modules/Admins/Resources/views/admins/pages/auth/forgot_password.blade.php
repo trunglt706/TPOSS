@@ -21,7 +21,7 @@
                                     <label for="login-email" class="form-label">@lang('email')</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i data-feather="mail"></i></span>
-                                        <input type="text" class="form-control" id="login-email" name="login-email"
+                                        <input type="text" class="form-control" id="login-email" name="email"
                                             placeholder="example@domain.com" aria-describedby="login-email" tabindex="1"
                                             autofocus />
                                     </div>

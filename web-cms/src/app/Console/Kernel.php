@@ -20,6 +20,10 @@ class Kernel extends ConsoleKernel
             $schedule->command('order:check-and-update-expire')->daily();
             $schedule->command('check_update:auto_backup_db')->weekly();
         }
+        if (Module::has('Stores')) {
+        }
+        if (Module::has('Partners')) {
+        }
         $schedule->command('telescope:prune')->daily();
     }
 

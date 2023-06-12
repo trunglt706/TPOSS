@@ -4,7 +4,6 @@ namespace Modules\Admins\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Modules\Admins\Entities\AdminMenus;
 use Modules\Admins\Entities\Admins;
 use Modules\Admins\Http\Requests\Auth\ForgotPasswordRequest;
 use Modules\Admins\Http\Requests\Auth\LoginRequest;
@@ -14,7 +13,6 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return AdminMenus::load_menus();
         $title = __('login');
         return view('admins::admins.pages.auth.login', compact('title'));
     }

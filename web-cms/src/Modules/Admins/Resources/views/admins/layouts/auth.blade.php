@@ -19,7 +19,7 @@
     <link href="{{ asset('assets/css/components.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/authentication.css') }}" rel="stylesheet">
 
-    <title>{{ 'Admin | ' . $title ?? env('APP_NAME') }}</title>
+    <title>Admin | {{ $title ?? env('APP_NAME') }}</title>
     @yield('style')
 </head>
 

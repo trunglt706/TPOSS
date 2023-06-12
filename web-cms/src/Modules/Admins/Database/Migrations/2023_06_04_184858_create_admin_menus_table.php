@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('admin_menus', function (Blueprint $table) {
             $table->id()->index();
             $table->string('name');
+            $table->string('extension')->nullable();
             $table->boolean('type')->nullable()->default(AdminMenus::TYPE_MAIN);
             $table->string('route')->nullable();
             $table->boolean('status')->nullable()->default(AdminMenus::STATUS_ACTIVE);

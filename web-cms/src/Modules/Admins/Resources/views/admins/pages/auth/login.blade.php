@@ -21,7 +21,7 @@
                                     <label for="login-email" class="form-label">@lang('email')</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i data-feather="mail"></i></span>
-                                        <input type="text" class="form-control" id="login-email" name="login-email"
+                                        <input type="text" class="form-control" id="login-email" name="email"
                                             placeholder="example@domain.com" aria-describedby="login-email" tabindex="1"
                                             autofocus />
                                     </div>
@@ -36,7 +36,7 @@
                                     <div class="input-group input-group-merge form-password-toggle">
                                         <span class="input-group-text"><i data-feather="lock"></i></span>
                                         <input type="password" class="form-control form-control-merge" id="login-password"
-                                            name="login-password" tabindex="2"
+                                            name="password" tabindex="2"
                                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                             aria-describedby="login-password" />
                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>

@@ -19,7 +19,8 @@ class AdminMenus extends Model
         'target',
         'parent_id',
         'icon',
-        'order'
+        'order',
+        'extension'
     ];
 
     protected $hidden = [
@@ -70,6 +71,11 @@ class AdminMenus extends Model
     const TARGET_SELF = 'self';
     const TARGET_BLANK = '_blank';
 
+    public function permission()
+    {
+        return $this->hasOne(AdminPermission::class, 'extension', 'extension');
+    }
+
     public function roles()
     {
         return $this->hasMany(AdminMenus::class, 'parent_id', 'id')->active();
@@ -81,6 +87,14 @@ class AdminMenus extends Model
             return $query->whereIn('type', $type);
         }
         return $query->where('type', $type);
+    }
+
+    public function scopeOfExtension($query, $extension)
+    {
+        if (is_array($extension)) {
+            return $query->whereIn('extension', $extension);
+        }
+        return $query->where('extension', $extension);
     }
 
     public function scopeOfName($query, $name)

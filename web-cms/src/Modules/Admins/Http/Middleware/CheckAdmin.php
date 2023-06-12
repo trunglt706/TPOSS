@@ -4,6 +4,7 @@ namespace Modules\Admins\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Admins\Entities\Admins;
 
 class checkAdmin
@@ -17,8 +18,8 @@ class checkAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = $request->user();
-        if ($user && $user->status == Admins::STATUS_ACTIVE && !is_null($user->deleted_at) && (is_null($user->expired_date) || $user->expired_date >= date('Y-m-d'))) {
+        $user = Auth::guard('admin')->user();
+        if ($user && $user->status == Admins::STATUS_ACTIVE && is_null($user->deleted_at) && (is_null($user->expired_date) || $user->expired_date >= date('Y-m-d'))) {
             return $next($request);
         }
         if ($request->expectsJson()) {

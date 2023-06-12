@@ -2,7 +2,6 @@
 
 namespace Modules\Admins\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
 use Modules\Admins\Entities\AdminCustomer;
