@@ -3,7 +3,6 @@
 namespace Modules\Stores\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class StoresDatabaseSeeder extends Seeder
 {
@@ -14,8 +13,13 @@ class StoresDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        // seed role
+        $this->call(SeedRoleTableSeeder::class);
 
-        // $this->call("OthersTableSeeder");
+        // seed menu
+        $this->call(SeedMenuTableSeeder::class);
+
+        // seed setting
+        $this->call(SeedSettingTableSeeder::class);
     }
 }

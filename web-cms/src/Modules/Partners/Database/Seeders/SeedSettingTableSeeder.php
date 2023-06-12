@@ -15,6 +15,9 @@ class SeedSettingTableSeeder extends Seeder
      */
     public function run()
     {
+        AdminSetting::ofGroup('partners')->each(function ($setting) {
+            $setting->delete();
+        });
         //=============== partners
         $partners = AdminPermission::ofExtension('partners')->first();
         if ($partners) {

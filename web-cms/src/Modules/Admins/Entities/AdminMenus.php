@@ -117,9 +117,9 @@ class AdminMenus extends Model
         return $query->where('status', self::STATUS_ACTIVE);
     }
 
-    public function scopeOfOrder($query)
+    public function scopeOrder($query)
     {
-        return $query->where('order', 'desc');
+        return $query->orderBy('order', 'asc');
     }
 
     public static function get_status($id = '')
@@ -148,8 +148,9 @@ class AdminMenus extends Model
 
     public static function load_menus()
     {
+        Cache::forget('menu_admin');
         $menu_admin = Cache::rememberForever('menu_admin', function () {
-            $menu_admin = AdminMenus::with('roles')
+            $menu_admin = AdminMenus::with('roles')->withCount('roles')
                 ->ofType([AdminMenus::TYPE_MAIN, AdminMenus::TYPE_HEADER])
                 ->parentId(0)
                 ->active()

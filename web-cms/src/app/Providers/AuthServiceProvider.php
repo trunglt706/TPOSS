@@ -31,11 +31,14 @@ class AuthServiceProvider extends ServiceProvider
         if (Auth::guard('admin')->check()) {
             // gate for admin
             Gate::define('isAdmin', function (Admins $admin) {
-                return $admin->supper == Admins::IS_SUPPER;
+                return $admin->supper == Admins::IS_SUPPER && $admin->status == Admins::STATUS_ACTIVE;
             });
 
             foreach (AdminPermission::all() as $permission) {
                 Gate::define($permission->extension, function (Admins $admin) use ($permission) {
+                    return AdminRoleDetail::permissionId($permission->id)->adminId($admin->id)->whereNull('role_id')->active()->first();
+                });
+                Gate::define("admin.$permission->extension.index", function (Admins $admin) use ($permission) {
                     return AdminRoleDetail::permissionId($permission->id)->adminId($admin->id)->whereNull('role_id')->active()->first();
                 });
 

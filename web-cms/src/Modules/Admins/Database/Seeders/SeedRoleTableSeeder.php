@@ -17,9 +17,9 @@ class SeedRoleTableSeeder extends Seeder
     {
         AdminPermission::ofExtension([
             'admins', 'admin_method_payments', 'admin_payment_portals', 'invoice_portals', 'invoices',
-            'services', 'admin_areas', 'provinces', 'districts', 'wards', 'backup_dbs', 'stores',
+            'services', 'admin_areas', 'provinces', 'districts', 'wards', 'backup_dbs',
             'post_groups', 'posts', 'telescope', 'admin_emails', 'admin_settings', 'other',
-            'admin_payments', 'admin_orders', 'permission_stores', 'register_usings', 'admin_leads', 'admin_contacts', 'admin_customers', 'admin_groups', 'admin_permissions', 'admin_activities'
+            'admin_payments', 'admin_orders', 'register_usings', 'admin_leads', 'admin_contacts', 'admin_customers', 'admin_groups', 'admin_permissions', 'admin_activities'
         ])->each(function ($model) {
             $model->delete();
         });
@@ -124,19 +124,6 @@ class SeedRoleTableSeeder extends Seeder
         foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
             AdminRole::create([
                 'permission_id' => $register_usings->id,
-                'extension' => $role
-            ]);
-        }
-
-        //======== stores
-        $stores = AdminPermission::create([
-            'name' => 'permission_stores',
-            'extension' => 'stores',
-            'icon' => '<i class="fa-solid fa-store"></i>'
-        ]);
-        foreach ([AdminRole::ROLE_VIEW, AdminRole::ROLE_INSERT, AdminRole::ROLE_UPDATE, AdminRole::ROLE_DELETE, AdminRole::ROLE_REPORT] as $role) {
-            AdminRole::create([
-                'permission_id' => $stores->id,
                 'extension' => $role
             ]);
         }

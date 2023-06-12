@@ -54,6 +54,7 @@
     "permission_admin_groups": "Nhóm admins",
     "permission_admin_activities": "Nhật ký hoạt động",
     "permission_admin_permissions": "Danh mục quyền",
+    "permission_admin_roles": "Hành động",
     "permission_admin_customers": "Khách hàng",
     "permission_admin_contacts": "Liên hệ",
     "permission_admin_leads": "Khách hàng tiềm năng",

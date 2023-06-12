@@ -111,40 +111,6 @@ class SeedSettingTableSeeder extends Seeder
             ]);
         }
 
-        //=============== stores
-        $stores = AdminPermission::ofExtension('stores')->first();
-        if ($admin_customers) {
-            AdminSetting::create([
-                'code' => 'admin-area-default',
-                'permission_id' => $stores->id,
-                'name' => 'Khu vực mặc định',
-                'type' => AdminSetting::TYPE_SELECT,
-                'data' => 'admin_areas',
-                'value' => '',
-                'description' => 'Nếu cửa hàng thuộc khách hàng, hệ thống sẽ lấy khu vực theo khách hàng',
-                'group' => 'stores',
-            ]);
-            AdminSetting::create([
-                'code' => 'store-assigned-default',
-                'permission_id' => $stores->id,
-                'name' => 'Chỉ định cửa hàng mặc định cho admin',
-                'type' => AdminSetting::TYPE_SELECT,
-                'data' => 'admins',
-                'value' => '',
-                'description' => 'Nếu cửa hàng thuộc khách hàng, hệ thống sẽ lấy phân công theo khách hàng',
-                'group' => 'stores',
-            ]);
-            AdminSetting::create([
-                'code' => 'time-force-delete-stores',
-                'permission_id' => $stores->id,
-                'name' => 'Thời gian hệ thống bắt buộc xóa các cửa hàng đã xóa tạm',
-                'type' => AdminSetting::TYPE_INPUT,
-                'value' => 6,
-                'group' => 'stores',
-                'description' => 'Thời gian tính theo tháng'
-            ]);
-        }
-
         //=============== admins
         $admins = AdminPermission::ofExtension('admins')->first();
         if ($admin_customers) {

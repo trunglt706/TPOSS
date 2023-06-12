@@ -71,11 +71,6 @@ class SeedAdminMenuTableSeeder extends Seeder
             'route' => route('admin.leads.index'),
             'parent_id' => $customer->id,
         ]);
-        AdminMenus::create([
-            'name' => 'permission_stores',
-            'route' => route('admin.stores.index'),
-            'parent_id' => $customer->id,
-        ]);
 
         //===== services
         AdminMenus::create([

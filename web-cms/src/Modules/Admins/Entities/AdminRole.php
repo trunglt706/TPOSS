@@ -31,7 +31,7 @@ class AdminRole extends Model
     {
         static::creating(function ($role) {
             $role->status = $role->status ?? self::STATUS_ACTIVE;
-            $role->order = $role->order ?? self::get_order($role->group_id ?? 0);
+            $role->order = $role->order ?? self::get_order($role->permission_id ?? 0);
         });
 
         static::created(function ($role) {

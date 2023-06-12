@@ -13,8 +13,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('app:check-and-delete-token-reset-password')->everyMinute();
         if (Module::has('Admins')) {
+            $schedule->command('delete-reset-password-expired')->everyMinute();
             $schedule->command('register_usings:check_and_delete')->everyMinute();
             $schedule->command('admin:check_and_update_expired')->daily();
             $schedule->command('order:check-and-update-expire')->daily();
