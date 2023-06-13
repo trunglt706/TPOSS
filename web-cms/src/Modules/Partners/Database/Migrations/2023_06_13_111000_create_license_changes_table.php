@@ -23,7 +23,10 @@ return new class extends Migration
             $table->integer('max_leads')->nullable()->default(1);
             $table->integer('max_stores')->nullable()->default(1);
             $table->integer('created_by')->index()->nullable();
+            $table->integer('updated_by')->index()->nullable();
+            $table->integer('deleted_by')->index()->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
