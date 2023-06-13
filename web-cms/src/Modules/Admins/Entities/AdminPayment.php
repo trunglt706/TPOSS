@@ -41,7 +41,7 @@ class AdminPayment extends Model
     protected static function booted()
     {
         static::creating(function ($payment) {
-            $payment->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $payment->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             $payment->type = $payment->type ?? self::TYPE_THU;
             $payment->status = $payment->status ?? self::STATUS_FAILED;
         });
@@ -56,7 +56,7 @@ class AdminPayment extends Model
         });
 
         static::deleted(function ($payment) {
-            if($payment->attachment) Storage::delete($payment->attachment);
+            if ($payment->attachment) Storage::delete($payment->attachment);
         });
     }
 

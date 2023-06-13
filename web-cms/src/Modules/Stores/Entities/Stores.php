@@ -72,7 +72,7 @@ class Stores extends Model
     protected static function booted()
     {
         static::creating(function ($store) {
-            $store->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $store->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             $store->code = $store->code ?? self::get_code_default();
             $store->status = $store->status ?? self::STATUS_UN_ACTIVE;
             if (!$store->currency) {
@@ -101,7 +101,7 @@ class Stores extends Model
         });
 
         static::deleted(function ($model) {
-            if($model->logo) Storage::delete($model->logo);
+            if ($model->logo) Storage::delete($model->logo);
         });
     }
 

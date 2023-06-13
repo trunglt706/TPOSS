@@ -34,14 +34,14 @@ class AdminEmails extends Model
     protected static function booted()
     {
         static::creating(function ($email) {
-            $email->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $email->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
         });
 
         static::created(function ($model) {
         });
 
         static::updating(function ($email) {
-            $email->updated_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $email->updated_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
         });
 
         static::updated(function ($model) {

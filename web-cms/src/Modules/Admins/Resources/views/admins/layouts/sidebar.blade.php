@@ -30,7 +30,7 @@
                         <span>{{ __($item->name) }}</span>
                         <i data-feather="more-horizontal"></i>
                     </li>
-                @elseif($item->roles_count > 0 && (is_null($item->extension) || \Gate::allows($item->extension)))
+                @elseif(menu_check_show_main($item))
                     <li class="nav-item">
                         <a class="d-flex align-items-center" href="{{ $item->roles_count > 0 ? '#' : $item->route }}">
                             {!! $item->icon !!}
@@ -39,9 +39,7 @@
                         @if ($item->roles_count > 0)
                             <ul class="menu-content">
                                 @foreach ($item->roles as $role)
-                                    @if (auth('admin')->user()->can('isAdmin') ||
-                                            auth('admin')->user()->can($role->extension . '|view') ||
-                                            auth('admin')->user()->can($role->extension . '|view_owner'))
+                                    @if (menu_check_show_sub($role))
                                         <li>
                                             <a class="d-flex align-items-center" href="{{ $role->route }}">
                                                 <i class="fa-regular fa-circle"></i>

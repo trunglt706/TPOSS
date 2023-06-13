@@ -176,10 +176,10 @@ class AdminServiceUsing extends Model
 
     public function scopeSearchSupport($query, $support)
     {
-        $data = json_encode([$support]);
         if (is_array($support)) {
             $data = json_encode($support);
         }
+        $data = json_encode([$support]);
         return $query->whereRaw('JSON_CONTAINS(support_device, \'' . $data . '\')');
     }
 }

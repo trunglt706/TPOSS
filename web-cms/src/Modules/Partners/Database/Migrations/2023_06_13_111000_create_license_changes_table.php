@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('partner_licenses', function (Blueprint $table) {
+        Schema::create('license_changes', function (Blueprint $table) {
             $table->id()->index();
-            $table->string('code')->nullable()->unique()->index();
-            $table->string('description')->nullable();
+            $table->string('name')->nullable();
+            $table->integer('license_id')->index();
+            $table->date('date')->nullable()->default(date('Y-m-d'));
             $table->integer('max_admins')->nullable()->default(1);
             $table->integer('max_customers')->nullable()->default(1);
             $table->integer('max_leads')->nullable()->default(1);
             $table->integer('max_stores')->nullable()->default(1);
-            $table->integer('max_timeout_to_shutdown_host')->nullable()->default(24)->comment('ĐV theo giờ');
-            $table->boolean('status')->nullable()->default(false);
+            $table->integer('created_by')->index()->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('partner_licenses');
+        Schema::dropIfExists('license_changes');
     }
 };

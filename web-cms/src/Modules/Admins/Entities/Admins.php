@@ -114,7 +114,7 @@ class Admins extends Authenticatable
     protected static function booted()
     {
         static::creating(function ($admin) {
-            $admin->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $admin->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             $admin->password = $admin->password ?? self::get_password_default();
             $admin->gender = $admin->gender ?? self::GENDER_OTHER;
             $admin->status = $admin->status ?? self::STATUS_UN_ACTIVE;
@@ -163,18 +163,18 @@ class Admins extends Authenticatable
                 // delete admin_role_details
                 $admin->role_details()->delete();
                 // check and delete avatar in s3
-                if($admin->avatar) Storage::delete($admin->avatar);
+                if ($admin->avatar) Storage::delete($admin->avatar);
             }
         });
 
         static::deleted(function ($admin) {
             $admin->status = self::STATUS_DELETED;
-            $admin->deleted_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $admin->deleted_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
 
             // delete admin_role_details
             $admin->role_details()->delete();
             // check and delete avatar in s3
-            if($admin->avatar) Storage::delete($admin->avatar);
+            if ($admin->avatar) Storage::delete($admin->avatar);
         });
 
         static::restored(function ($admin) {

@@ -36,7 +36,7 @@ class AdminMethodPayment extends Model
     protected static function booted()
     {
         static::creating(function ($method) {
-            $method->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $method->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             $method->status = $method->status ?? self::STATUS_ACTIVE;
             $method->order = $method->order ?? self::get_order();
             $method->has_portal = $method->has_portal ?? false;
@@ -52,7 +52,7 @@ class AdminMethodPayment extends Model
         });
 
         static::deleted(function ($method) {
-            if($method->image) Storage::delete($method->image);
+            if ($method->image) Storage::delete($method->image);
         });
     }
 

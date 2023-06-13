@@ -48,7 +48,7 @@ class Service extends Model
     {
         static::creating(function ($service) {
             $service->status = $service->status ?? self::STATUS_ACTIVE;
-            $service->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $service->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
 
             $support_default = json_encode([
                 Service::SUPPORT_WEB
@@ -67,7 +67,7 @@ class Service extends Model
         });
 
         static::deleted(function ($model) {
-            if($model->image) Storage::delete($model->image);
+            if ($model->image) Storage::delete($model->image);
         });
     }
 
@@ -179,10 +179,10 @@ class Service extends Model
 
     public function scopeSearchSupport($query, $support)
     {
-        $data = json_encode([$support]);
         if (is_array($support)) {
             $data = json_encode($support);
         }
+        $data = json_encode([$support]);
         return $query->whereRaw('JSON_CONTAINS(support_device, \'' . $data . '\')');
     }
 }

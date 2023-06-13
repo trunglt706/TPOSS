@@ -4,6 +4,48 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Modules\Admins\Entities\AdminSetting;
 
+// auth role
+if (!defined('AUTH_ADMIN')) {
+    define('AUTH_ADMIN', 'admin');
+}
+if (!defined('AUTH_USER')) {
+    define('AUTH_USER', 'user');
+}
+
+// role
+if (!defined('ROLE_VIEW')) {
+    define('ROLE_VIEW', 'view');
+}
+if (!defined('ROLE_VIEW_OWNER')) {
+    define('ROLE_VIEW_OWNER', 'view_owner');
+}
+if (!defined('ROLE_INSERT')) {
+    define('ROLE_INSERT', 'insert');
+}
+if (!defined('ROLE_UPDATE')) {
+    define('ROLE_UPDATE', 'update');
+}
+if (!defined('ROLE_DELETE')) {
+    define('ROLE_DELETE', 'delete');
+}
+if (!defined('ROLE_REPORT')) {
+    define('ROLE_REPORT', 'report');
+}
+if (!defined('ROLE_PERMISSION')) {
+    define('ROLE_PERMISSION', 'permission');
+}
+if (!defined('ROLE_LOGIN')) {
+    define('ROLE_LOGIN', 'login');
+}
+if (!defined('ROLE_EXPORT')) {
+    define('ROLE_EXPORT', 'export');
+}
+
+if (!defined('IS_ADMIN')) {
+    define('IS_ADMIN', 'isAdmin');
+}
+
+// color
 if (!defined('COLORS')) {
     define('COLORS', [
         'primary' => '#0d6efd',
@@ -326,5 +368,18 @@ if (!function_exists('allows')) {
     function allows($role)
     {
         return Gate::allows($role);
+    }
+}
+if (!function_exists('menu_check_show_main')) {
+    function menu_check_show_main($item)
+    {
+        return allows($item->extension) && !is_null($item->extension) || (is_null($item->extension) && $item->roles_count > 0);
+    }
+}
+if (!function_exists('menu_check_show_sub')) {
+    function menu_check_show_sub($role)
+    {
+        $user = auth(AUTH_ADMIN)->user();
+        return $user->can(IS_ADMIN) || $user->can($role->extension . '|' . ROLE_VIEW) || $user->can($role->extension . '|' . ROLE_VIEW_OWNER);
     }
 }

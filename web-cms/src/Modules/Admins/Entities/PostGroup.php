@@ -38,7 +38,7 @@ class PostGroup extends Model
     {
         static::creating(function ($group) {
             $order = $group->order ?? self::get_order();
-            $group->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $group->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             $group->order = $order;
             $group->status = $group->status ?? self::STATUS_SUSPEND;
             $group->slug = self::get_slug($group->name, $order);
@@ -58,7 +58,7 @@ class PostGroup extends Model
             // delete all post of group
             $group->posts->delete();
             // check and delete image in s3
-            if($group->image) Storage::delete($group->image);
+            if ($group->image) Storage::delete($group->image);
         });
     }
 

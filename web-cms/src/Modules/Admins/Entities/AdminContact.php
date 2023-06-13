@@ -66,7 +66,7 @@ class AdminContact extends Model
     protected static function booted()
     {
         static::creating(function ($contact) {
-            $contact->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $contact->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             $contact->code = $contact->code ?? self::get_code_default();
             $contact->gender = $contact->gender ?? AdminLead::GENDER_OTHER;
             $contact->status = $contact->status ?? self::STATUS_ACTIVE;
@@ -82,7 +82,7 @@ class AdminContact extends Model
         });
 
         static::deleted(function ($contact) {
-            if($contact->avatar) Storage::delete($contact->avatar);
+            if ($contact->avatar) Storage::delete($contact->avatar);
         });
     }
 

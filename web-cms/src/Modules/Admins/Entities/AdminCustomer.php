@@ -74,7 +74,7 @@ class AdminCustomer extends Model
     protected static function booted()
     {
         static::creating(function ($customer) {
-            $customer->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $customer->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             $customer->code = $customer->code ?? self::get_code_default();
             $customer->gender = $customer->gender ?? AdminLead::GENDER_OTHER;
             $customer->status = $customer->status ?? self::STATUS_ACTIVE;
@@ -94,9 +94,9 @@ class AdminCustomer extends Model
         });
 
         static::deleted(function ($customer) {
-            $customer->deleted_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $customer->deleted_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             // check and delete avatar in s3
-            if($customer->avatar) Storage::delete($customer->avatar);
+            if ($customer->avatar) Storage::delete($customer->avatar);
         });
     }
 

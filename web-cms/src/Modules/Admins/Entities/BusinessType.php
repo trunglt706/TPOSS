@@ -30,7 +30,7 @@ class BusinessType extends Model
     protected static function booted()
     {
         static::creating(function ($type) {
-            $type->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $type->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             $type->status = $type->status ?? self::STATUS_ACTIVE;
         });
 

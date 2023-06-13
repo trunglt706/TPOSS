@@ -31,7 +31,7 @@ class Area extends Model
     protected static function booted()
     {
         static::creating(function ($model) {
-            $model->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $model->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
         });
 
         static::created(function ($model) {

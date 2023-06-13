@@ -8,5 +8,7 @@
     
     "status_1": "Kích hoạt",
     "status_2": "Đã khóa",
-    "status_3": "Đã xóa"
+    "status_3": "Đã xóa",
+
+    "change_license_by_date": "Biến động bản quyền trong ngày :date"
 }

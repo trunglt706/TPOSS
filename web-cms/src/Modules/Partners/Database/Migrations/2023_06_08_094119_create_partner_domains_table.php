@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('partner_domains', function (Blueprint $table) {
             $table->id()->index();
             $table->string('domain')->unique()->index();
+            $table->json('ips')->nullable();
             $table->integer('partner_id')->index();
             $table->string('description')->nullable();
             $table->boolean('status')->nullable()->default(true);

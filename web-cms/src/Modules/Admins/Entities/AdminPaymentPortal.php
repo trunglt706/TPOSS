@@ -41,7 +41,7 @@ class AdminPaymentPortal extends Model
     protected static function booted()
     {
         static::creating(function ($portal) {
-            $portal->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $portal->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             $portal->order = $portal->order ?? self::get_order();
             $portal->status = $portal->status ?? self::STATUS_SUSPEND;
         });
@@ -56,7 +56,7 @@ class AdminPaymentPortal extends Model
         });
 
         static::deleted(function ($portal) {
-            if($portal->image) Storage::delete($portal->image);
+            if ($portal->image) Storage::delete($portal->image);
         });
     }
 

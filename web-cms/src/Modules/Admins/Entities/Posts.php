@@ -43,7 +43,7 @@ class Posts extends Model
     {
         static::creating(function ($post) {
             $order = $post->order ?? self::get_order($post->group_id ?? 0);
-            $post->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $post->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             $post->order = $order;
             $post->status = $post->status ?? Posts::STATUS_SUSPEND;
             $post->slug = self::get_slug($post->name, $order);
@@ -59,7 +59,7 @@ class Posts extends Model
         });
 
         static::deleted(function ($post) {
-            if($post->image) Storage::delete($post->image);
+            if ($post->image) Storage::delete($post->image);
         });
     }
 
@@ -127,10 +127,10 @@ class Posts extends Model
 
     public function scopeSearchTag($query, $tag)
     {
-        $data = json_encode([$tag]);
         if (is_array($tag)) {
             $data = json_encode($tag);
         }
+        $data = json_encode([$tag]);
         return $query->whereRaw('JSON_CONTAINS(tag, \'' . $data . '\')');
     }
 

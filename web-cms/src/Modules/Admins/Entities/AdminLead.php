@@ -76,7 +76,7 @@ class AdminLead extends Model
     protected static function booted()
     {
         static::creating(function ($lead) {
-            $lead->created_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $lead->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             $lead->code = $lead->code ?? self::get_code_default();
             $lead->gender = $lead->gender ?? self::GENDER_OTHER;
             $lead->status = $lead->status ?? self::STATUS_ACTIVE;
@@ -95,9 +95,9 @@ class AdminLead extends Model
         });
 
         static::deleted(function ($lead) {
-            $lead->deleted_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $lead->deleted_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
             // check and delete avatar in s3
-            if($lead->avatar) Storage::delete($lead->avatar);
+            if ($lead->avatar) Storage::delete($lead->avatar);
         });
     }
 

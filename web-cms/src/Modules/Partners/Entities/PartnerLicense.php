@@ -14,6 +14,7 @@ class PartnerLicense extends Model
     protected $fillable = [
         'code',
         'description',
+        'max_admins',
         'max_customers',
         'max_leads',
         'max_stores',

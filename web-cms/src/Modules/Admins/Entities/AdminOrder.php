@@ -79,7 +79,7 @@ class AdminOrder extends Model
             $order->discount_total = $discount_total;
             $order->vat_total = $vat_total;
             $order->total = $order->sub_total - $discount_total + $vat_total;
-            $order->created_by = Auth::guard('admin')->user()->id;
+            $order->created_by = Auth::guard(AUTH_ADMIN)->user()->id;
         });
 
         static::updated(function ($model) {
@@ -87,7 +87,7 @@ class AdminOrder extends Model
 
         static::deleted(function ($order) {
             $order->status = self::STATUS_DELETED;
-            $order->deleted_by = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->id : 0;
+            $order->deleted_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
         });
     }
 

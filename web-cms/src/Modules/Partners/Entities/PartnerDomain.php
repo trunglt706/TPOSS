@@ -2,6 +2,7 @@
 
 namespace Modules\Partners\Entities;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,6 +16,7 @@ class PartnerDomain extends Model
         'partner_id',
         'description',
         'status',
+        'ips'
     ];
 
     protected $hidden = [
@@ -47,6 +49,13 @@ class PartnerDomain extends Model
 
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
+
+    protected function ips(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => (json_decode($value, 1)),
+        );
+    }
 
     public function partner()
     {
@@ -86,5 +95,14 @@ class PartnerDomain extends Model
             self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
+    }
+
+    public function scopeSearchIps($query, $ips)
+    {
+        if (is_array($ips)) {
+            $data = json_encode($ips);
+        }
+        $data = json_encode([$ips]);
+        return $query->whereRaw('JSON_CONTAINS(ips, \'' . $data . '\')');
     }
 }
