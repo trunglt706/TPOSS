@@ -36,12 +36,6 @@ class SeedMenuTableSeeder extends Seeder
             'extension' => 'partner_licenses',
         ]);
         AdminMenus::create([
-            'name' => 'permission_partner_histories',
-            'route' => admin_get_full_link_host('admin.partner_histories.index'),
-            'parent_id' => $partner->id,
-            'extension' => 'partner_histories',
-        ]);
-        AdminMenus::create([
             'name' => 'permission_partner_notifies',
             'route' => admin_get_full_link_host('admin.partner_notifies.index'),
             'parent_id' => $partner->id,
