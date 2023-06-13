@@ -45,7 +45,7 @@ use Modules\Admins\Http\Controllers\SettingController;
 use Modules\Admins\Http\Controllers\SettingGroupController;
 use Modules\Admins\Http\Controllers\WardController;
 
-Route::domain('admin.' . env('APP_URL'))->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest')->controller(AuthController::class)->group(function () {
         Route::get('login', 'login')->name('login');
         Route::post('login', 'login_post')->name('login_post');
@@ -53,6 +53,7 @@ Route::domain('admin.' . env('APP_URL'))->name('admin.')->group(function () {
         Route::post('forgot_password', 'forgot_password_post')->name('forgot_password_post');
         Route::get('reset_password', 'reset_password')->name('reset_password');
         Route::post('reset_password', 'reset_password_post')->name('reset_password_post');
+        Route::get('language/{lang}', 'change_language')->name('change_language');
     });
 
     Route::middleware('checkAdmin')->group(function () {

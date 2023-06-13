@@ -3,6 +3,7 @@
 namespace Modules\Admins\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Modules\Admins\Entities\Admins;
 use Modules\Admins\Http\Requests\Auth\ForgotPasswordRequest;
@@ -11,6 +12,13 @@ use Modules\Admins\Http\Requests\Auth\ResetPasswordRequest;
 
 class AuthController extends Controller
 {
+    public function change_language($lang)
+    {
+        $locale = $lang == 'en' ? 'en' : 'vi';
+        App::setLocale($locale);
+        return back()->withSuccess('Thay đổi ngôn ngữ thành công');
+    }
+
     public function login()
     {
         $title = __('login');

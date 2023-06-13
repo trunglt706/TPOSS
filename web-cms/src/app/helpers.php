@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Modules\Admins\Entities\AdminSetting;
 use Illuminate\Support\Str;
+use Modules\Admins\Entities\AdminMenus;
 
 // auth role
 if (!defined('AUTH_ADMIN')) {
@@ -371,29 +372,45 @@ if (!function_exists('allows')) {
         return Gate::allows($role);
     }
 }
-if (!function_exists('menu_check_show_main')) {
-    function menu_check_show_main($item)
+if (!function_exists('admin_menu_check_show_main')) {
+    function admin_menu_check_show_main($item)
     {
         return allows($item->extension) && !is_null($item->extension) || (is_null($item->extension) && $item->roles_count > 0);
     }
 }
-if (!function_exists('menu_check_show_sub')) {
-    function menu_check_show_sub($role)
+if (!function_exists('admin_menu_check_show_sub')) {
+    function admin_menu_check_show_sub($role)
     {
         $user = auth(AUTH_ADMIN)->user();
         return $user->can(IS_ADMIN) || $user->can($role->extension . '|' . ROLE_VIEW) || $user->can($role->extension . '|' . ROLE_VIEW_OWNER);
     }
 }
-if (!function_exists('get_full_link_host')) {
-    function get_full_link_host($route_name)
+if (!function_exists('admin_menu_sub')) {
+    function admin_menu_sub($menu)
+    {
+        $list = [];
+        $user = auth(AUTH_ADMIN)->user();
+        AdminMenus::with('permission')->parentId($menu->parent_id)->active()->each(function ($role) use ($user) {
+            if ($user->can(IS_ADMIN) || $user->can($role->extension . '|' . ROLE_VIEW) || $user->can($role->extension . '|' . ROLE_VIEW_OWNER)) {
+                $list[] = [
+                    'name' => __($role->name),
+                    'route' => $role->route,
+                    'icon' => $role->icon
+                ];
+            }
+        });
+        return $list;
+    }
+}
+if (!function_exists('admin_get_full_link_host')) {
+    function admin_get_full_link_host($route_name)
     {
         $route = route($route_name);
-        if (in_array(env('APP_ENV'), ['production', 'state'])) {
+        if (in_array(env('APP_ENV'), ['production', 'staging'])) {
             return $route;
         } else {
-            $before = Str::before($route, env('APP_URL'));
             $after = Str::after($route, env('APP_URL'));
-            return $before . env('APP_URL') . ':' . env('APP_PORT') . $after;
+            return $after;
         }
     }
 }

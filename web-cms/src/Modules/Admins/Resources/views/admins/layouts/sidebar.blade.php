@@ -30,7 +30,7 @@
                         <span>{{ __($item->name) }}</span>
                         <i data-feather="more-horizontal"></i>
                     </li>
-                @elseif(menu_check_show_main($item))
+                @elseif(admin_menu_check_show_main($item))
                     <li class="nav-item">
                         <a class="d-flex align-items-center" href="{{ $item->roles_count > 0 ? '#' : $item->route }}">
                             {!! $item->icon !!}
@@ -39,7 +39,7 @@
                         @if ($item->roles_count > 0)
                             <ul class="menu-content">
                                 @foreach ($item->roles as $role)
-                                    @if (menu_check_show_sub($role))
+                                    @if (admin_menu_check_show_sub($role))
                                         <li>
                                             <a class="d-flex align-items-center" href="{{ $role->route }}">
                                                 <i class="fa-regular fa-circle"></i>

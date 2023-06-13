@@ -184,6 +184,92 @@ class SeedSettingTableSeeder extends Seeder
                 'value' => 'TPOS',
                 'group' => 'seo'
             ]);
+
+            // ==== pusher
+            AdminSetting::create([
+                'code' => 'pusher-app-id',
+                'permission_id' => $admins->id,
+                'name' => 'App ID',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => '1',
+                'group' => 'pusher'
+            ]);
+            AdminSetting::create([
+                'code' => 'pusher-app-key',
+                'permission_id' => $admins->id,
+                'name' => 'App Key',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'chip_retail',
+                'group' => 'pusher'
+            ]);
+            AdminSetting::create([
+                'code' => 'pusher-app-secret',
+                'permission_id' => $admins->id,
+                'name' => 'App secret',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => '89kzjhf9129nakj',
+                'group' => 'pusher'
+            ]);
+            AdminSetting::create([
+                'code' => 'pusher-app-host',
+                'permission_id' => $admins->id,
+                'name' => 'App host',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'slanger.nxcloud.vn',
+                'group' => 'pusher'
+            ]);
+            AdminSetting::create([
+                'code' => 'pusher-app-port',
+                'permission_id' => $admins->id,
+                'name' => 'App port',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => '24589',
+                'group' => 'pusher'
+            ]);
+            AdminSetting::create([
+                'code' => 'pusher-app-scheme',
+                'permission_id' => $admins->id,
+                'name' => 'App scheme',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'https',
+                'group' => 'pusher'
+            ]);
+            AdminSetting::create([
+                'code' => 'pusher-app-cluster',
+                'permission_id' => $admins->id,
+                'name' => 'App cluster',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'mt1',
+                'group' => 'pusher'
+            ]);
+
+            //==== nocaptcha
+            AdminSetting::create([
+                'code' => 'nocaptcha-secret',
+                'permission_id' => $admins->id,
+                'name' => 'Secret',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => '6LdcR2UUAAAAAEs7Lv1sXvYtENMMzKdqFYRPWGiN',
+                'group' => 'nocaptcha'
+            ]);
+            AdminSetting::create([
+                'code' => 'nocaptcha-sitekey',
+                'permission_id' => $admins->id,
+                'name' => 'Site key',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'NOCAPTCHA_SITEKEY',
+                'group' => 'nocaptcha'
+            ]);
+
+            //==== slack webhook
+            AdminSetting::create([
+                'code' => 'slack-webhook-url',
+                'permission_id' => $admins->id,
+                'name' => 'Slack webhook url',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'https://hooks.slack.com/services/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',
+                'group' => 'slack'
+            ]);
         }
 
         //=============== register_usings
@@ -196,6 +282,75 @@ class SeedSettingTableSeeder extends Seeder
                 'type' => AdminSetting::TYPE_CHECKBOX,
                 'value' => true,
                 'group' => 'register_usings',
+            ]);
+        }
+
+        //=============== admin_emails
+        $admin_emails = AdminPermission::ofExtension('admin_emails')->first();
+        if ($admin_emails) {
+            AdminSetting::create([
+                'code' => 'mail-driver',
+                'permission_id' => $admin_emails->id,
+                'name' => 'Mail driver',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'smtp',
+                'group' => 'mail',
+            ]);
+            AdminSetting::create([
+                'code' => 'mail-host',
+                'permission_id' => $admin_emails->id,
+                'name' => 'Mail host',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'email-smtp.ap-southeast-1.amazonaws.com',
+                'group' => 'mail',
+            ]);
+            AdminSetting::create([
+                'code' => 'mail-port',
+                'permission_id' => $admin_emails->id,
+                'name' => 'Male port',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => '587',
+                'group' => 'mail',
+            ]);
+            AdminSetting::create([
+                'code' => 'mail-username',
+                'permission_id' => $admin_emails->id,
+                'name' => 'Mail username',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'AKIA54P2XX6465D54QWJ',
+                'group' => 'mail',
+            ]);
+            AdminSetting::create([
+                'code' => 'mail-password',
+                'permission_id' => $admin_emails->id,
+                'name' => 'Mail password',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'BANZXv/qfPPtRxJu9FGrJnqccWDt9pIMB72mz9zNNpz1',
+                'group' => 'mail',
+            ]);
+            AdminSetting::create([
+                'code' => 'mail-encryption',
+                'permission_id' => $admin_emails->id,
+                'name' => 'Mail encryption',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'tls',
+                'group' => 'mail',
+            ]);
+            AdminSetting::create([
+                'code' => 'mail-from-name',
+                'permission_id' => $admin_emails->id,
+                'name' => 'Mail from name',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'TPOS',
+                'group' => 'mail',
+            ]);
+            AdminSetting::create([
+                'code' => 'mail-from-address',
+                'permission_id' => $admin_emails->id,
+                'name' => 'Mail from address',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 'noreply@nxcloud.vn',
+                'group' => 'mail',
             ]);
         }
     }
