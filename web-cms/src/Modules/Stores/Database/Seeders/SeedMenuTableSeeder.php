@@ -22,7 +22,7 @@ class SeedMenuTableSeeder extends Seeder
         if ($customer) {
             AdminMenus::create([
                 'name' => 'permission_stores',
-                'route' => route('admin.stores.index'),
+                'route' => get_full_link_host('admin.stores.index'),
                 'parent_id' => $customer->id,
                 'extension' => 'stores',
             ]);

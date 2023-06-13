@@ -50,7 +50,7 @@
     "role_report": "Thống kê",
     "role_login": "Đăng nhập",
     "role_permission": "Phân quyền",
-    "permission_admins": "Danh sách admins",
+    "permission_admins": "Quản trị viên",
     "permission_admin_groups": "Nhóm admins",
     "permission_admin_activities": "Nhật ký hoạt động",
     "permission_admin_permissions": "Danh mục quyền",
@@ -60,7 +60,7 @@
     "permission_admin_leads": "Khách hàng tiềm năng",
     "permission_register_usings": "Đăng ký mới",
     "permission_stores": "Cửa hàng",
-    "permission_admin_orders": "Danh sách đơn hàng",
+    "permission_admin_orders": "Đơn hàng",
     "permission_admin_payments": "Lịch sử thanh toán",
     "permission_admin_method_payments": "Phương thức thanh toán",
     "permission_admin_payment_portals": "Cổng thanh toán",
@@ -68,7 +68,7 @@
     "permission_invoices": "Hóa đơn đã phát hành",
     "permission_services": "Dịch vụ",
     "permission_admin_areas": "Danh sách khu vực",
-    "permission_provinces": "Danh sách tỉnh thành",
+    "permission_provinces": "Đơn vị hành chính",
     "permission_districts": "Danh sách quận huyện",
     "permission_wards": "Danh sách phường xã",
     "permission_backup_dbs": "Sao lưu dữ liệu",
@@ -118,5 +118,8 @@
     "new_password": "Mật khẩu mới",
     "reset_header":"Bắt đầu gửi yêu cầu khôi phục mật khẩu",
     "confirm_leave_page": "Xác nhận rời khỏi chức năng này",
-    "no_selected": "Chưa chọn"
+    "no_selected": "Chưa chọn",
+
+    "invoice_type_personal": "Cá nhân",
+    "invoice_type_company": "Công ty"
 }

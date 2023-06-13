@@ -141,6 +141,16 @@ class AdminCustomer extends Model
     const TYPE_GROUP = 1;
     const TYPE_OLD = 0;
 
+    public function info_invoices()
+    {
+        return $this->hasMany(AdminCustomerInvoice::class, 'customer_id', 'id');
+    }
+
+    public function info_payments()
+    {
+        return $this->hasMany(AdminCustomerPayment::class, 'customer_id', 'id');
+    }
+
     public function stores()
     {
         return $this->hasMany(Stores::class, 'customer_id', 'id');

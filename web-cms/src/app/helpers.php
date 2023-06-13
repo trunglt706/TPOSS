@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Modules\Admins\Entities\AdminSetting;
+use Illuminate\Support\Str;
 
 // auth role
 if (!defined('AUTH_ADMIN')) {
@@ -381,5 +382,30 @@ if (!function_exists('menu_check_show_sub')) {
     {
         $user = auth(AUTH_ADMIN)->user();
         return $user->can(IS_ADMIN) || $user->can($role->extension . '|' . ROLE_VIEW) || $user->can($role->extension . '|' . ROLE_VIEW_OWNER);
+    }
+}
+if (!function_exists('get_full_link_host')) {
+    function get_full_link_host($route_name)
+    {
+        $route = route($route_name);
+        if (in_array(env('APP_ENV'), ['production', 'state'])) {
+            return $route;
+        } else {
+            $before = Str::before($route, env('APP_URL'));
+            $after = Str::after($route, env('APP_URL'));
+            return $before . env('APP_URL') . ':' . env('APP_PORT') . $after;
+        }
+    }
+}
+if (!function_exists('format_phone')) {
+    function format_phone($phone)
+    {
+        $phone = Str::replace(' ', '', $phone);
+        $phone = Str::replace('(', '', $phone);
+        $phone = Str::replace(')', '', $phone);
+        $phone = Str::replace('-', '', $phone);
+        $phone = Str::replace('+', '', $phone);
+        $phone = Str::replace('84', '', $phone);
+        return $phone;
     }
 }

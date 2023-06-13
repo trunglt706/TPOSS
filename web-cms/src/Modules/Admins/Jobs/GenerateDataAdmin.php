@@ -36,7 +36,7 @@ class GenerateDataAdmin implements ShouldQueue
             Admins::create([
                 'name' => $faker->unique()->name(),
                 'email' => $faker->unique()->safeEmail(),
-                'phone' => $faker->unique()->phoneNumber(),
+                'phone' => format_phone($faker->unique()->phoneNumber()),
                 'group_id' => $this->admin_group_id,
                 'status' => Admins::STATUS_ACTIVE,
                 'address' => $faker->address(),
