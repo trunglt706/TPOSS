@@ -44,7 +44,9 @@
             "Modules\\": "Modules/"
         },
         "files": [
-            "app/helpers.php"
+            "app/Helpers/system.php",
+            "app/Helpers/admin.php",
+            "app/Helpers/user.php"
         ]
     },
     "autoload-dev": {

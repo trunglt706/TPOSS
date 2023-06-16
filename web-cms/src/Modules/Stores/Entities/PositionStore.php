@@ -40,12 +40,12 @@ class PositionStore extends Model
 
     public function position()
     {
-        return $this->hasOne(Positions::class, 'id', 'position_id');
+        return $this->belongsTo(Positions::class, 'position_id');
     }
 
     public function store()
     {
-        return $this->hasOne(Stores::class, 'id', 'store_id');
+        return $this->belongsTo(Stores::class, 'store_id');
     }
 
     public function scopePositionId($query, $position_id)

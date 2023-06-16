@@ -51,17 +51,17 @@ class AdminGroupRoleSample extends Model
 
     public function permission()
     {
-        return $this->hasOne(AdminPermission::class, 'id', 'permission_id');
+        return $this->belongsTo(AdminPermission::class, 'permission_id');
     }
 
     public function role()
     {
-        return $this->hasOne(AdminRole::class, 'id', 'role_id');
+        return $this->belongsTo(AdminRole::class, 'role_id');
     }
 
     public function group()
     {
-        return $this->hasOne(AdminGroup::class, 'id', 'group_id');
+        return $this->belongsTo(AdminGroup::class, 'group_id');
     }
 
     public function scopeGroupId($query, $group_id)

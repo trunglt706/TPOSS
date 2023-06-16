@@ -91,17 +91,17 @@ class RegisterUsing extends Model
 
     public function business_type()
     {
-        return $this->hasOne(BusinessType::class, 'id', 'business_type_id');
+        return $this->belongsTo(BusinessType::class, 'business_type_id');
     }
 
     public function service()
     {
-        return $this->hasOne(Service::class, 'id', 'service_id');
+        return $this->belongsTo(Service::class, 'service_id');
     }
 
-    public function lead_id()
+    public function lead()
     {
-        return $this->hasOne(AdminLead::class, 'id', 'lead_id');
+        return $this->belongsTo(AdminLead::class, 'lead_id');
     }
 
     public function scopeOfEmail($query, $email)

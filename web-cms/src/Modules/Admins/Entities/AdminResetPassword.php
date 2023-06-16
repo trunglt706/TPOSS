@@ -54,7 +54,7 @@ class AdminResetPassword extends Model
     // relations
     public function admin()
     {
-        return $this->hasOne(Admins::class, 'email', 'email');
+        return $this->belongsTo(Admins::class, 'email', 'email');
     }
 
     // scope

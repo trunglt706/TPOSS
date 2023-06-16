@@ -60,7 +60,7 @@ class AdminNotification extends Model
 
     public function admin()
     {
-        return $this->hasOne(Admins::class, 'id', 'admin_id')->withDefault([
+        return $this->belongsTo(Admins::class, 'admin_id')->withDefault([
             'id' => 0,
             'name' => __('dashboard_admin')
         ]);
@@ -68,7 +68,7 @@ class AdminNotification extends Model
 
     public function permission()
     {
-        return $this->hasOne(AdminPermission::class, 'id', 'permission_id');
+        return $this->belongsTo(AdminPermission::class, 'permission_id');
     }
 
     public function scopePermissionId($query, $permission_id)

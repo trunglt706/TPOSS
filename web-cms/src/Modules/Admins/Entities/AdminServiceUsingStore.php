@@ -45,12 +45,12 @@ class AdminServiceUsingStore extends Model
 
     public function serviceUsing()
     {
-        return $this->hasOne(AdminServiceUsing::class, 'id', 'using_id');
+        return $this->belongsTo(AdminServiceUsing::class, 'using_id');
     }
 
     public function store()
     {
-        return $this->hasOne(Stores::class, 'id', 'store_id');
+        return $this->belongsTo(Stores::class, 'store_id');
     }
 
     public function scopeUsingId($query, $using_id)

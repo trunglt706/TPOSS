@@ -262,7 +262,7 @@ class Admins extends Authenticatable
 
     public function group()
     {
-        return $this->hasOne(AdminGroup::class, 'id', 'group_id');
+        return $this->belongsTo(AdminGroup::class, 'group_id');
     }
 
     public function activities()

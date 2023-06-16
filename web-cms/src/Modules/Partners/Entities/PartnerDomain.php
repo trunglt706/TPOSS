@@ -59,7 +59,7 @@ class PartnerDomain extends Model
 
     public function partner()
     {
-        return $this->hasOne(Partners::class, 'id', 'partner_id');
+        return $this->belongsTo(Partners::class, 'partner_id');
     }
 
     public function scopeOfDomain($query, $domain)

@@ -68,12 +68,12 @@ class AdminInvoice extends Model
 
     public function order()
     {
-        return $this->hasOne(AdminOrder::class, 'id', 'order_id');
+        return $this->belongsTo(AdminOrder::class, 'order_id');
     }
 
     public function portal()
     {
-        return $this->hasOne(InvoicePortal::class, 'id', 'portal_id');
+        return $this->belongsTo(InvoicePortal::class, 'portal_id');
     }
 
     public function scopeOrderId($query, $order_id)

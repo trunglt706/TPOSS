@@ -72,7 +72,7 @@ class StoreKey extends Model
 
     public function store()
     {
-        return $this->hasOne(Stores::class, 'id', 'store_id');
+        return $this->belongsTo(Stores::class, 'id', 'store_id');
     }
 
     public function scopeStoreId($query, $store_id)

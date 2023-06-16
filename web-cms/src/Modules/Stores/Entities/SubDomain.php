@@ -57,7 +57,7 @@ class SubDomain extends Model
 
     public function customer()
     {
-        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
+        return $this->belongsTo(AdminCustomer::class, 'customer_id');
     }
 
     public function createdBy()

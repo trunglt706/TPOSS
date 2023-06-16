@@ -40,12 +40,12 @@ class SubDomainStore extends Model
 
     public function sub_domain()
     {
-        return $this->hasOne(SubDomain::class, 'id', 'sub_domain_id');
+        return $this->belongsTo(SubDomain::class, 'sub_domain_id');
     }
 
     public function store()
     {
-        return $this->hasOne(Stores::class, 'id', 'store_id');
+        return $this->belongsTo(Stores::class, 'store_id');
     }
 
     public function scopeSubDomainId($query, $sub_domain_id)

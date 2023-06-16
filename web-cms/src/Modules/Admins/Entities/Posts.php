@@ -82,7 +82,7 @@ class Posts extends Model
 
     public function group()
     {
-        return $this->hasOne(PostGroup::class, 'id', 'group_id');
+        return $this->belongsTo(PostGroup::class, 'group_id');
     }
 
     public function createdBy()

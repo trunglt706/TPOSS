@@ -45,7 +45,7 @@ class AdminCustomerFollow extends Model
 
     public function admin()
     {
-        return $this->hasOne(Admins::class, 'id', 'admin_id')->withDefault([
+        return $this->belongsTo(Admins::class, 'admin_id')->withDefault([
             'id' => 0,
             'name' => __('dashboard_admin')
         ]);
@@ -53,7 +53,7 @@ class AdminCustomerFollow extends Model
 
     public function customer()
     {
-        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
+        return $this->belongsTo(AdminCustomer::class, 'customer_id');
     }
 
     public function scopeAdminId($query, $admin_id)

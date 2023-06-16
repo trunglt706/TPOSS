@@ -119,7 +119,7 @@ class Users extends Model
 
     public function customer()
     {
-        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
+        return $this->belongsTo(AdminCustomer::class, 'customer_id');
     }
 
     public function province()
@@ -134,7 +134,7 @@ class Users extends Model
 
     public function position()
     {
-        return $this->hasOne(Positions::class, 'id', 'position_id');
+        return $this->belongsTo(Positions::class, 'position_id');
     }
 
     public function ward()

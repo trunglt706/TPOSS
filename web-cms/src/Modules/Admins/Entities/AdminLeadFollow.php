@@ -45,7 +45,7 @@ class AdminLeadFollow extends Model
 
     public function admin()
     {
-        return $this->hasOne(Admins::class, 'id', 'admin_id')->withDefault([
+        return $this->belongsTo(Admins::class, 'admin_id')->withDefault([
             'id' => 0,
             'name' => __('dashboard_admin')
         ]);
@@ -53,7 +53,7 @@ class AdminLeadFollow extends Model
 
     public function lead()
     {
-        return $this->hasOne(AdminLead::class, 'id', 'lead_id');
+        return $this->belongsTo(AdminLead::class, 'lead_id');
     }
 
     public function scopeAdminId($query, $admin_id)

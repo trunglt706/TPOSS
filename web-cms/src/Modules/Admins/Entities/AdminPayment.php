@@ -68,17 +68,17 @@ class AdminPayment extends Model
 
     public function order()
     {
-        return $this->hasOne(AdminOrder::class, 'id', 'order_id');
+        return $this->belongsTo(AdminOrder::class, 'order_id');
     }
 
     public function method()
     {
-        return $this->hasOne(AdminMethodPayment::class, 'id', 'method_id');
+        return $this->belongsTo(AdminMethodPayment::class, 'method_id');
     }
 
     public function portal()
     {
-        return $this->hasOne(AdminPaymentPortal::class, 'id', 'portal_id');
+        return $this->belongsTo(AdminPaymentPortal::class,  'portal_id');
     }
 
     public function createdBy()

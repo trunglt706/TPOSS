@@ -46,12 +46,12 @@ class CustomerStore extends Model
 
     public function customer()
     {
-        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
+        return $this->belongsTo(AdminCustomer::class, 'customer_id');
     }
 
     public function store()
     {
-        return $this->hasOne(Stores::class, 'id', 'store_id');
+        return $this->belongsTo(Stores::class, 'store_id');
     }
 
     public function scopeCustomerId($query, $customer_id)

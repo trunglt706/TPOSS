@@ -68,7 +68,7 @@ class Positions extends Model
 
     public function customer()
     {
-        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
+        return $this->belongsTo(AdminCustomer::class, 'customer_id');
     }
 
     public function scopeCustomerId($query, $customer_id)

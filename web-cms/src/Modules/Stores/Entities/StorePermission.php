@@ -52,17 +52,17 @@ class StorePermission extends Model
 
     public function customer()
     {
-        return $this->hasOne(AdminCustomer::class, 'customer_id', 'id');
+        return $this->belongsTo(AdminCustomer::class, 'customer_id');
     }
 
     public function store()
     {
-        return $this->hasOne(Stores::class, 'store_id', 'id');
+        return $this->belongsTo(Stores::class, 'store_id');
     }
 
     public function permission()
     {
-        return $this->hasOne(Permissions::class, 'permission_id', 'id');
+        return $this->belongsTo(Permissions::class, 'permission_id');
     }
 
     public function scopeCustomerId($query, $customer_id)

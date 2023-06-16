@@ -52,17 +52,17 @@ class AdminRoleDetail extends Model
 
     public function permission()
     {
-        return $this->hasOne(AdminPermission::class, 'id', 'permission_id');
+        return $this->belongsTo(AdminPermission::class, 'permission_id');
     }
 
     public function role()
     {
-        return $this->hasOne(AdminRole::class, 'id', 'role_id');
+        return $this->belongsTo(AdminRole::class, 'role_id');
     }
 
     public function admin()
     {
-        return $this->hasOne(Admins::class, 'id', 'admin_id')->withDefault([
+        return $this->belongsTo(Admins::class, 'admin_id')->withDefault([
             'id' => 0,
             'name' => __('dashboard_admin')
         ]);

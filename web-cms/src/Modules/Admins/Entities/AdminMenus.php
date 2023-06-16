@@ -73,7 +73,7 @@ class AdminMenus extends Model
 
     public function permission()
     {
-        return $this->hasOne(AdminPermission::class, 'extension', 'extension');
+        return $this->belongsTo(AdminPermission::class, 'extension', 'extension');
     }
 
     public function roles()

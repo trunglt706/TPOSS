@@ -50,6 +50,11 @@ class BusinessType extends Model
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
+    public function business()
+    {
+        return $this->hasMany(AdminCustomer::class, 'business_type_id', 'id');
+    }
+
     public function createdBy()
     {
         return $this->hasOne(Admins::class, 'id', 'created_by')->withDefault([

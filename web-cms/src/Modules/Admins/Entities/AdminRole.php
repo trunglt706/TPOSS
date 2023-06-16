@@ -86,7 +86,7 @@ class AdminRole extends Model
 
     public function permission()
     {
-        return $this->hasOne(AdminPermission::class, 'id', 'permission_id');
+        return $this->belongsTo(AdminPermission::class,  'permission_id');
     }
 
     public function scopePermissionId($query, $permission_id)

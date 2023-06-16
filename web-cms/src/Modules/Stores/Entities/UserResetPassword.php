@@ -56,7 +56,7 @@ class UserResetPassword extends Model
     // relations
     public function store()
     {
-        return $this->hasOne(Stores::class, 'code', 'store_code');
+        return $this->belongsTo(Stores::class, 'code', 'store_code');
     }
 
     // scope

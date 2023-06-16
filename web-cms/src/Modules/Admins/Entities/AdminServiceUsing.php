@@ -115,17 +115,17 @@ class AdminServiceUsing extends Model
 
     public function ofStore()
     {
-        return $this->belongsTo(AdminServiceUsingStore::class, 'id', 'store_id');
+        return $this->hasOne(AdminServiceUsingStore::class, 'id', 'store_id');
     }
 
     public function customer()
     {
-        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
+        return $this->belongsTo(AdminCustomer::class, 'customer_id');
     }
 
     public function service()
     {
-        return $this->hasOne(Service::class, 'id', 'service_id');
+        return $this->belongsTo(Service::class, 'service_id');
     }
 
     public function createdBy()

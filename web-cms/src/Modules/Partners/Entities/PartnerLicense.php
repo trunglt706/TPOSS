@@ -55,6 +55,11 @@ class PartnerLicense extends Model
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
+    public function history()
+    {
+        return $this->hasMany(LicenseChange::class, 'license_id', 'id');
+    }
+
     public function scopeOfCode($query, $code)
     {
         return $query->where('code', $code);

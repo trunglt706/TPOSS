@@ -46,12 +46,12 @@ class AdminOrderStore extends Model
 
     public function order()
     {
-        return $this->hasOne(AdminOrder::class, 'id', 'order_id');
+        return $this->belongsTo(AdminOrder::class, 'order_id');
     }
 
     public function store()
     {
-        return $this->hasOne(Stores::class, 'id', 'store_id');
+        return $this->belongsTo(Stores::class, 'store_id');
     }
 
     public function scopeOrderId($query, $order_id)

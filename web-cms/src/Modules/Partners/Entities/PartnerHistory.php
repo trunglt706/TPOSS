@@ -57,12 +57,12 @@ class PartnerHistory extends Model
 
     public function license()
     {
-        return $this->hasOne(PartnerLicense::class, 'id', 'license_id');
+        return $this->belongsTo(PartnerLicense::class, 'license_id');
     }
 
     public function partner()
     {
-        return $this->hasOne(Partners::class, 'id', 'partner_id');
+        return $this->belongsTo(Partners::class, 'partner_id');
     }
 
     public function scopeLicenseId($query, $license_id)

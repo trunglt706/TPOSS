@@ -105,7 +105,7 @@ class LicenseChange extends Model
 
     public function license()
     {
-        return $this->hasOne(PartnerLicense::class, 'id', 'license_id');
+        return $this->belongsTo(PartnerLicense::class, 'license_id');
     }
 
     public function createdBy()

@@ -122,7 +122,7 @@ class Stores extends Model
 
     public function customer()
     {
-        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
+        return $this->belongsTo(AdminCustomer::class, 'customer_id');
     }
 
     public function service_usings()
@@ -132,7 +132,7 @@ class Stores extends Model
 
     public function business_type()
     {
-        return $this->hasOne(BusinessType::class, 'id', 'business_type_id');
+        return $this->belongsTo(BusinessType::class, 'business_type_id');
     }
 
     public function province()

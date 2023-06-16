@@ -47,7 +47,7 @@ class AdminStoreFollow extends Model
 
     public function admin()
     {
-        return $this->hasOne(Admins::class, 'id', 'admin_id')->withDefault([
+        return $this->belongsTo(Admins::class,  'admin_id')->withDefault([
             'id' => 0,
             'name' => __('dashboard_admin')
         ]);
@@ -55,10 +55,7 @@ class AdminStoreFollow extends Model
 
     public function store()
     {
-        if (Module::has('Stores')) {
-            return $this->hasOne(Stores::class, 'id', 'store_id');
-        }
-        return null;
+        return $this->belongsTo(Stores::class, 'store_id');
     }
 
     public function scopeAdminId($query, $admin_id)

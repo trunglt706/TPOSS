@@ -75,9 +75,9 @@ class AdminCustomerPayment extends Model
         );
     }
 
-    public function client()
+    public function customer()
     {
-        return $this->hasOne(AdminCustomer::class, 'id', 'customer_id');
+        return $this->belongsTo(AdminCustomer::class, 'customer_id');
     }
 
     public function scopeClientId($query, $client_id)
