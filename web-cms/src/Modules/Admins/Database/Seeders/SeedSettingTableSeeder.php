@@ -147,6 +147,15 @@ class SeedSettingTableSeeder extends Seeder
                 'group' => 'admin',
                 'description' => 'Thời gian tính theo tháng'
             ]);
+            AdminSetting::create([
+                'code' => 'time-two-factory-expire',
+                'permission_id' => $admins->id,
+                'name' => 'Thời gian tồn tại mã xác thực 2 lớp',
+                'type' => AdminSetting::TYPE_INPUT,
+                'value' => 3,
+                'group' => 'login',
+                'description' => 'Thời gian tính theo phút'
+            ]);
         }
 
         //=============== admin_settings

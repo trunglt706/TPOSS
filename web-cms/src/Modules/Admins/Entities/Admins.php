@@ -69,6 +69,8 @@ class Admins extends Authenticatable
         'supper',
         'last_login',
         'enable_two_factory',
+        'enable_two_factory_code',
+        'enable_two_factory_expire',
         'birthday',
         'last_activity',
         'expired_date',
@@ -93,7 +95,10 @@ class Admins extends Authenticatable
         'last_activity',
         'expired_date',
         'updated_at',
-        'last_login'
+        'last_login',
+        'enable_two_factory',
+        'enable_two_factory_code',
+        'enable_two_factory_expire',
     ];
 
     /**
@@ -109,6 +114,7 @@ class Admins extends Authenticatable
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'expired_date' => 'date:Y-m-d',
         'deleted_at' => 'datetime:Y-m-d H:i:s',
+        'enable_two_factory_expire' => 'datetime:Y-m-d H:i:s',
     ];
 
     protected static function booted()
@@ -190,6 +196,13 @@ class Admins extends Authenticatable
                 ]);
             }
         });
+    }
+
+    protected function enableTwoFactoryCode(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => (str_replace(' ', '', $value)),
+        );
     }
 
     protected function identityCard(): Attribute
@@ -297,6 +310,30 @@ class Admins extends Authenticatable
     }
 
     // scope
+    public function scopeTwoFactory($query)
+    {
+        return $query->where('enable_two_factory', self::ENABLE_TWO_FACTORY);
+    }
+
+    public function scopeTwoFactoryCode($query, $enable_two_factory_code)
+    {
+        return $query->where('enable_two_factory_code', $enable_two_factory_code);
+    }
+
+    public function scopeTwoFactoryExpired($query)
+    {
+        // default 3 minutes
+        $minutes = get_option('time-two-factory-expire', 3);
+        return $query->where('enable_two_factory_expire', '>=', Carbon::now()->subMinutes($minutes));
+    }
+
+    public function scopeTwoFactoryNotExpired($query)
+    {
+        // default 3 minutes
+        $minutes = get_option('time-two-factory-expire', 3);
+        return $query->where('enable_two_factory_expire', '<', Carbon::now()->subMinutes($minutes));
+    }
+
     public function scopeOfEmail($query, $email)
     {
         return $query->where('email', $email);

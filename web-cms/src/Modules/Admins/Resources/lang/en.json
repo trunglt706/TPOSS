@@ -102,9 +102,11 @@
     "dashboard_revenue_this_month": "This month revenues",
     "dashboard_activity_lasted": "New activities",
     "dashboard_lead_lasted":"New leads",
-
     "btn_view_more": "View more",
     "access_denied": "Access denied!",
+    "confirm":"Submit",
+    "otp_header":"Please enter OTP to authenticate login!",
+    "otp": "OTP",
 
     "invoice_type_personal": "Personal",
     "invoice_type_company": "Company"

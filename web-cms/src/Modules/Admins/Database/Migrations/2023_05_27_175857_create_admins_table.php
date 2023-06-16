@@ -32,6 +32,8 @@ return new class extends Migration
             $table->boolean('root')->nullable()->default(Admins::NOT_ROOT);
             $table->dateTime('last_login')->nullable();
             $table->boolean('enable_two_factory')->nullable()->default(Admins::DISABLE_TWO_FACTORY);
+            $table->string('enable_two_factory_code')->nullable();
+            $table->dateTime('enable_two_factory_expire')->nullable();
             $table->boolean('supper')->nullable()->default(Admins::NOT_SUPPER);
             $table->string('password')->nullable();
             $table->dateTime('last_activity')->nullable();

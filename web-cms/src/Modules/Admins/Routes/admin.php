@@ -54,6 +54,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('reset_password', 'reset_password')->name('reset_password');
         Route::post('reset_password', 'reset_password_post')->name('reset_password_post');
         Route::get('language/{lang}', 'change_language')->name('change_language');
+        Route::get('otp', 'otp')->name('otp');
+        Route::post('otp', 'otp_post')->name('otp_post');
     });
 
     Route::middleware('checkAdmin')->group(function () {

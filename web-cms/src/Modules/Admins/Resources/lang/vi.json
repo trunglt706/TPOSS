@@ -119,6 +119,9 @@
     "reset_header":"Bắt đầu gửi yêu cầu khôi phục mật khẩu",
     "confirm_leave_page": "Xác nhận rời khỏi chức năng này",
     "no_selected": "Chưa chọn",
+    "confirm":"Xác nhận",
+    "otp_header":"Vui lòng nhập mã OTP để xác thực đăng nhập!",
+    "otp": "Mã xác thực",
 
     "invoice_type_personal": "Cá nhân",
     "invoice_type_company": "Công ty"
