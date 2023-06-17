@@ -395,6 +395,16 @@ class Admins extends Authenticatable
         return $query->where('status', '<>', self::STATUS_DELETED);
     }
 
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->where('name', 'LIKE', "%$search%")
+                ->orWhere('phone', 'LIKE', "%$search%")
+                ->orWhere('email', 'LIKE', "%$search%")
+                ->orWhere('code', 'LIKE', "%$search%");
+        });
+    }
+
     public static function get_status($id = '')
     {
         $list = [

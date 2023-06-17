@@ -68,6 +68,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::post('home_revenue', 'home_revenue')->name('home_revenue');
             Route::post('home_register', 'home_register')->name('home_register');
             Route::post('home_leads', 'home_leads')->name('home_leads');
+            Route::get('global/{type}', 'global')->name('global');
         });
 
         Route::prefix('profile')->controller(ProfileController::class)->name('profile.')->group(function () {

@@ -37,10 +37,12 @@ class AdminsController extends Controller
         $limit = $request->limit ?? 10;
         $group_id = $request->group_id ?? '';
         $status = $request->status ?? '';
+        $search = $request->search ?? '';
 
         $data = Admins::query();
         $data = $group_id != '' ? $data->groupId($group_id) : $data;
         $data = $status != '' ? $data->status($status) : $data;
+        $data = $search != '' ? $data->search($search) : $data;
 
         $data = $data->orderBy('root', 'desc')->orderBy('supper', 'desc')
             ->orderBy('last_login', 'desc')->paginate($limit);

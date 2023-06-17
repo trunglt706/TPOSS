@@ -380,3 +380,12 @@ if (!function_exists('isProduction')) {
         return in_array(env('APP_ENV'), ['product', 'production']);
     }
 }
+if (!function_exists('get_avatar')) {
+    function get_avatar($avatar, $name)
+    {
+        if ($avatar) {
+            return asset($avatar);
+        }
+        return \Avatar::create($name)->toBase64();
+    }
+}

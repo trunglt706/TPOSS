@@ -74,7 +74,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-4 col-sm-6 mb-1">
+                                            <div class="col-md-3 col-sm-6 mb-1">
                                                 <label class="form-label">@lang('status')</label>
                                                 <select name="status" class="select2 form-select" onchange="filterTable()">
                                                     <option value="">--- @lang('all') ---</option>
@@ -83,7 +83,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-4 col-sm-6 mb-1">
+                                            <div class="col-md-2 col-sm-6 mb-1">
                                                 <label class="form-label">@lang('total_row')</label>
                                                 <select name="limit" class="select2 form-select" onchange="filterTable()">
                                                     <option value="10">10</option>
@@ -91,6 +91,10 @@
                                                     <option value="1000">1,000</option>
                                                     <option value="10000">10,000</option>
                                                 </select>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 mb-1">
+                                                <label class="form-label">@lang('search')</label>
+                                                <input type="text" name="search" class="form-control">
                                             </div>
                                         </div>
                                     </form>

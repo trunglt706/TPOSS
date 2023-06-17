@@ -37,7 +37,6 @@
     <style>
         .table-loading {
             position: absolute;
-            background: #f2f3f37d;
             width: 100%;
             display: flex;
             justify-content: center;

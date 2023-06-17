@@ -112,6 +112,11 @@ class AdminGroup extends Model
         return $query->where('status', self::STATUS_ACTIVE);
     }
 
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'LIKE', "%$search%");
+    }
+
     public static function get_status($id = '')
     {
         $list = [

@@ -32,3 +32,20 @@ function load_ajax(route, element, async = false, method = "post") {
         },
     });
 }
+
+var searchWait = 0;
+var searchWaitInterval;
+$("input[name='search']").on("keyup change", function () {
+    var item = $(this);
+    searchWait = 0;
+    if (!searchWaitInterval)
+        searchWaitInterval = setInterval(function () {
+            if (searchWait >= 3) {
+                clearInterval(searchWaitInterval);
+                searchWaitInterval = "";
+                filterTable();
+                searchWait = 0;
+            }
+            searchWait++;
+        }, 200);
+});

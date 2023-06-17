@@ -79,6 +79,11 @@ class Area extends Model
         return $query->where('status', $status);
     }
 
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'LIKE', "%$search%");
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', self::STATUS_ACTIVE);
