@@ -23,12 +23,12 @@
 
     <link href="{{ asset('assets/css/vender.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/apexcharts.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/bootstrap-extended.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/colors.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/components.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pickers/flatpickr/flatpickr.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pickers/form-flat-pickr.css') }}">
 
@@ -84,7 +84,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js"></script>
     <script src="{{ asset('assets/js/jquery.blockUI.js') }}"></script>
     <script src="{{ asset('assets/js/unison.js') }}"></script>
-    <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('assets/js/apexcharts.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
     <script src="https://kit.fontawesome.com/3e373898de.js" crossorigin="anonymous"></script>

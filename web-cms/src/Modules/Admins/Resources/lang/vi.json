@@ -143,5 +143,9 @@
     "total_row":"Số dòng hiển thị",
     "all": "Tất cả",
     "not_found_data":"Không tìm thấy dữ liệu!",
-    "search":"Tìm kiếm"
+    "search":"Tìm kiếm",
+    "delete_data":"Xóa dữ liệu",
+    "confirm_delete_admin":"Một vài dữ liệu của nhân viên này cần được chuyển sang cho người dùng khác. Xin hãy chọn người dùng bạn muốn chuyển.",
+    "delete_data_success":"Xóa dữ liệu thành công",
+    "delete_data_fail":"Xóa dữ liệu thất bại!"
 }

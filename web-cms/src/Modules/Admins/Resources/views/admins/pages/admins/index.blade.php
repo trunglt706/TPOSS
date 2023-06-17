@@ -108,27 +108,78 @@
                 </div>
             </div>
         </div>
+
+        {{-- Modal confirm asigned for admin --}}
+        <div class="modal fade text-start modal-danger modalDelete" id="default" aria-labelledby="modalDelete"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalDelete">@lang('delete_data')</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-submit-delete">
+                            <i class="fa-solid fa-check"></i> @lang('confirm')
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- End Modal confirm asigned for admin --}}
     </div>
 @endsection
 
 @section('script')
     <script>
-        function filterTable() {
+        function filterTable(page = 1) {
             var data = $('form').serialize();
-            load_ajax("{{ route('admin.admins.list') }}?" + data, $('.table-responsive'), true);
-        }
-
-        function deleteAdmin(id) {
-            if (confirm("@lang('confirm_delete_data')")) {
-
-            }
+            show_loading($(".table-content"));
+            load_ajax("{{ route('admin.admins.list') }}?page=" + page + "&" + data, $('.table-responsive'), true);
         }
 
         $(document).on('click', '.pagination a', function(event) {
             event.preventDefault();
             var page = $(this).attr('href').split('page=')[1];
-            var data = $('form').serialize();
-            load_ajax("{{ route('admin.admins.list') }}?page=" + page + "&" + data, $('.table-responsive'), true);
+            filterTable(page);
+        });
+
+        function deleteAdmin(id) {
+            if (confirm("@lang('confirm_delete_data')")) {
+                $('.modalDelete .modal-body').html(`
+                    <div class="text-center">
+                            <div class="spinner-border text-danger" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                `);
+                $('.modalDelete').modal('show');
+                load_ajax("{{ route('admin.admins.assigned') }}?id=" + id, $('.modalDelete .modal-body'), true);
+            }
+        }
+
+        $('.btn-submit-delete').click(function() {
+            $('.btn-submit-delete').addClass('disabled');
+            show_loading($(".modalDelete"));
+            var deleted_id = $('.deleted_id').val();
+            var assigned_id = $('.assigned_id').val();
+            var url = "{{ route('admin.admins.destroy', ':id') }}";
+            $.post(url.replace(':id', deleted_id), {
+                assigned_id: assigned_id
+            }, function(data) {
+                if (data['status']) {
+                    $('#tr-' + deleted_id).remove();
+                    $('.modalDelete').modal('hide');
+                    toastr.success(data['message']);
+                } else {
+                    $('.delete-error').text(data['message']);
+                }
+                hide_loading($(".modalDelete"));
+                $('.btn-submit-delete').removeClass('disabled');
+            });
         });
     </script>
 @endsection

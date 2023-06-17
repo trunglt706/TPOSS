@@ -80,10 +80,11 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
         Route::prefix('admins')->controller(AdminsController::class)->name('admins.')->group(function () {
             Route::get('', 'index')->name('index');
             Route::post('', 'list')->name('list');
+            Route::post('/assigned', 'assigned')->where('id', '[0-9]+')->name('assigned');
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::post('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('activities')->controller(ActivityController::class)->name('activities.')->group(function () {
@@ -97,7 +98,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('settings')->controller(SettingController::class)->name('settings.')->group(function () {
@@ -117,7 +118,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('provinces')->controller(ProvinceController::class)->name('provinces.')->group(function () {
@@ -125,7 +126,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('districts')->controller(DistrictController::class)->name('districts.')->group(function () {
@@ -133,7 +134,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('wards')->controller(WardController::class)->name('wards.')->group(function () {
@@ -141,7 +142,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('backups')->controller(BackupController::class)->name('backups.')->group(function () {
@@ -149,7 +150,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('block_vendors')->controller(BlockVendorController::class)->name('block_vendors.')->group(function () {
@@ -157,7 +158,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('customers')->controller(CustomerController::class)->name('admin_customers.')->group(function () {
@@ -165,7 +166,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('contacts')->controller(ContactController::class)->name('admin_contacts.')->group(function () {
@@ -173,7 +174,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('leads')->controller(LeadController::class)->name('admin_leads.')->group(function () {
@@ -181,7 +182,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('email_settings')->controller(EmailSettingController::class)->name('admin_emails.')->group(function () {
@@ -195,7 +196,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('invoice_portals')->controller(InvoicePortalController::class)->name('invoice_portals.')->group(function () {
@@ -203,7 +204,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('method_payments')->controller(MethodPaymentController::class)->name('admin_method_payments.')->group(function () {
@@ -211,13 +212,13 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('notifications')->controller(NotifyController::class)->name('admin_notifications.')->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('orders')->controller(OrderController::class)->name('admin_orders.')->group(function () {
@@ -225,7 +226,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('payments')->controller(PaymentController::class)->name('admin_payments.')->group(function () {
@@ -233,7 +234,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('payment_portals')->controller(PaymentPortalController::class)->name('admin_payment_portals.')->group(function () {
@@ -241,7 +242,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('permissions')->controller(PermissionController::class)->name('admin_permissions.')->group(function () {
@@ -249,7 +250,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('roles')->controller(RoleController::class)->name('admin_roles.')->group(function () {
@@ -257,7 +258,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('posts')->controller(PostController::class)->name('posts.')->group(function () {
@@ -265,7 +266,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('post_groups')->controller(PostGroupController::class)->name('post_groups.')->group(function () {
@@ -273,14 +274,14 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('register_usings')->controller(RegisterUsingController::class)->name('register_usings.')->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('services')->controller(ServiceController::class)->name('services.')->group(function () {
@@ -288,7 +289,7 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::post('/{id}', 'store')->where('id', '[0-9]+')->name('store');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
-            Route::delete('/{id}', 'destroy')->where('id', '[0-9]+')->name('destroy');
+            Route::delete('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
         Route::prefix('report')->controller(ReportController::class)->name('report.')->group(function () {

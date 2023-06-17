@@ -18,7 +18,7 @@
                 @php
                     $status = Admins::get_status($item->status);
                 @endphp
-                <tr>
+                <tr id="tr-{{ $item->id }}">
                     <td scope="col" class="text-nowrap">
                         @if (admin_menu_check_role('admins|edit'))
                             <a href="{{ route('admin.admins.detail', ['id' => $item->id]) }}"

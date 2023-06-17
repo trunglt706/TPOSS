@@ -6,19 +6,6 @@ $('form button[type="submit"]').click(function () {
         );
 });
 function load_ajax(route, element, async = false, method = "post") {
-    $(".table-content").append(`
-    <div class="table-loading">
-        <div class="spinner-grow text-success ms-1" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <div class="spinner-grow text-danger ms-1" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <div class="spinner-grow text-warning ms-1" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    `);
     $.ajax({
         method: method,
         url: route,
@@ -27,8 +14,8 @@ function load_ajax(route, element, async = false, method = "post") {
             if (data["status"]) {
                 element.html(data["data"]);
                 $(".total-rows").html("(" + data["total"] + ")");
-                $(".table-content").find(".table-loading").remove();
             }
+            return data["status"];
         },
     });
 }
@@ -49,3 +36,25 @@ $("input[name='search']").on("keyup change", function () {
             searchWait++;
         }, 200);
 });
+
+function show_loading(element) {
+    // element.addClass("position-relative");
+    element.append(`
+    <div class="table-loading">
+        <div class="spinner-grow text-success ms-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger ms-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning ms-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    `);
+}
+
+function hide_loading(element) {
+    // element.removeClass("position-relative");
+    element.find(".table-loading").remove();
+}

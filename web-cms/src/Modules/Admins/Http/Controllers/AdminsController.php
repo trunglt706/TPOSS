@@ -4,10 +4,14 @@ namespace Modules\Admins\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Modules\Admins\Entities\AdminCustomer;
 use Modules\Admins\Entities\AdminGroup;
+use Modules\Admins\Entities\AdminLead;
 use Modules\Admins\Entities\AdminMenus;
 use Modules\Admins\Entities\AdminPermission;
 use Modules\Admins\Entities\Admins;
+use Modules\Admins\Http\Requests\DeleteAdmin;
 
 class AdminsController extends Controller
 {
@@ -53,6 +57,21 @@ class AdminsController extends Controller
         ];
     }
 
+    public function assigned(Request $request)
+    {
+        $id = $request->id ?? 0;
+        $admin = Admins::findOrFail($request->id);
+        if ($admin->supper) {
+            $admins = Admins::active()->isSupper()->get();
+        } else {
+            $admins = Admins::active()->where('id', '<>', $admin->id)->get();
+        }
+        return [
+            'status' => true,
+            'data' => view('admins::admins.pages.admins.modals.admins', compact('admins', 'id'))->render()
+        ];
+    }
+
     public function store(Request $request)
     {
         //
@@ -68,8 +87,27 @@ class AdminsController extends Controller
         //
     }
 
-    public function destroy($id)
+    public function destroy($id, DeleteAdmin $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            // assign customer
+            AdminCustomer::ofAssigned($id)->update(['assigned_id' => $request->assigned_id]);
+            // assign lead
+            AdminLead::ofAssigned($id)->update(['assigned_id' => $request->assigned_id]);
+            // delete admin
+            Admins::find($id)->delete();
+            DB::commit();
+            return [
+                'status' => true,
+                'message' => __('delete_data_success')
+            ];
+        } catch (\Throwable $th) {
+            showLog($th);
+            return [
+                'status' => false,
+                'message' => __('delete_data_fail')
+            ];
+        }
     }
 }
