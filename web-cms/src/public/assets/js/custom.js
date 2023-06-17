@@ -6,15 +6,15 @@ $('form button[type="submit"]').click(function () {
         );
 });
 function load_ajax(route, element, async = false, method = "post") {
-    $("body").append(`
+    $(".table-content").append(`
     <div class="table-loading">
-        <div class="spinner-grow text-success" role="status">
+        <div class="spinner-grow text-success ms-1" role="status">
             <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow text-danger" role="status">
+        </div>
+        <div class="spinner-grow text-danger ms-1" role="status">
             <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow text-warning" role="status">
+        </div>
+        <div class="spinner-grow text-warning ms-1" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
@@ -27,7 +27,7 @@ function load_ajax(route, element, async = false, method = "post") {
             if (data["status"]) {
                 element.html(data["data"]);
                 $(".total-rows").html("(" + data["total"] + ")");
-                $("body").find(".table-loading").remove();
+                $(".table-content").find(".table-loading").remove();
             }
         },
     });

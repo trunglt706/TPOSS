@@ -100,7 +100,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive table-content">
                                 @include('admins::admins.pages.admins.tables.admins')
                             </div>
                         </div>
