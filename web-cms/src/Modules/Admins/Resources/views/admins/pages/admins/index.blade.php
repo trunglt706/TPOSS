@@ -41,6 +41,7 @@
                         <div class="card-header">
                             <h4 class="card-title">
                                 {!! $permission->icon !!} {{ __($permission->name) }}
+                                <span class="total-rows">({{ number_format($data->total()) }})</span>
                             </h4>
                             <div class="heading-elements">
                                 <div class="btn-group" role="group" aria-label="Basic example">
@@ -96,24 +97,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>@lang('action')</th>
-                                            <th>@lang('name')</th>
-                                            <th>@lang('phone')</th>
-                                            <th>@lang('email')</th>
-                                            <th>@lang('status')</th>
-                                            <th>@lang('last_login')</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @include('admins::admins.pages.admins.tables.admins')
-                                    </tbody>
-                                </table>
-                                <div class="mt-2">
-                                    {{ $data->appends(request()->all())->links() }}
-                                </div>
+                                @include('admins::admins.pages.admins.tables.admins')
                             </div>
                         </div>
                     </div>
@@ -127,7 +111,7 @@
     <script>
         function filterTable() {
             var data = $('form').serialize();
-            load_ajax("{{ route('admin.admins.list') }}?" + data, $('tbody'), true);
+            load_ajax("{{ route('admin.admins.list') }}?" + data, $('.table-responsive'), true);
         }
 
         function deleteAdmin(id) {
@@ -135,5 +119,12 @@
 
             }
         }
+
+        $(document).on('click', '.pagination a', function(event) {
+            event.preventDefault();
+            var page = $(this).attr('href').split('page=')[1];
+            var data = $('form').serialize();
+            load_ajax("{{ route('admin.admins.list') }}?page=" + page + "&" + data, $('.table-responsive'), true);
+        });
     </script>
 @endsection

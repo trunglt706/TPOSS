@@ -6,8 +6,8 @@ $('form button[type="submit"]').click(function () {
         );
 });
 function load_ajax(route, element, async = false, method = "post") {
-    $("table").append(`
-    <div class="table-loading" style="position: absolute">
+    $("body").append(`
+    <div class="table-loading">
         <div class="spinner-grow text-success" role="status">
             <span class="visually-hidden">Loading...</span>
             </div>
@@ -26,6 +26,8 @@ function load_ajax(route, element, async = false, method = "post") {
         success: function (data) {
             if (data["status"]) {
                 element.html(data["data"]);
+                $(".total-rows").html("(" + data["total"] + ")");
+                $("body").find(".table-loading").remove();
             }
         },
     });

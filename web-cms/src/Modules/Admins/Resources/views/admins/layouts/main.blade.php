@@ -34,6 +34,18 @@
 
     <title>Admin | {{ $title ?? env('APP_NAME') }}</title>
     @yield('style')
+    <style>
+        .table-loading {
+            position: absolute;
+            background: #f2f3f37d;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            top: 0;
+        }
+    </style>
 </head>
 
 <!-- BEGIN: Body-->

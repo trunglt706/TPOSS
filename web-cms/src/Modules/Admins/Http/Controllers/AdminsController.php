@@ -46,6 +46,7 @@ class AdminsController extends Controller
             ->orderBy('last_login', 'desc')->paginate($limit);
         return [
             'status' => true,
+            'total' => number_format($data->total()),
             'data' => view('admins::admins.pages.admins.tables.admins', compact('data'))->render()
         ];
     }
