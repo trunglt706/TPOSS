@@ -108,7 +108,6 @@
 
     "email":"Email",
     "password": "Mật khẩu",
-    "login": "Đăng nhập",
     "forgot_password":"Quên mật khẩu",
     "login_header":"Đăng nhập hệ thống",
     "forgot_password_header":"Gửi yêu cầu khôi phục mật khẩu",
@@ -124,5 +123,23 @@
     "otp": "Mã xác thực",
 
     "invoice_type_personal": "Cá nhân",
-    "invoice_type_company": "Công ty"
+    "invoice_type_company": "Công ty",
+
+    "login": "Đăng nhập",
+    "change_language_success": "Thay đổi ngôn ngữ thành công",
+    "login_success": "Đăng nhập thành công",
+    "login_fail": "Đăng nhập thất bại!",
+    "validate_otp_fail": "Xác thực tài khoản thất bại!",
+    "name":"Tên",
+    "phone":"Điện thoại",
+    "group":"Nhóm",
+    "status":"Trạng thái",
+    "last_login":"Đăng nhập cuối",
+    "action":"Hành động",
+    "not_login":"Chưa đăng nhập",
+    "delete":"Xóa",
+    "edit":"Cập nhật",
+    "confirm_delete_data":"Xác nhận xóa dữ liệu?",
+    "total_row":"Số dòng hiển thị",
+    "all": "Tất cả"
 }

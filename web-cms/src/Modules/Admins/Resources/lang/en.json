@@ -109,5 +109,20 @@
     "otp": "OTP",
 
     "invoice_type_personal": "Personal",
-    "invoice_type_company": "Company"
+    "invoice_type_company": "Company",
+
+    "login": {
+        "title": "Đăng nhập",
+        "change_language_success": "Thay đổi ngôn ngữ thành công",
+        "login_success": "Đăng nhập thành công",
+        "login_fail": "Đăng nhập thất bại!",
+        "validate_otp_fail": "Xác thực tài khoản thất bại!"
+    },
+    "admins": {
+        "title": "Quản trị viên",
+        "change_language_success": "Thay đổi ngôn ngữ thành công",
+        "login_success": "Đăng nhập thành công",
+        "login_fail": "Đăng nhập thất bại!",
+        "validate_otp_fail": "Xác thực tài khoản thất bại!"
+    }
 }

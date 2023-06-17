@@ -15,7 +15,7 @@ class SeedAdminMenuTableSeeder extends Seeder
     public function run()
     {
         AdminMenus::ofName([
-            'permission_dashboard', 'permission_main', 'permission_manager_admin',
+            'permission_dashboard', 'permission_admin_groups', 'permission_main', 'permission_manager_admin',
             'permission_admin_customers', 'permission_services', 'permission_manager_financial',
             'permission_other', 'permission_report', 'permission_other_setting'
         ])->each(function ($model) {
@@ -47,8 +47,14 @@ class SeedAdminMenuTableSeeder extends Seeder
             'extension' => 'admins',
         ]);
         AdminMenus::create([
+            'name' => 'permission_admin_groups',
+            'route' => admin_get_full_link_host('admin.admin_groups.index'),
+            'parent_id' => $admin->id,
+            'extension' => 'admin_groups',
+        ]);
+        AdminMenus::create([
             'name' => 'permission_admin_permissions',
-            'route' => admin_get_full_link_host('admin.permissions.index'),
+            'route' => admin_get_full_link_host('admin.admin_permissions.index'),
             'parent_id' => $admin->id,
             'extension' => 'admin_permissions',
         ]);
@@ -60,19 +66,19 @@ class SeedAdminMenuTableSeeder extends Seeder
         ]);
         AdminMenus::create([
             'name' => 'permission_admin_customers',
-            'route' => admin_get_full_link_host('admin.customers.index'),
+            'route' => admin_get_full_link_host('admin.admin_customers.index'),
             'parent_id' => $customer->id,
             'extension' => 'admin_customers',
         ]);
         AdminMenus::create([
             'name' => 'permission_admin_contacts',
-            'route' => admin_get_full_link_host('admin.contacts.index'),
+            'route' => admin_get_full_link_host('admin.admin_contacts.index'),
             'parent_id' => $customer->id,
             'extension' => 'admin_contacts',
         ]);
         AdminMenus::create([
             'name' => 'permission_admin_leads',
-            'route' => admin_get_full_link_host('admin.leads.index'),
+            'route' => admin_get_full_link_host('admin.admin_leads.index'),
             'parent_id' => $customer->id,
             'extension' => 'admin_leads',
         ]);
@@ -91,25 +97,25 @@ class SeedAdminMenuTableSeeder extends Seeder
         ]);
         AdminMenus::create([
             'name' => 'permission_admin_orders',
-            'route' => admin_get_full_link_host('admin.orders.index'),
+            'route' => admin_get_full_link_host('admin.admin_orders.index'),
             'parent_id' => $financial->id,
             'extension' => 'admin_orders',
         ]);
         AdminMenus::create([
             'name' => 'permission_admin_payments',
-            'route' => admin_get_full_link_host('admin.payments.index'),
+            'route' => admin_get_full_link_host('admin.admin_payments.index'),
             'parent_id' => $financial->id,
             'extension' => 'admin_payments',
         ]);
         AdminMenus::create([
             'name' => 'permission_admin_method_payments',
-            'route' => admin_get_full_link_host('admin.method_payments.index'),
+            'route' => admin_get_full_link_host('admin.admin_method_payments.index'),
             'parent_id' => $financial->id,
             'extension' => 'admin_method_payments',
         ]);
         AdminMenus::create([
             'name' => 'permission_admin_payment_portals',
-            'route' => admin_get_full_link_host('admin.payment_portals.index'),
+            'route' => admin_get_full_link_host('admin.admin_payment_portals.index'),
             'parent_id' => $financial->id,
             'extension' => 'admin_payment_portals',
         ]);
@@ -187,7 +193,7 @@ class SeedAdminMenuTableSeeder extends Seeder
         ]);
         AdminMenus::create([
             'name' => 'permission_admin_emails',
-            'route' => admin_get_full_link_host('admin.email_settings.index'),
+            'route' => admin_get_full_link_host('admin.admin_emails.index'),
             'parent_id' => $setting->id,
             'extension' => 'admin_emails',
         ]);

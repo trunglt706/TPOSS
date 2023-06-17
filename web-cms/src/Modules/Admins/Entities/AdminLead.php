@@ -356,9 +356,9 @@ class AdminLead extends Model
     public static function get_gender($id = '')
     {
         $list = [
-            self::GENDER_FEMALE => [__('admins::gender_0'), COLORS['secondary']],
-            self::GENDER_MALE => [__('admins::gender_1'), COLORS['success']],
-            self::GENDER_OTHER => [__('admins::gender_2'), COLORS['secondary']],
+            self::GENDER_FEMALE => [__('gender_0'), COLORS['secondary']],
+            self::GENDER_MALE => [__('gender_1'), COLORS['success']],
+            self::GENDER_OTHER => [__('gender_2'), COLORS['secondary']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

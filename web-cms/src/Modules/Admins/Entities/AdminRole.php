@@ -113,8 +113,8 @@ class AdminRole extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
+            self::STATUS_ACTIVE => [__('status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }
@@ -128,14 +128,14 @@ class AdminRole extends Model
     public static function get_role($id = '')
     {
         $list = [
-            self::ROLE_VIEW => __('admins::role_view'),
-            self::ROLE_VIEW_OWNER => __('admins::role_view_owner'),
-            self::ROLE_INSERT => __('admins::role_insert'),
-            self::ROLE_UPDATE => __('admins::role_update'),
-            self::ROLE_DELETE => __('admins::role_delete'),
-            self::ROLE_REPORT => __('admins::role_report'),
-            self::ROLE_LOGIN => __('admins::role_login'),
-            self::ROLE_PERMISSION => __('admins::role_permission'),
+            self::ROLE_VIEW => __('role_view'),
+            self::ROLE_VIEW_OWNER => __('role_view_owner'),
+            self::ROLE_INSERT => __('role_insert'),
+            self::ROLE_UPDATE => __('role_update'),
+            self::ROLE_DELETE => __('role_delete'),
+            self::ROLE_REPORT => __('role_report'),
+            self::ROLE_LOGIN => __('role_login'),
+            self::ROLE_PERMISSION => __('role_permission'),
         ];
         return ($id == '') ? $list : $list[$id];
     }

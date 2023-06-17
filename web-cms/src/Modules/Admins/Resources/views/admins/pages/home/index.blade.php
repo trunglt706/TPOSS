@@ -6,128 +6,7 @@
     <div class="content-wrapper">
         <div class="content-body">
             <!-- Stats Horizontal Card -->
-            <div class="row">
-                <a href="" class="col-lg-3 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <h2 class="fw-bolder mb-0 total-admin">0</h2>
-                                <p class="card-text">{{ __('dashboard_admin') }}</p>
-                            </div>
-                            <div class="avatar bg-light-success p-50 m-0">
-                                <div class="avatar-content">
-                                    <i class="fa-solid fa-users-line font-medium-5"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="col-lg-3 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <h2 class="fw-bolder mb-0 total-service">0</h2>
-                                <p class="card-text">{{ __('dashboard_service') }}</p>
-                            </div>
-                            <div class="avatar bg-light-info p-50 m-0">
-                                <div class="avatar-content">
-                                    <i class="fa-solid fa-box font-medium-5"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="col-lg-3 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <h2 class="fw-bolder mb-0 total-post">0</h2>
-                                <p class="card-text">{{ __('dashboard_post') }}</p>
-                            </div>
-                            <div class="avatar bg-light-warning p-50 m-0">
-                                <div class="avatar-content">
-                                    <i class="fa-solid fa-book font-medium-5"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="col-lg-3 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <h2 class="fw-bolder mb-0 total-order">0</h2>
-                                <p class="card-text">{{ __('dashboard_order') }}</p>
-                            </div>
-                            <div class="avatar bg-light-danger p-50 m-0">
-                                <div class="avatar-content">
-                                    <i class="fa-solid fa-file font-medium-5"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="col-lg-3 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <h2 class="fw-bolder mb-0 total-client">0</h2>
-                                <p class="card-text">{{ __('dashboard_customer') }}</p>
-                            </div>
-                            <div class="avatar bg-light-warning p-50 m-0">
-                                <div class="avatar-content">
-                                    <i class="fa-solid fa-user-group font-medium-5"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="col-lg-3 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <h2 class="fw-bolder mb-0 total-lead">0</h2>
-                                <p class="card-text">{{ __('dashboard_lead') }}</p>
-                            </div>
-                            <div class="avatar bg-light-danger p-50 m-0">
-                                <div class="avatar-content">
-                                    <i class="fa-solid fa-user-plus font-medium-5"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="col-lg-3 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <h2 class="fw-bolder mb-0 total-store">0</h2>
-                                <p class="card-text">{{ __('dashboard_store') }}</p>
-                            </div>
-                            <div class="avatar bg-light-info p-50 m-0">
-                                <div class="avatar-content">
-                                    <i class="fa-solid fa-store font-medium-5"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="col-lg-3 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <h2 class="fw-bolder mb-0 total-register">0</h2>
-                                <p class="card-text">{{ __('dashboard_register') }}</p>
-                            </div>
-                            <div class="avatar bg-light-success p-50 m-0">
-                                <div class="avatar-content">
-                                    <i class="fa-solid fa-pen-ruler font-medium-5"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+            <div class="home-header"></div>
             <!--/ Stats Horizontal Card -->
 
             <div class="row">
@@ -151,7 +30,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div id="scatter-chart"></div>
+                            <div id="register_usings-chart"></div>
                         </div>
                     </div>
                 </div>
@@ -176,7 +55,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div id="line-chart"></div>
+                            <div id="revenue-chart"></div>
                         </div>
                     </div>
                 </div>
@@ -218,7 +97,7 @@
                         <div
                             class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <h4 class="card-title">{{ __('dashboard_lead_lasted') }}</h4>
-                            <a href="{{ route('admin.leads.index') }}" class="badge badge-light-secondary">
+                            <a href="{{ route('admin.admin_leads.index') }}" class="badge badge-light-secondary">
                                 {{ __('btn_view_more') }}
                             </a>
                         </div>
@@ -250,5 +129,5 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('js/chart-demo.js') }}"></script>
+    @include('admins::admins.pages.home.script')
 @endsection

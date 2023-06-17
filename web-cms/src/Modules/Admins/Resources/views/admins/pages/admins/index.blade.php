@@ -1,9 +1,5 @@
 @extends('admins::admins.layouts.main')
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/datatable/dataTables.bootstrap5.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/datatable/responsive.bootstrap5.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/datatable/buttons.bootstrap5.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/datatable/rowGroup.bootstrap5.min.css') }}">
 @endsection
 
 @section('content')
@@ -15,32 +11,28 @@
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="dashboard.html">Home</a>
+                                    <a href="{{ route('admin.index') }}">{{ __('permission_dashboard') }}</a>
                                 </li>
-                                <li class="breadcrumb-item">
-                                    <a href="#">Admins</a>
-                                </li>
-                                <li class="breadcrumb-item active">Danh sách</li>
+                                <li class="breadcrumb-item active">{{ __('permission_admins') }}</li>
                             </ol>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="content-header-right text-md-end col-md-6 col-12 d-md-block d-none">
-                <div class="mb-1 breadcrumb-right">
-                    <div class="d-flex gap-50 justify-content-end sub-nav-list">
-                        <button type="button" class="btn btn-outline-primary waves-effect waves-float waves-light">
-                            Danh mục
-                        </button>
-                        <button type="button" class="btn btn-outline-primary waves-effect waves-float waves-light">
-                            Nhật ký
-                        </button>
-                        <button type="button" class="btn btn-outline-primary waves-effect waves-float waves-light">
-                            Quyền
-                        </button>
+            @if ($menu)
+                <div class="content-header-right text-md-end col-md-6 col-12 d-md-block d-none">
+                    <div class="mb-1 breadcrumb-right">
+                        <div class="d-flex gap-50 justify-content-end sub-nav-list">
+                            @foreach ($menu as $item)
+                                <a href="{{ $item->route }}"
+                                    class="btn btn-outline-primary waves-effect waves-float waves-light">
+                                    {{ __($item->name) }}
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
         <div class="content-body">
             <div class="row" id="basic-table">
@@ -48,33 +40,100 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">
-                                <i class="me-50" data-feather="user"></i> Danh sách quản trị viên
+                                {!! $permission->icon !!} {{ __($permission->name) }}
                             </h4>
+                            <div class="heading-elements">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-outline-primary">
+                                        <i class="fa-solid fa-user-plus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse"
+                                        href="#collapseFilter" role="button" aria-expanded="false"
+                                        aria-controls="collapseFilter">
+                                        <i class="fa-solid fa-filter"></i>
+                                    </button>
+                                    <button type="button" onclick="filterTable()" class="btn btn-outline-primary">
+                                        <i class="fa-solid fa-rotate"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
-                            {!! $html->table(['class' => 'table table-bordered'], true) !!}
+                            <div class="collapse" id="collapseFilter">
+                                <div class="d-flex p-1 border">
+                                    <form class="form-filter w-100">
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-6 mb-1">
+                                                <label class="form-label">@lang('permission_admin_groups')</label>
+                                                <select name="group_id" class="select2 form-select"
+                                                    onchange="filterTable()">
+                                                    <option value="">--- @lang('all') ---</option>
+                                                    @foreach ($groups as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 col-sm-6 mb-1">
+                                                <label class="form-label">@lang('status')</label>
+                                                <select name="status" class="select2 form-select" onchange="filterTable()">
+                                                    <option value="">--- @lang('all') ---</option>
+                                                    @foreach ($status as $key => $item)
+                                                        <option value="{{ $key }}">{{ $item[0] }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 col-sm-6 mb-1">
+                                                <label class="form-label">@lang('total_row')</label>
+                                                <select name="limit" class="select2 form-select" onchange="filterTable()">
+                                                    <option value="10">10</option>
+                                                    <option value="100">100</option>
+                                                    <option value="1000">1,000</option>
+                                                    <option value="10000">10,000</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>@lang('action')</th>
+                                            <th>@lang('name')</th>
+                                            <th>@lang('phone')</th>
+                                            <th>@lang('email')</th>
+                                            <th>@lang('status')</th>
+                                            <th>@lang('last_login')</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @include('admins::admins.pages.admins.tables.admins')
+                                    </tbody>
+                                </table>
+                                <div class="mt-2">
+                                    {{ $data->appends(request()->all())->links() }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
 
 @section('script')
-    {!! $html->scripts() !!}
+    <script>
+        function filterTable() {
+            var data = $('form').serialize();
+            load_ajax("{{ route('admin.admins.list') }}?" + data, $('tbody'), true);
+        }
 
-    <script src="{{ asset('assets/datatable/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/datatables.checkboxes.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/datatables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/jszip.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('assets/datatable/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/dataTables.rowGroup.min.js') }}"></script>
+        function deleteAdmin(id) {
+            if (confirm("@lang('confirm_delete_data')")) {
+
+            }
+        }
+    </script>
 @endsection

@@ -129,8 +129,8 @@ class AdminCustomerInvoice extends Model
     public static function get_type($id = '')
     {
         $list = [
-            self::TYPE_PERSONAL => [__('admins::invoice_type_personal'), COLORS['success'], 'user'],
-            self::TYPE_COMPANY => [__('admins::invoice_type_company'), COLORS['warning'], 'building'],
+            self::TYPE_PERSONAL => [__('invoice_type_personal'), COLORS['success'], 'user'],
+            self::TYPE_COMPANY => [__('invoice_type_company'), COLORS['warning'], 'building'],
         ];
         return ($id == '') ? $list : $list[$id];
     }

@@ -139,8 +139,8 @@ class AdminMenus extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
+            self::STATUS_ACTIVE => [__('status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }
@@ -148,8 +148,8 @@ class AdminMenus extends Model
     public static function get_type($id = '')
     {
         $list = [
-            self::TYPE_MAIN => [__('admins::menu_type_1'), COLORS['success']],
-            self::TYPE_SUB => [__('admins::menu_type_0'), COLORS['warning']],
+            self::TYPE_MAIN => [__('menu_type_1'), COLORS['success']],
+            self::TYPE_SUB => [__('menu_type_0'), COLORS['warning']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

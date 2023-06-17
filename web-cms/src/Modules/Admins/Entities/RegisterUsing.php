@@ -168,9 +168,9 @@ class RegisterUsing extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_WAIT => [__('admins::order_status_0'), COLORS['secondary']],
-            self::STATUS_APPROVED => [__('admins::order_status_1'), COLORS['success']],
-            self::STATUS_REJECTED => [__('admins::order_status_4'), COLORS['danger']],
+            self::STATUS_WAIT => [__('order_status_0'), COLORS['secondary']],
+            self::STATUS_APPROVED => [__('order_status_1'), COLORS['success']],
+            self::STATUS_REJECTED => [__('order_status_4'), COLORS['danger']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

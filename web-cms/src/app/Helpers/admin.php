@@ -18,8 +18,8 @@ if (!function_exists('admin_menu_check_show_main')) {
         return allows($item->extension) && !is_null($item->extension) || (is_null($item->extension) && $item->roles_count > 0);
     }
 }
-if (!function_exists('admin_menu_check_show_sub')) {
-    function admin_menu_check_show_sub($role)
+if (!function_exists('admin_menu_check_role')) {
+    function admin_menu_check_role($role)
     {
         $user = auth(AUTH_ADMIN)->user();
         return $user->can(IS_ADMIN) || $user->can($role->extension . '|' . ROLE_VIEW) || $user->can($role->extension . '|' . ROLE_VIEW_OWNER);

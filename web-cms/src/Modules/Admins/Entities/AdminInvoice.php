@@ -108,9 +108,9 @@ class AdminInvoice extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_WAIT => [__('admins::invoice_status_0'), COLORS['secondary'], 'clock'],
-            self::STATUS_SUCCESS => [__('admins::invoice_status_1'), COLORS['success'], 'check'],
-            self::STATUS_FAILED => [__('admins::invoice_status_2'), COLORS['danger'], 'exclamation-triangle'],
+            self::STATUS_WAIT => [__('invoice_status_0'), COLORS['secondary'], 'clock'],
+            self::STATUS_SUCCESS => [__('invoice_status_1'), COLORS['success'], 'check'],
+            self::STATUS_FAILED => [__('invoice_status_2'), COLORS['danger'], 'exclamation-triangle'],
         ];
         return ($id == '') ? $list : $list[$id];
     }

@@ -178,10 +178,10 @@ class AdminOrder extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_TMP => [__('admins::order_status_0'), COLORS['secondary']],
-            self::STATUS_APPROVED => [__('admins::order_status_1'), COLORS['success']],
-            self::STATUS_EXPIRED => [__('admins::order_status_2'), COLORS['warning']],
-            self::STATUS_DELETED => [__('admins::order_status_3'), COLORS['danger']],
+            self::STATUS_TMP => [__('order_status_0'), COLORS['secondary']],
+            self::STATUS_APPROVED => [__('order_status_1'), COLORS['success']],
+            self::STATUS_EXPIRED => [__('order_status_2'), COLORS['warning']],
+            self::STATUS_DELETED => [__('order_status_3'), COLORS['danger']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

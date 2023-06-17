@@ -42,6 +42,7 @@
     <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
     @yield('script')
     {!! NoCaptcha::renderJs() !!}
 </body>

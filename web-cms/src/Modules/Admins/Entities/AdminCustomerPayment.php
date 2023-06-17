@@ -107,9 +107,9 @@ class AdminCustomerPayment extends Model
     public static function get_type($id = '')
     {
         $list = [
-            self::TYPE_ATM => [__('admins::payment_type_'), COLORS['success'], 'credit-card'],
-            self::TYPE_CC => [__('admins::payment_type_'), COLORS['warning'], 'cc-visa'],
-            self::TYPE_EWALLET => [__('admins::payment_type_'), COLORS['info'], 'wallet'],
+            self::TYPE_ATM => [__('payment_type_'), COLORS['success'], 'credit-card'],
+            self::TYPE_CC => [__('payment_type_'), COLORS['warning'], 'cc-visa'],
+            self::TYPE_EWALLET => [__('payment_type_'), COLORS['info'], 'wallet'],
         ];
         return ($id == '') ? $list : $list[$id];
     }

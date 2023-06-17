@@ -17,7 +17,7 @@ class AuthController extends Controller
     {
         $locale = $lang == 'en' ? 'en' : 'vi';
         App::setLocale($locale);
-        return back()->withSuccess('Thay đổi ngôn ngữ thành công');
+        return back()->with('success', __('change_language_success'));
     }
 
     public function login()
@@ -40,10 +40,10 @@ class AuthController extends Controller
                 $request->session()->regenerate();
                 $admin->last_login = now();
                 $admin->save();
-                return to_route('admin.index')->withSuccess('Đăng nhập thành công');
+                return to_route('admin.index')->with('success', __('login_success'));
             }
         }
-        return back()->withError('Đăng nhập thất bại!');
+        return back()->with('error', __('login_fail'));
     }
 
     public function forgot_password()
@@ -82,8 +82,8 @@ class AuthController extends Controller
             $admin->save();
 
             Auth::guard(AUTH_ADMIN)->login($admin);
-            return to_route('admin.index')->withSuccess('Đăng nhập thành công');
+            return to_route('admin.index')->with('success', __('login_success'));
         }
-        return back()->withError('Xác thực tài khoản không thành công');
+        return back()->withError(__('validate_otp_fail'));
     }
 }

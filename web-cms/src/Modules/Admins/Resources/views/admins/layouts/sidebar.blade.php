@@ -39,7 +39,7 @@
                         @if ($item->roles_count > 0)
                             <ul class="menu-content">
                                 @foreach ($item->roles as $role)
-                                    @if (admin_menu_check_show_sub($role))
+                                    @if (admin_menu_check_role($role))
                                         <li>
                                             <a class="d-flex align-items-center" href="{{ $role->route }}">
                                                 <i class="fa-regular fa-circle"></i>

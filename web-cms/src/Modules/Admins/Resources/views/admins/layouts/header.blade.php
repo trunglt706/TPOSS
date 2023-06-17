@@ -67,7 +67,7 @@
                         </a>
                     </li>
                     <li class="dropdown-menu-footer">
-                        <a class="btn btn-primary w-100" href="{{ route('admin.notifications.index') }}">Read all
+                        <a class="btn btn-primary w-100" href="{{ route('admin.admin_notifications.index') }}">Read all
                             notifications</a>
                     </li>
                 </ul>

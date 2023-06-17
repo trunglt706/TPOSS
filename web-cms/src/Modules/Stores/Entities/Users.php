@@ -258,10 +258,10 @@ class Users extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_UN_ACTIVE => [__('admins::status_0'), COLORS['secondary'], 'slash'],
-            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
-            self::STATUS_DELETED => [__('admins::status_3'), COLORS['danger'], 'times'],
+            self::STATUS_UN_ACTIVE => [__('status_0'), COLORS['secondary'], 'slash'],
+            self::STATUS_ACTIVE => [__('status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('status_2'), COLORS['warning'], 'lock-on'],
+            self::STATUS_DELETED => [__('status_3'), COLORS['danger'], 'times'],
         ];
         return ($id == '') ? $list : $list[$id];
     }
@@ -269,8 +269,8 @@ class Users extends Model
     public static function get_supper($supper = '')
     {
         $list = [
-            self::IS_SUPPER => [__('admins::account_supper_1'), COLORS['success']],
-            self::NOT_SUPPER => [__('admins::account_supper_0'), COLORS['secondary']],
+            self::IS_SUPPER => [__('account_supper_1'), COLORS['success']],
+            self::NOT_SUPPER => [__('account_supper_0'), COLORS['secondary']],
         ];
         return ($supper == '') ? $list : $list[$supper];
     }
@@ -278,8 +278,8 @@ class Users extends Model
     public static function get_root($root = '')
     {
         $list = [
-            self::NOT_ROOT => [__('admins::account_root_0'), COLORS['secondary']],
-            self::IS_ROOT => [__('admins::account_root_1'), COLORS['success']],
+            self::NOT_ROOT => [__('account_root_0'), COLORS['secondary']],
+            self::IS_ROOT => [__('account_root_1'), COLORS['success']],
         ];
         return ($root == '') ? $list : $list[$root];
     }

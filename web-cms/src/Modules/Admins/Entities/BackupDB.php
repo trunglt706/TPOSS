@@ -108,8 +108,8 @@ class BackupDB extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_SUCCESS => [__('admins::result_status_1'), COLORS['success'], 'check-circle'],
-            self::STATUS_FAILED => [__('admins::result_status_0'), COLORS['warning'], 'lock-on'],
+            self::STATUS_SUCCESS => [__('result_status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_FAILED => [__('result_status_0'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }
@@ -117,8 +117,8 @@ class BackupDB extends Model
     public static function get_type($id = '')
     {
         $list = [
-            self::TYPE_AUTO => [__('admins::backup_type_auto'), COLORS['success']],
-            self::TYPE_PERSONAL => [__('admins::backup_type_personal'), COLORS['warning']],
+            self::TYPE_AUTO => [__('backup_type_auto'), COLORS['success']],
+            self::TYPE_PERSONAL => [__('backup_type_personal'), COLORS['warning']],
         ];
         return ($id == '') ? $list : $list[$id];
     }

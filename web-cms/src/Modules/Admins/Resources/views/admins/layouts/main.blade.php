@@ -4,11 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="icon" href="{{ asset($setting_admin['admin-seo-favicon']) }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0EABAF" />
-    <meta name="description" content="{{ env('APP_NAME') }}" />
-    <meta http-equiv="x-pjax-version" content="v123">
+    <meta name="description" content="{{ $setting_admin['admin-seo-name'] }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Fontawesome -->
@@ -23,6 +22,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/select2.min.css') }}">
 
     <link href="{{ asset('assets/css/vender.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/apexcharts.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
@@ -48,17 +48,18 @@
     <div class="app-content content ">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
-        <div class="pjax-container">
-            @yield('content')
-        </div>
+        @yield('content')
     </div>
     <!-- END: Content-->
 
     <!-- BEGIN: Footer-->
     <footer class="footer footer-static footer-light">
-        <p class="clearfix mb-0"><span class="float-md-start d-block d-md-inline-block mt-25">{{ env('APP_NAME') }}
+        <p class="clearfix mb-0"><span
+                class="float-md-start d-block d-md-inline-block mt-25">{{ $setting_admin['admin-seo-name'] }}
                 &copy;
-                2022<a class="ms-25" href="#" target="_blank">NxCloud</a><span class="d-none d-sm-inline-block">,
+                2023<a class="ms-25" href="#"
+                    target="_blank">{{ $setting_admin['admin-seo-copyright'] }}</a><span
+                    class="d-none d-sm-inline-block">,
                     All rights Reserved</span></span></p>
     </footer>
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
@@ -82,15 +83,10 @@
     <script src="{{ asset('assets/js/jquery.pjax.js') }}"></script>
     <script src="{{ asset('assets/js/menu.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="../assets/js/select2.full.min.js"></script>
     @yield('script')
     <script>
-        $(document).pjax('a.pjax', '.pjax-container');
-        // $(document).on('pjax:send', function() {
-        //     $('#loading').show()
-        // })
-        // $(document).on('pjax:complete', function() {
-        //     $('#loading').hide()
-        // })
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),

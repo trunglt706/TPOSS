@@ -75,6 +75,11 @@ class AdminPermission extends Model
         return $this->hasMany(AdminSetting::class, 'permission_id', 'id');
     }
 
+    public function menu()
+    {
+        return $this->hasOne(AdminMenus::class, 'extension', 'extension');
+    }
+
     public function roles()
     {
         return $this->hasMany(AdminRole::class, 'permission_id', 'id');
@@ -112,8 +117,8 @@ class AdminPermission extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_ACTIVE => [__('admins::status_1'), COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => [__('admins::status_2'), COLORS['warning'], 'lock-on'],
+            self::STATUS_ACTIVE => [__('status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('status_2'), COLORS['warning'], 'lock-on'],
         ];
         return ($id == '') ? $list : $list[$id];
     }
