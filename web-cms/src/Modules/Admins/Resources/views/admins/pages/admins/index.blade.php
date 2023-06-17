@@ -45,9 +45,12 @@
                             </h4>
                             <div class="heading-elements">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-outline-primary">
-                                        <i class="fa-solid fa-user-plus"></i>
-                                    </button>
+                                    @if (allows('admins|insert'))
+                                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalCreate">
+                                            <i class="fa-solid fa-user-plus"></i>
+                                        </button>
+                                    @endif
                                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse"
                                         href="#collapseFilter" role="button" aria-expanded="false"
                                         aria-controls="collapseFilter">
@@ -110,12 +113,12 @@
         </div>
 
         {{-- Modal confirm asigned for admin --}}
-        <div class="modal fade text-start modal-danger modalDelete" id="default" aria-labelledby="modalDelete"
+        <div class="modal fade text-start modal-danger modalDelete" id="modalDelete" aria-labelledby="modalDelete"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="modalDelete">@lang('delete_data')</h4>
+                        <h4 class="modal-title">@lang('delete_data')</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -130,6 +133,93 @@
             </div>
         </div>
         {{-- End Modal confirm asigned for admin --}}
+
+        {{-- create new admin --}}
+        <div class="modal fade text-start modal-primary modalCreate" id="modalCreate" aria-labelledby="modalCreate"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">@lang('create_new_admin')</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form form-create" method="post" action="{{ route('admin.admins.store') }}">
+                            @csrf
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="tab-basic" data-bs-toggle="tab" href="#basic"
+                                        aria-controls="basic" role="tab" aria-selected="true">@lang('basic')</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tab-other" data-bs-toggle="tab" href="#other"
+                                        aria-controls="other" role="tab" aria-selected="false">@lang('other_info')</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="basic" aria-labelledby="tab-basic" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="create-name">@lang('name') *</label>
+                                                <input type="text" id="create-name" class="form-control"
+                                                    name="name" />
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="create-email">@lang('email') *</label>
+                                                <input type="email" id="create-email" class="form-control"
+                                                    name="email-id" />
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="create-password">@lang('password')
+                                                    *</label>
+                                                <input type="password" id="create-password" class="form-control"
+                                                    name="password" />
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-1">
+                                                <div class="form-check">
+                                                    <input type="checkbox" name="supper" class="form-check-input"
+                                                        id="create-supper" />
+                                                    <label class="form-check-label"
+                                                        for="create-supper">@lang('account_supper_1')</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="other" aria-labelledby="tab-other" role="tabpanel">
+                                    <div class="col-12">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="create-phone">@lang('phone')</label>
+                                            <input type="text" id="create-phone" class="form-control"
+                                                name="phone" />
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="create-address">@lang('address')</label>
+                                            <textarea name="address" id="create-address" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary me-1">
+                            @lang('btn_create')
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- End create new admin --}}
     </div>
 @endsection
 

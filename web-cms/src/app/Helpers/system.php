@@ -359,7 +359,8 @@ if (!function_exists('isJSON')) {
 if (!function_exists('allows')) {
     function allows($role)
     {
-        return Gate::allows($role);
+        $user = auth(AUTH_ADMIN)->user();
+        return $user->can(IS_ADMIN) || Gate::allows($role);
     }
 }
 if (!function_exists('format_phone')) {

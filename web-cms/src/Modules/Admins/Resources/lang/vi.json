@@ -147,5 +147,11 @@
     "delete_data":"Xóa dữ liệu",
     "confirm_delete_admin":"Một vài dữ liệu của nhân viên này cần được chuyển sang cho người dùng khác. Xin hãy chọn người dùng bạn muốn chuyển.",
     "delete_data_success":"Xóa dữ liệu thành công",
-    "delete_data_fail":"Xóa dữ liệu thất bại!"
+    "delete_data_fail":"Xóa dữ liệu thất bại!",
+    "create_new_admin":"Tạo quản trị viên",
+    "btn_create":"Tạo",
+    "btn_cancel":"Thoát",
+    "address":"Địa chỉ",
+    "basic":"Cơ bản",
+    "other_info":"Thông tin khác"
 }
