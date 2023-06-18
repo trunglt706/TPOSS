@@ -153,5 +153,18 @@
     "btn_cancel":"Thoát",
     "address":"Địa chỉ",
     "basic":"Cơ bản",
-    "other_info":"Thông tin khác"
+    "other_info":"Thông tin khác",
+    "warning_no_select_full_permission":"Nếu không chọn tài khoản có toàn quyền, thì quyền của quản trị viên sẽ phụ thuộc vào quyền của nhóm",
+    "birthday":"Ngày sinh",
+    "note":"Ghi chú",
+    "gender":"Giới tính",
+    "tax_code":"Mã số thuế",
+    "update_success":"Cập nhật thành công",
+    "update_fail":"Cập nhật thất bại!",
+    "store_success":"Thêm mới thành công",
+    "store_fail":"Thêm mới thất bại",
+    "delete_success":"Xóa thành công",
+    "delete_fail":"Xóa thất bại",
+    "permission_success":"Phân quyền thành công",
+    "permission_fail":"Phân quyền thất bại!"
 }

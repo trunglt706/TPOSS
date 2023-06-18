@@ -267,7 +267,7 @@ class Admins extends Authenticatable
 
     public function activities()
     {
-        return $this->hasMany(AdminActivity::class, 'created_by', 'id');
+        return $this->hasMany(AdminActivity::class, 'admin_id', 'id')->lasted();
     }
 
     public function notifications()
@@ -303,10 +303,7 @@ class Admins extends Authenticatable
 
     public function storeAssigned()
     {
-        if (Module::has('Stores')) {
-            return $this->hasMany(Stores::class, 'assigned_id', 'id');
-        }
-        return null;
+        return $this->hasMany(Stores::class, 'assigned_id', 'id');
     }
 
     // scope

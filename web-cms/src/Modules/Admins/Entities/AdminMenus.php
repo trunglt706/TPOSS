@@ -24,7 +24,7 @@ class AdminMenus extends Model
     ];
 
     protected $hidden = [
-        'parent_id',
+        // 'parent_id',
     ];
 
     protected $casts = [

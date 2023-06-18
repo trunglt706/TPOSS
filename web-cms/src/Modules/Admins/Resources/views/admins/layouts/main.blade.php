@@ -58,7 +58,6 @@
     <!-- BEGIN: Content-->
     <div class="app-content content ">
         <div class="content-overlay"></div>
-        <div class="header-navbar-shadow"></div>
         @yield('content')
     </div>
     <!-- END: Content-->
@@ -95,14 +94,17 @@
     <script src="{{ asset('assets/js/menu.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-    <script src="../assets/js/select2.full.min.js"></script>
+    <script src="{{ asset('assets/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/js/cleave.min.js') }}"></script>
+    <script src="{{ asset('assets/js/cleave-phone.i18n.js') }}"></script>
     @yield('script')
     <script>
-        $.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        });
+        @if (session('error'))
+            toastr.error("{{ session('error') }}");
+        @endif
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @endif
     </script>
 </body>
 

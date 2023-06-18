@@ -5,6 +5,7 @@ namespace Modules\Admins\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Modules\Admins\Entities\AdminCustomer;
 use Modules\Admins\Entities\AdminGroup;
 use Modules\Admins\Entities\AdminLead;
@@ -12,6 +13,8 @@ use Modules\Admins\Entities\AdminMenus;
 use Modules\Admins\Entities\AdminPermission;
 use Modules\Admins\Entities\Admins;
 use Modules\Admins\Http\Requests\DeleteAdmin;
+use Modules\Admins\Http\Requests\StoreAdminRequest;
+use Modules\Admins\Http\Requests\UpdateAdminRequest;
 
 class AdminsController extends Controller
 {
@@ -21,19 +24,32 @@ class AdminsController extends Controller
         $this->permission = AdminPermission::with('menu')->ofExtension('admins')->first();
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $title = __('permission_admins');
         $permission = $this->permission;
-        $menu = null;
+        $sub_menu = null;
         if ($permission->menu) {
-            $menu = AdminMenus::parentId($permission->menu->id)->get();
+            $sub_menu = AdminMenus::parentId($permission->menu->parent_id)->get();
         }
         $status = Admins::get_status();
+        $gender = AdminLead::get_gender();
         $groups = AdminGroup::active()->get();
-        $data = Admins::orderBy('root', 'desc')->orderBy('supper', 'desc')
-            ->orderBy('last_login', 'desc')->paginate(10);
-        return view('admins::admins.pages.admins.index', compact('title', 'permission', 'menu', 'status', 'groups', 'data'));
+
+        $_group_id = $request->group_id ?? '';
+        $_status = $request->status ?? '';
+        $_search = $request->search ?? '';
+
+        $limit = $request->limit ?? 10;
+        $data = Admins::query();
+        $data = $_group_id != '' ? $data->groupId($_group_id) : $data;
+        $data = $_status != '' ? $data->status($_status) : $data;
+        $data = $_search != '' ? $data->search($_search) : $data;
+
+        $data = $data->orderBy('root', 'desc')->orderBy('supper', 'desc')
+            ->orderBy('last_login', 'desc')->orderBy('created_at', 'desc')->paginate($limit);
+
+        return view('admins::admins.pages.admins.index', compact('title', 'gender', 'permission', 'sub_menu', 'status', 'groups', 'data'));
     }
 
     public function list(Request $request)
@@ -49,7 +65,7 @@ class AdminsController extends Controller
         $data = $search != '' ? $data->search($search) : $data;
 
         $data = $data->orderBy('root', 'desc')->orderBy('supper', 'desc')
-            ->orderBy('last_login', 'desc')->paginate($limit);
+            ->orderBy('last_login', 'desc')->orderBy('created_at', 'desc')->paginate($limit);
         return [
             'status' => true,
             'total' => number_format($data->total()),
@@ -72,19 +88,66 @@ class AdminsController extends Controller
         ];
     }
 
-    public function store(Request $request)
+    public function store(StoreAdminRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $data = $request->only('name', 'phone', 'email', 'address', 'gender', 'birthday', 'group_id', 'password', 'supper', 'tax_code', 'avatar');
+            $data['supper'] = isset($data['supper']) ? true : false;
+
+            if ($request->has('avatar')) {
+                $path = Storage::disk('s3')->put('images', $request->image);
+                $path = Storage::disk('s3')->url($path);
+                $data['avatar'] = $path;
+            }
+            Admins::create($data);
+            DB::commit();
+            return [
+                'status' => true,
+                'message' => __('update_success')
+            ];
+        } catch (\Throwable $th) {
+            showLog($th);
+            return [
+                'status' => false,
+                'message' => __('update_fail')
+            ];
+        }
     }
 
     public function detail($id)
     {
-        return view('admins::admins.pages.admins.detail');
+        $admin = Admins::with('group', 'role_details', 'activities', 'orders', 'createdBy', 'storeAssigned')->findOrFail($id);
+        return view('admins::admins.pages.admins.detail', compact('admin'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateAdminRequest $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $admin = Admins::findOrFail($id);
+            $data = $request->all();
+            unset($data['token']);
+
+            if ($request->has('avatar')) {
+                $path = Storage::disk('s3')->put('images', $request->image);
+                $path = Storage::disk('s3')->url($path);
+                $data['avatar'] = $path;
+            }
+
+            $admin->update($data);
+            DB::commit();
+            return [
+                'status' => true,
+                'message' => __('update_success')
+            ];
+        } catch (\Throwable $th) {
+            showLog($th);
+            return [
+                'status' => false,
+                'message' => __('update_fail')
+            ];
+        }
     }
 
     public function destroy($id, DeleteAdmin $request)
@@ -100,7 +163,8 @@ class AdminsController extends Controller
             DB::commit();
             return [
                 'status' => true,
-                'message' => __('delete_data_success')
+                'message' => __('delete_data_success'),
+                'total' => "(" . number_format(Admins::count()) . ")"
             ];
         } catch (\Throwable $th) {
             showLog($th);
