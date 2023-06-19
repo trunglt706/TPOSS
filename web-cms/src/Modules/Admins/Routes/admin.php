@@ -45,7 +45,7 @@ use Modules\Admins\Http\Controllers\SettingController;
 use Modules\Admins\Http\Controllers\SettingGroupController;
 use Modules\Admins\Http\Controllers\WardController;
 
-Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest')->controller(AuthController::class)->group(function () {
         Route::get('login', 'login')->name('login');
         Route::post('login', 'login_post')->name('login_post');
