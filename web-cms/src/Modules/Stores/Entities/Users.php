@@ -310,4 +310,16 @@ class Users extends Model
         ];
         return ($id == '') ? $list : $list[$id];
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('email', 'LIKE', "%$search%")
+            ->orWhere('code', 'LIKE', "%$search%")
+            ->orWhere('name', 'LIKE', "%$search%")
+            ->orWhere('phone', 'LIKE', "%$search%")
+            ->orWhere('tax_code', 'LIKE', "%$search%")
+            ->orWhere('address', 'LIKE', "%$search%");
+        });
+    }
 }

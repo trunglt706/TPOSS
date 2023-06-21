@@ -145,6 +145,15 @@ class AdminActivity extends Model
         return $query->where('device', $device);
     }
 
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('description', 'LIKE', "%$search%")
+                ->orWhere('ip', 'LIKE', "%$search%")
+                ->orWhere('device', 'LIKE', "%$search%");
+        });
+    }
+
     public function scopeDate($query, $date)
     {
         $_date = Carbon::parse($date)->format('Y-m-d');

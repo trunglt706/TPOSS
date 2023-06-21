@@ -182,4 +182,12 @@ class AdminServiceUsing extends Model
         $data = json_encode([$support]);
         return $query->whereRaw('JSON_CONTAINS(support_device, \'' . $data . '\')');
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('description', 'LIKE', "%$search%")
+                ->orWhere('id', $search);
+        });
+    }
 }

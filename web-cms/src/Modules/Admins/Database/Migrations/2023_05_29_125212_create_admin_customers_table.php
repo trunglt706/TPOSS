@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('province_id')->nullable()->index();
             $table->integer('district_id')->nullable()->index();
             $table->integer('ward_id')->nullable()->index();
+            $table->integer('area_id')->nullable()->index();
             $table->string('code')->unique()->index();
             $table->string('name');
             $table->integer('gender')->nullable()->default(AdminLead::GENDER_OTHER);
@@ -41,6 +42,10 @@ return new class extends Migration
             $table->string('bank_branch')->nullable();
             $table->string('bank_account_number')->nullable()->index();
             $table->string('bank_account_name')->nullable();
+            $table->string('currency')->nullable()->default(Stores::CURRENCY_VN);
+            $table->string('longitude')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('website')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->integer('deleted_by')->nullable()->index();

@@ -35,7 +35,7 @@ class AdminGroupController extends Controller
         $_status = $request->status ?? '';
         $_search = $request->search ?? '';
 
-        $limit = $request->limit ?? 10;
+        $limit = $request->limit ?? 20;
         $data = AdminGroup::withCount('admins');
         $data = $_status != '' ? $data->status($_status) : $data;
         $data = $_search != '' ? $data->search($_search) : $data;
@@ -47,7 +47,7 @@ class AdminGroupController extends Controller
 
     public function list(ListGroup $request)
     {
-        $limit = $request->limit ?? 10;
+        $limit = $request->limit ?? 20;
         $status = $request->status ?? '';
         $search = $request->search ?? '';
 
@@ -133,7 +133,7 @@ class AdminGroupController extends Controller
             if ($check > 0) {
                 return response_controller([
                     'status' => 'error',
-                    'message' => 'Không thể xóa do có phát sinh dữ liệu'
+                    'message' => __('can_not_delete')
                 ]);
             }
             AdminGroup::find($id)->delete();

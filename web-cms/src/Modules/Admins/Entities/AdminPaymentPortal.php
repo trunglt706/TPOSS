@@ -140,4 +140,12 @@ class AdminPaymentPortal extends Model
         $max = AdminPaymentPortal::count();
         return $max + 1;
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('code', 'LIKE', "%$search%")
+                ->orWhere('name', 'LIKE', "%$search%");
+        });
+    }
 }

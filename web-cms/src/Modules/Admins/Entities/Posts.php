@@ -185,4 +185,13 @@ class Posts extends Model
         }
         return $slug;
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('name', 'LIKE', "%$search%")
+                ->orWhere('slug', 'LIKE', "%$search%")
+                ->orWhere('description', 'LIKE', "%$search%");
+        });
+    }
 }

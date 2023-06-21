@@ -27,6 +27,7 @@ class AdminCustomer extends Model
         'type',
         'district_id',
         'ward_id',
+        'area_id',
         'code',
         'name',
         'avatar',
@@ -45,7 +46,11 @@ class AdminCustomer extends Model
         'bank_branch',
         'bank_account_number',
         'bank_account_name',
-        'gender'
+        'gender',
+        'currency',
+        'website',
+        'longitude',
+        'latitude'
     ];
 
     protected $hidden = [
@@ -54,6 +59,7 @@ class AdminCustomer extends Model
         'service_id',
         'district_id',
         'ward_id',
+        'area_id',
         'created_by',
         'assigned_id',
         'identity_card',
@@ -63,6 +69,8 @@ class AdminCustomer extends Model
         'bank_branch',
         'bank_account_number',
         'bank_account_name',
+        'longitude',
+        'latitude'
     ];
 
     protected $casts = [
@@ -82,6 +90,12 @@ class AdminCustomer extends Model
 
             // check assigned from config
             $customer->assigned_id = get_option('customer-assigned-default', 0);
+            if (!$customer->currency) {
+                $customer->currency = get_option('currency-default', self::CURRENCY_VN);
+            }
+            if (!$customer->area_id) {
+                $customer->area_id = get_option('admin-area-default');
+            }
         });
 
         static::created(function ($model) {
@@ -99,6 +113,9 @@ class AdminCustomer extends Model
             if ($customer->avatar) Storage::delete($customer->avatar);
         });
     }
+
+    const CURRENCY_VN = 'vnd';
+    const CURRENCY_USD = 'usd';
 
     protected function code(): Attribute
     {
@@ -151,6 +168,11 @@ class AdminCustomer extends Model
         return $this->hasMany(AdminCustomerPayment::class, 'customer_id', 'id');
     }
 
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
+    }
+
     public function stores()
     {
         return $this->hasMany(Stores::class, 'customer_id', 'id');
@@ -195,6 +217,14 @@ class AdminCustomer extends Model
             'id' => 0,
             'name' => __('no_selected')
         ]);
+    }
+
+    public function scopeAreaId($query, $area_id)
+    {
+        if (is_array($area_id)) {
+            return $query->whereIntegerInRaw('area_id', $area_id);
+        }
+        return $query->where('service_id', $area_id);
     }
 
     public function scopeServiceId($query, $service_id)
@@ -336,5 +366,25 @@ class AdminCustomer extends Model
     {
         $max = AdminCustomer::max('id');
         return 'AC' . sprintf("%'.04d", $max + 1);
+    }
+
+    public static function get_currency($id = '')
+    {
+        $list = [
+            self::CURRENCY_VN => [__('currency_vnd'), COLORS['secondary'], 'vnd'],
+            self::CURRENCY_USD => [__('currency_usd'), COLORS['success'], 'usd'],
+        ];
+        return ($id == '') ? $list : $list[$id];
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('name', 'LIKE', "%$search%")
+                ->orWhere('code', 'LIKE', "%$search%")
+                ->orWhere('phone', 'LIKE', "%$search%")
+                ->orWhere('identity_card', 'LIKE', "%$search%")
+                ->orWhere('tax_code', 'LIKE', "%$search%");
+        });
     }
 }

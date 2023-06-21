@@ -129,4 +129,12 @@ class SubDomain extends Model
         ];
         return ($id == '') ? $list : $list[$id];
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('description', 'LIKE', "%$search%")
+                ->orWhere('sub_domain', 'LIKE', "%$search%");
+        });
+    }
 }

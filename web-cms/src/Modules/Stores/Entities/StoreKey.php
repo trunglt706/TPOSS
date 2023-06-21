@@ -36,9 +36,12 @@ class StoreKey extends Model
         'expire_date' => 'date:Y-m-d'
     ];
 
+    const RGM_DEFAULT = 999999;
+
     protected static function booted()
     {
         static::creating(function ($model) {
+            $model->rgm = $model->rgm ?? self::RGM_DEFAULT;
         });
 
         static::created(function ($model) {
@@ -120,5 +123,13 @@ class StoreKey extends Model
     public function scopeExpired($query)
     {
         return $query->where('expire_date', '>', Carbon::now()->format('Y-m-d'));
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('computer', 'LIKE', "%$search%")
+                ->orWhere('key', 'LIKE', "%$search%");
+        });
     }
 }

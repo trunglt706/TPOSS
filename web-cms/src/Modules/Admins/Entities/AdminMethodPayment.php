@@ -119,6 +119,14 @@ class AdminMethodPayment extends Model
         return ($id == '') ? $list : $list[$id];
     }
 
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('name', 'LIKE', "%$search%")
+                ->orWhere('code', 'LIKE', "%$search%");
+        });
+    }
+
     public static function get_order()
     {
         $max = AdminMethodPayment::count();

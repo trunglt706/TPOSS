@@ -118,6 +118,14 @@ class AdminSetting extends Model
         return $query->where('group', $group);
     }
 
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('code', 'LIKE', "%$search%")
+                ->orWhere('name', 'LIKE', "%$search%");
+        });
+    }
+
     public static function get_order($permission_id)
     {
         $max = AdminSetting::permissionId($permission_id)->count();

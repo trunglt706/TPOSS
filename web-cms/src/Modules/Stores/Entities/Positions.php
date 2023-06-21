@@ -100,4 +100,12 @@ class Positions extends Model
         ];
         return ($id == '') ? $list : $list[$id];
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('name', 'LIKE', "%$search%")
+            ->orWhere('description', 'LIKE', "%$search%");
+        });
+    }
 }

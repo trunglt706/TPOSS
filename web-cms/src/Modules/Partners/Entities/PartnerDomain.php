@@ -105,4 +105,12 @@ class PartnerDomain extends Model
         $data = json_encode([$ips]);
         return $query->whereRaw('JSON_CONTAINS(ips, \'' . $data . '\')');
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('domain', 'LIKE', "%$search%")
+                ->orWhere('description', 'LIKE', "%$search%");
+        });
+    }
 }

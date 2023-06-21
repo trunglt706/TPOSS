@@ -368,4 +368,14 @@ class AdminLead extends Model
         $max = AdminLead::max('id');
         return 'AL' . sprintf("%'.04d", $max + 1);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('code', 'LIKE', "%$search%")
+            ->orWhere('name', 'LIKE', "%$search%")
+            ->orWhere('email', 'LIKE', "%$search%")
+            ->orWhere('phone', 'LIKE', "%$search%");
+        });
+    }
 }

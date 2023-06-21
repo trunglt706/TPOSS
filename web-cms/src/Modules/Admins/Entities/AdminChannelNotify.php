@@ -66,4 +66,12 @@ class AdminChannelNotify extends Model
     {
         return $query->where('status', $status);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('name', 'LIKE', "%$search%")
+                ->orWhere('code', 'LIKE', "%$search%");
+        });
+    }
 }

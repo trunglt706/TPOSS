@@ -113,4 +113,13 @@ class AdminCustomerPayment extends Model
         ];
         return ($id == '') ? $list : $list[$id];
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('name', 'LIKE', "%$search%")
+                ->orWhere('phone', 'LIKE', "%$search%")
+                ->orWhere('account_bank', 'LIKE', "%$search%");
+        });
+    }
 }

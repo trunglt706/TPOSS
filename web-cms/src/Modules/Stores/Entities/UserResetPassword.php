@@ -84,4 +84,14 @@ class UserResetPassword extends Model
     {
         return $query->where('expired_at', '>=', now());
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('email', 'LIKE', "%$search%")
+                ->orWhere('token', 'LIKE', "%$search%")
+                ->orWhere('ip', 'LIKE', "%$search%")
+                ->orWhere('device', 'LIKE', "%$search%");
+        });
+    }
 }

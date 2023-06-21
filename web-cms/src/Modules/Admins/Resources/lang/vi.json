@@ -169,5 +169,7 @@
     "permission_fail":"Phân quyền thất bại!",
     "confirm_logout":"Bạn vẫn muốn tiếp tục đăng xuất khỏi hệ thống?",
     "logout":"Đăng xuất",
-    "profile":"Thông tin cá nhân"
+    "profile":"Thông tin cá nhân",
+    "can_not_delete":"Không thể xóa do có phát sinh dữ liệu",
+    "can_not_delete_lasted_data":"Không cho phép xóa bảng dữ liệu mới nhất!"
 }

@@ -40,7 +40,7 @@ class AdminsController extends Controller
         $_status = $request->status ?? '';
         $_search = $request->search ?? '';
 
-        $limit = $request->limit ?? 10;
+        $limit = $request->limit ?? 20;
         $data = Admins::query();
         $data = $_group_id != '' ? $data->groupId($_group_id) : $data;
         $data = $_status != '' ? $data->status($_status) : $data;
@@ -54,7 +54,7 @@ class AdminsController extends Controller
 
     public function list(Request $request)
     {
-        $limit = $request->limit ?? 10;
+        $limit = $request->limit ?? 20;
         $group_id = $request->group_id ?? '';
         $status = $request->status ?? '';
         $search = $request->search ?? '';

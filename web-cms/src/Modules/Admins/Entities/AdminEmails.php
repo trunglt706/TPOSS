@@ -103,4 +103,12 @@ class AdminEmails extends Model
         }
         return $query->where('updated_by', $updated_by);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('code', 'LIKE', "%$search%")
+                ->orWhere('name', 'LIKE', "%$search%");
+        });
+    }
 }

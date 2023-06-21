@@ -2,78 +2,147 @@
 
 namespace Modules\Admins\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Modules\Admins\Entities\AdminMenus;
+use Modules\Admins\Entities\AdminPermission;
+use Modules\Admins\Entities\BackupDB;
+use Modules\Admins\Http\Requests\Backup\Update;
+use Modules\Admins\Http\Requests\BackupDB\Delete;
+use Modules\Admins\Http\Requests\BackupDB\GetList;
+use Modules\Admins\Http\Requests\BackupDB\Insert;
 
 class BackupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
+    private $permission;
+    public function __construct()
     {
-        return view('admins::index');
+        $this->permission = AdminPermission::with('menu')->ofExtension('admin_groups')->first();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function index(GetList $request)
     {
-        return view('admins::create');
+        $title = __('permission_admin_groups');
+        $permission = $this->permission;
+        $sub_menu = null;
+        if ($permission->menu) {
+            $sub_menu = AdminMenus::parentId($permission->menu->parent_id)->get();
+        }
+        $status = BackupDB::get_status();
+
+        $_status = $request->status ?? '';
+        $_search = $request->search ?? '';
+
+        $limit = $request->limit ?? 20;
+        $from = $request->from ?  Carbon::parse($request->from)->startOfDay() : Carbon::now()->startOfDay();
+        $to = $request->to ?  Carbon::parse($request->to)->endOfDay() : Carbon::now()->endOfDay();
+
+        $data = BackupDB::between($from, $to);
+        $data = $_status != '' ? $data->status($_status) : $data;
+        $data = $_search != '' ? $data->search($_search) : $data;
+
+        $data = $data->lasted()->paginate($limit);
+
+        return view('admins::admins.pages.backup.index', compact('title', 'permission', 'sub_menu', 'status', 'data'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function list(GetList $request)
     {
-        //
+        $limit = $request->limit ?? 20;
+        $status = $request->status ?? '';
+        $search = $request->search ?? '';
+        $from = $request->from ?  Carbon::parse($request->from)->startOfDay() : Carbon::now()->startOfDay();
+        $to = $request->to ?  Carbon::parse($request->to)->endOfDay() : Carbon::now()->endOfDay();
+
+        $data = BackupDB::between($from, $to);
+        $data = $status != '' ? $data->status($status) : $data;
+        $data = $search != '' ? $data->search($search) : $data;
+
+        $data = $data->lasted()->paginate($limit);
+        return [
+            'status' => true,
+            'total' => number_format($data->total()),
+            'data' => view('admins::admins.pages.admins.tables.backup', compact('data'))->render()
+        ];
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public function store(Insert $request)
     {
-        return view('admins::show');
+        try {
+            DB::beginTransaction();
+            $data = $request->all();
+            unset($data['token']);
+
+            BackupDB::create($data);
+            DB::commit();
+            return response_controller([
+                'status' => 'success',
+                'message' => __('update_success'),
+            ]);
+        } catch (\Throwable $th) {
+            showLog($th);
+            return response_controller([
+                'status' => 'error',
+                'message' => __('update_fail'),
+            ]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+    public function detail($id)
     {
-        return view('admins::edit');
+        $backup = BackupDB::with('admins', 'role_samples', 'createdBy')->findOrFail($id);
+        return view('admins::admins.pages.backup.detail', compact('group'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
+    public function update(Update $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $backup = BackupDB::findOrFail($id);
+            $data = $request->all();
+            unset($data['token']);
+
+            $backup->update($data);
+            DB::commit();
+            return response_controller([
+                'status' => 'success',
+                'message' => __('update_success'),
+            ]);
+        } catch (\Throwable $th) {
+            showLog($th);
+            return response_controller([
+                'status' => 'error',
+                'message' => __('update_fail'),
+            ]);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
+    public function destroy($id, Delete $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $check = BackupDB::max('id');
+            if ($check == $id) {
+                return response_controller([
+                    'status' => 'error',
+                    'message' => __('can_not_delete_lasted_data')
+                ]);
+            }
+            BackupDB::find($id)->delete();
+            DB::commit();
+            return response_controller([
+                'status' => 'success',
+                'message' => __('delete_success'),
+                'total' => "(" . number_format(BackupDB::count()) . ")"
+            ]);
+        } catch (\Throwable $th) {
+            showLog($th);
+            return response_controller([
+                'status' => 'error',
+                'message' => __('delete_fail')
+            ]);
+        }
     }
 }

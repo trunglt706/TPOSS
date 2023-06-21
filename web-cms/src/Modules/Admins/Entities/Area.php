@@ -50,6 +50,11 @@ class Area extends Model
     const STATUS_ACTIVE = 1;
     const STATUS_SUSPEND = 2;
 
+    public function customers()
+    {
+        return $this->hasMany(AdminCustomer::class, 'area_id', 'id');
+    }
+
     public function stores()
     {
         return $this->hasMany(Stores::class, 'area_id', 'id');

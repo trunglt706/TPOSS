@@ -24,7 +24,7 @@ class AdminMenus extends Model
     ];
 
     protected $hidden = [
-        // 'parent_id',
+        'parent_id',
     ];
 
     protected $casts = [
@@ -158,6 +158,15 @@ class AdminMenus extends Model
     {
         $max = AdminMenus::parentId($parent_id)->count();
         return $max + 1;
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('name', 'LIKE', "%$search%")
+            ->orWhere('route', 'LIKE', "%$search%")
+            ->orWhere('extension', 'LIKE', "%$search%");
+        });
     }
 
     public static function load_menus()

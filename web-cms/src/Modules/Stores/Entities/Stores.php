@@ -270,10 +270,10 @@ class Stores extends Model
     public static function get_status($id = '')
     {
         $list = [
-            self::STATUS_UN_ACTIVE => [__('stores::status_0'), COLORS['secondary'], 'slash'],
-            self::STATUS_ACTIVE => [__('stores::status_1'), COLORS['success'], 'check-circle'],
-            self::STATUS_SUSPEND => [__('stores::status_2'), COLORS['warning'], 'lock-on'],
-            self::STATUS_DELETED => [__('stores::status_3'), COLORS['danger'], 'times'],
+            self::STATUS_UN_ACTIVE => [__('status_0'), COLORS['secondary'], 'slash'],
+            self::STATUS_ACTIVE => [__('status_1'), COLORS['success'], 'check-circle'],
+            self::STATUS_SUSPEND => [__('status_2'), COLORS['warning'], 'lock-on'],
+            self::STATUS_DELETED => [__('status_3'), COLORS['danger'], 'times'],
         ];
         return ($id == '') ? $list : $list[$id];
     }
@@ -281,8 +281,8 @@ class Stores extends Model
     public static function get_currency($id = '')
     {
         $list = [
-            self::CURRENCY_VN => [__('stores::currency_vnd'), COLORS['secondary'], 'vnd'],
-            self::CURRENCY_USD => [__('stores::currency_usd'), COLORS['success'], 'usd'],
+            self::CURRENCY_VN => [__('currency_vnd'), COLORS['secondary'], 'vnd'],
+            self::CURRENCY_USD => [__('currency_usd'), COLORS['success'], 'usd'],
         ];
         return ($id == '') ? $list : $list[$id];
     }
@@ -291,5 +291,17 @@ class Stores extends Model
     {
         $max = Stores::max('id');
         return 'ST' . sprintf("%'.04d", $max + 1);
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('code', 'LIKE', "%$search%")
+                ->orWhere('name', 'LIKE', "%$search%")
+                ->orWhere('phone', 'LIKE', "%$search%")
+                ->orWhere('email', 'LIKE', "%$search%")
+                ->orWhere('website', 'LIKE', "%$search%")
+                ->orWhere('tax_code', 'LIKE', "%$search%");
+        });
     }
 }

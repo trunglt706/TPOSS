@@ -103,4 +103,12 @@ class Permissions extends Model
         $max = static::count();
         return $max + 1;
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('name', 'LIKE', "%$search%")
+                ->orWhere('extension', 'LIKE', "%$search%");
+        });
+    }
 }

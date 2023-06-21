@@ -99,4 +99,12 @@ class PartnerLicense extends Model
         $_to = Carbon::parse($to)->startOfDay()->format('Y-m-d H:i:s');
         return $query->whereBetween('created_at', [$_from, $_to]);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('code', 'LIKE', "%$search%")
+            ->orWhere('description', 'LIKE', "%$search%");
+        });
+    }
 }

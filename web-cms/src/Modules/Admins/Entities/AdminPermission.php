@@ -128,4 +128,12 @@ class AdminPermission extends Model
         $max = AdminPermission::count();
         return $max + 1;
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('extension', 'LIKE', "%$search%")
+                ->orWhere('name', 'LIKE', "%$search%");
+        });
+    }
 }

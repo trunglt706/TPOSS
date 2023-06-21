@@ -277,4 +277,15 @@ class AdminContact extends Model
         $max = AdminContact::max('id');
         return 'AC' . sprintf("%'.04d", $max + 1);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->orWhere('name', 'LIKE', "%$search%")
+                ->orWhere('code', 'LIKE', "%$search%")
+                ->orWhere('phone', 'LIKE', "%$search%")
+                ->orWhere('identity_card', 'LIKE', "%$search%")
+                ->orWhere('tax_code', 'LIKE', "%$search%");
+        });
+    }
 }
