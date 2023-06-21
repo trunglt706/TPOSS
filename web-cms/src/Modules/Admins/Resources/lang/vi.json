@@ -166,5 +166,8 @@
     "delete_success":"Xóa thành công",
     "delete_fail":"Xóa thất bại",
     "permission_success":"Phân quyền thành công",
-    "permission_fail":"Phân quyền thất bại!"
+    "permission_fail":"Phân quyền thất bại!",
+    "confirm_logout":"Bạn vẫn muốn tiếp tục đăng xuất khỏi hệ thống?",
+    "logout":"Đăng xuất",
+    "profile":"Thông tin cá nhân"
 }

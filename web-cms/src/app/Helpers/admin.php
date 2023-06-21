@@ -49,3 +49,9 @@ if (!function_exists('admin_get_full_link_host')) {
         return isProduction() ? $route : Str::after($route, env('APP_URL'));
     }
 }
+if (!function_exists('response_controller')) {
+    function response_controller($data = [])
+    {
+        return request()->ajax() ? $data : back()->with($data['status'], $data['message']);
+    }
+}

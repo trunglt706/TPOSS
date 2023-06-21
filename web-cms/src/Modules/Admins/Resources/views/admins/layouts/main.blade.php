@@ -105,6 +105,12 @@
         @if (session('success'))
             toastr.success("{{ session('success') }}");
         @endif
+
+        function confirmLogout() {
+            if (confirm("@lang('confirm_logout')")) {
+                location.href = "{{ route('admin.logout') }}";
+            }
+        }
     </script>
 </body>
 

@@ -77,10 +77,11 @@ class AdminsController extends Controller
     {
         $id = $request->id ?? 0;
         $admin = Admins::findOrFail($request->id);
+        $clone = Admins::active();
         if ($admin->supper) {
-            $admins = Admins::active()->isSupper()->get();
+            $admins = $clone->clone()->isSupper()->get();
         } else {
-            $admins = Admins::active()->where('id', '<>', $admin->id)->get();
+            $admins = $clone->clone()->where('id', '<>', $admin->id)->get();
         }
         return [
             'status' => true,
@@ -96,22 +97,22 @@ class AdminsController extends Controller
             $data['supper'] = isset($data['supper']) ? true : false;
 
             if ($request->has('avatar')) {
-                $path = Storage::disk('s3')->put('images', $request->image);
+                $path = Storage::disk('s3')->put('images/admins/', $request->image);
                 $path = Storage::disk('s3')->url($path);
                 $data['avatar'] = $path;
             }
             Admins::create($data);
             DB::commit();
-            return [
-                'status' => true,
-                'message' => __('update_success')
-            ];
+            return response_controller([
+                'status' => 'success',
+                'message' => __('store_success')
+            ]);
         } catch (\Throwable $th) {
             showLog($th);
-            return [
-                'status' => false,
-                'message' => __('update_fail')
-            ];
+            return response_controller([
+                'status' => 'error',
+                'message' => __('store_fail')
+            ]);
         }
     }
 
@@ -137,16 +138,16 @@ class AdminsController extends Controller
 
             $admin->update($data);
             DB::commit();
-            return [
-                'status' => true,
+            return response_controller([
+                'status' => 'success',
                 'message' => __('update_success')
-            ];
+            ]);
         } catch (\Throwable $th) {
             showLog($th);
-            return [
-                'status' => false,
+            return response_controller([
+                'status' => 'error',
                 'message' => __('update_fail')
-            ];
+            ]);
         }
     }
 
@@ -161,17 +162,18 @@ class AdminsController extends Controller
             // delete admin
             Admins::find($id)->delete();
             DB::commit();
-            return [
-                'status' => true,
-                'message' => __('delete_data_success'),
-                'total' => "(" . number_format(Admins::count()) . ")"
-            ];
+            return response_controller([
+                'status' => 'success',
+                'total' => "(" . number_format(Admins::count()) . ")",
+                'message' => __('delete_success')
+            ]);
         } catch (\Throwable $th) {
             showLog($th);
-            return [
-                'status' => false,
-                'message' => __('delete_data_fail')
-            ];
+            return response_controller([
+                'status' => 'error',
+                'total' => "(" . number_format(Admins::count()) . ")",
+                'message' => __('delete_fail')
+            ]);
         }
     }
 }

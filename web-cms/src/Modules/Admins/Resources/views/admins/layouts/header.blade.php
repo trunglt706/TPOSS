@@ -76,7 +76,9 @@
                 <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="user-nav d-sm-flex d-none">
-                        <span class="user-name fw-bolder">Vinh Tran</span>
+                        <span class="user-name fw-bolder">
+                            {{ auth()->guard('admin')->user()->name }}
+                        </span>
                         <span class="user-status">Admin</span>
                     </div>
                     <span class="avatar">
@@ -87,10 +89,10 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
                     <a class="dropdown-item" href="{{ route('admin.profile.index') }}">
-                        <i class="me-50" data-feather="user"></i> Profile
+                        <i class="me-50" data-feather="user"></i> @lang('profile')
                     </a>
-                    <a class="dropdown-item" href="{{ route('admin.logout') }}">
-                        <i class="me-50" data-feather="power"></i> Logout
+                    <a class="dropdown-item" onclick="confirmLogout()" href="#">
+                        <i class="me-50" data-feather="power"></i> @lang('logout')
                     </a>
                 </div>
             </li>
