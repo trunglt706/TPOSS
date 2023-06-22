@@ -13,7 +13,7 @@ class CheckAndUpdateUserExpired extends Command
      *
      * @var string
      */
-    protected $name = 'command:name';
+    protected $name = 'check_and_update_user_expired';
 
     /**
      * The console command description.

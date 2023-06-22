@@ -3,7 +3,6 @@
 namespace Modules\Admins\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\Admins\Entities\AdminMenus;
@@ -19,12 +18,12 @@ class BackupController extends Controller
     private $permission;
     public function __construct()
     {
-        $this->permission = AdminPermission::with('menu')->ofExtension('admin_groups')->first();
+        $this->permission = AdminPermission::with('menu')->ofExtension('backup_dbs')->first();
     }
 
     public function index(GetList $request)
     {
-        $title = __('permission_admin_groups');
+        $title = __('permission_backup_dbs');
         $permission = $this->permission;
         $sub_menu = null;
         if ($permission->menu) {
@@ -92,7 +91,7 @@ class BackupController extends Controller
 
     public function detail($id)
     {
-        $backup = BackupDB::with('admins', 'role_samples', 'createdBy')->findOrFail($id);
+        $backup = BackupDB::with('createdBy')->findOrFail($id);
         return view('admins::admins.pages.backup.detail', compact('group'));
     }
 

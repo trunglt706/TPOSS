@@ -13,7 +13,7 @@ class CheckAndUpdateKeyStoreExpired extends Command
      *
      * @var string
      */
-    protected $name = 'command:name';
+    protected $name = 'check_and_update_key_store_expired';
 
     /**
      * The console command description.

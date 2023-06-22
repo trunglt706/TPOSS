@@ -7,7 +7,7 @@ use Modules\Admins\Entities\AdminResetPassword;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class delete_reset_password_expire extends Command
+class DeleteResetPasswordExpire extends Command
 {
     /**
      * The name and signature of the console command.

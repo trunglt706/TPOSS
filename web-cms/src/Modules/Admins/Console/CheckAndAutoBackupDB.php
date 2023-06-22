@@ -42,7 +42,7 @@ class CheckAndAutoBackupDB extends Command
      */
     public function handle()
     {
-        $filename = "backup-" . Carbon::now()->format('Y-m-d') . ".sql";
+        $filename = "backup-" . time() . ".sql";
         // Create backup folder and set permission if not exist.
         $storageAt = storage_path() . "/app/backup/";
         if (!File::exists($storageAt)) {

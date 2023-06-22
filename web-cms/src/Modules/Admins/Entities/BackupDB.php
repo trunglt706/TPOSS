@@ -39,6 +39,8 @@ class BackupDB extends Model
     {
         static::creating(function ($model) {
             $model->created_by = Auth::guard(AUTH_ADMIN)->check() ? Auth::guard(AUTH_ADMIN)->user()->id : 0;
+            $model->type = $model->type ?? self::TYPE_AUTO;
+            $model->status = $model->status ?? self::STATUS_FAILED;
         });
 
         static::created(function ($model) {
