@@ -9,6 +9,7 @@
             <div class="modal-body">
                 <div class="mb-1">@lang('confirm_delete_data')</div>
                 <input type="hidden" name="deleted_id" class="deleted_id">
+                <div class="delete-error text-danger mt-1"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger btn-submit-delete">

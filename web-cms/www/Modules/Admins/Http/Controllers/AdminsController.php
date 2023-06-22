@@ -70,7 +70,7 @@ class AdminsController extends Controller
         return [
             'status' => true,
             'total' => number_format($data->total()),
-            'data' => view('admins::admins.pages.admins.tables.admins', compact('data'))->render()
+            'data' => view('admins::admins.pages.admins.table', compact('data'))->render()
         ];
     }
 
@@ -86,7 +86,7 @@ class AdminsController extends Controller
         }
         return [
             'status' => true,
-            'data' => view('admins::admins.pages.admins.modals.admins', compact('admins', 'id'))->render()
+            'data' => view('admins::admins.pages.admins.modal_assign', compact('admins', 'id'))->render()
         ];
     }
 

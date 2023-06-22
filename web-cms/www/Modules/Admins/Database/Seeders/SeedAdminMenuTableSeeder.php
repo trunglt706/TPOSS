@@ -174,6 +174,12 @@ class SeedAdminMenuTableSeeder extends Seeder
             'extension' => 'provinces',
         ]);
         AdminMenus::create([
+            'name' => 'permission_provinces',
+            'route' => admin_get_full_link_host('admin.provinces.index'),
+            'parent_id' => $setting->id,
+            'extension' => 'provinces',
+        ]);
+        AdminMenus::create([
             'name' => 'permission_backup_dbs',
             'route' => admin_get_full_link_host('admin.backups.index'),
             'parent_id' => $setting->id,

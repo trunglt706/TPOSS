@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            @if ($sub_menu->count() > 0)
+            @if (!is_null($sub_menu))
                 <div class="content-header-right text-md-end col-md-6 col-12 d-md-block d-none">
                     <div class="mb-1 breadcrumb-right">
                         <div class="d-flex gap-50 justify-content-end sub-nav-list">
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive table-content">
-                                @include('admins::admins.pages.admins.tables.admins')
+                                @include('admins::admins.pages.admins.table')
                             </div>
                         </div>
                     </div>

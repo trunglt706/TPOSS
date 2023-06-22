@@ -102,7 +102,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
-        Route::prefix('settings')->controller(SettingController::class)->name('settings.')->group(function () {
+        Route::prefix('settings')->controller(SettingController::class)->name('admin_settings.')->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
@@ -114,7 +114,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::put('/{id}', 'update')->where('id', '[0-9]+')->name('update');
         });
 
-        Route::prefix('ares')->controller(AreaController::class)->name('ares.')->group(function () {
+        Route::prefix('admin_areas')->controller(AreaController::class)->name('admin_areas.')->group(function () {
             Route::get('', 'index')->name('index');
             Route::post('list', 'list')->name('list');
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');
@@ -150,7 +150,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('/{id}/destroy', 'destroy')->where('id', '[0-9]+')->name('destroy');
         });
 
-        Route::prefix('backups')->controller(BackupController::class)->name('backups.')->group(function () {
+        Route::prefix('backups')->controller(BackupController::class)->name('backup_dbs.')->group(function () {
             Route::get('', 'index')->name('index');
             Route::post('list', 'list')->name('list');
             Route::get('/{id}', 'detail')->where('id', '[0-9]+')->name('detail');

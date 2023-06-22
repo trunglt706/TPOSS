@@ -4,6 +4,7 @@ namespace Modules\Admins\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Modules\Admins\Entities\AdminCustomer;
 use Modules\Admins\Entities\AdminMenus;
 use Modules\Admins\Entities\AdminPermission;
@@ -18,12 +19,12 @@ class AreaController extends Controller
     private $permission;
     public function __construct()
     {
-        $this->permission = AdminPermission::with('menu')->ofExtension('admin_groups')->first();
+        $this->permission = AdminPermission::with('menu')->ofExtension('admin_areas')->first();
     }
 
     public function index(GetList $request)
     {
-        $title = __('permission_admin_groups');
+        $title = __('permission_admin_areas');
         $permission = $this->permission;
         $sub_menu = null;
         if ($permission->menu) {
@@ -33,15 +34,23 @@ class AreaController extends Controller
 
         $_status = $request->status ?? '';
         $_search = $request->search ?? '';
+        $_has_customer = $request->has_customer ?? '';
 
         $limit = $request->limit ?? 20;
         $data = Area::withCount('customers');
         $data = $_status != '' ? $data->status($_status) : $data;
         $data = $_search != '' ? $data->search($_search) : $data;
+        if ($_has_customer != '') {
+            if ($_has_customer == 1) {
+                $data = $data->has('customers');
+            } else if ($_has_customer == 2) {
+                $data = $data->whereDoesntHave('customers');
+            }
+        }
 
-        $data = $data->orderBy('order', 'desc')->latest()->paginate($limit);
+        $data = $data->latest()->paginate($limit);
 
-        return view('admins::admins.pages.areas.index', compact('title', 'permission', 'sub_menu', 'status', 'data'));
+        return view('admins::admins.pages.other.areas.index', compact('title', 'permission', 'sub_menu', 'status', 'data'));
     }
 
     public function list(GetList $request)
@@ -49,53 +58,85 @@ class AreaController extends Controller
         $limit = $request->limit ?? 20;
         $status = $request->status ?? '';
         $search = $request->search ?? '';
+        $_has_customer = $request->has_customer ?? '';
 
-        $data = Area::withCount('admins');
+        $data = Area::withCount('customers');
         $data = $status != '' ? $data->status($status) : $data;
         $data = $search != '' ? $data->search($search) : $data;
+        if ($_has_customer != '') {
+            if ($_has_customer == 1) {
+                $data = $data->has('customers');
+            } else if ($_has_customer == 2) {
+                $data = $data->whereDoesntHave('customers');
+            }
+        }
 
-        $data = $data->orderBy('order', 'desc')->latest()->paginate($limit);
+        $data = $data->latest()->paginate($limit);
         return [
             'status' => true,
             'total' => number_format($data->total()),
-            'data' => view('admins::admins.pages.admins.tables.admin_groups', compact('data'))->render()
+            'data' => view('admins::admins.pages.other.areas.table', compact('data'))->render()
         ];
     }
 
     public function store(Insert $request)
     {
+        $data = $request->all();
+        $rules = array(
+            'name' => 'required'
+        );
+        $messages = array();
+        $validator = Validator::make($data, $rules, $messages);
+        if ($validator->fails()) {
+            $error = $validator->errors()->all();
+            return response_controller([
+                'status' => 'error',
+                'message' => array_shift($error)
+            ]);
+        }
         try {
             DB::beginTransaction();
-            $data = $request->all();
             unset($data['token']);
 
             Area::create($data);
             DB::commit();
             return response_controller([
                 'status' => 'success',
-                'message' => __('update_success'),
+                'message' => __('create_success'),
             ]);
         } catch (\Throwable $th) {
             showLog($th);
             return response_controller([
                 'status' => 'error',
-                'message' => __('update_fail'),
+                'message' => __('create_fail'),
             ]);
         }
     }
 
     public function detail($id)
     {
-        $group = Area::with('admins', 'role_samples', 'createdBy')->findOrFail($id);
-        return view('admins::admins.pages.areas.detail', compact('group'));
+        $group = Area::with('customers', 'createdBy')->findOrFail($id);
+        return view('admins::admins.pages.other.areas.detail', compact('group'));
     }
 
     public function update(Update $request, $id)
     {
+        $data = $request->all();
+        $rules = array(
+            'name' => 'required'
+        );
+        $messages = array();
+        $validator = Validator::make($data, $rules, $messages);
+        if ($validator->fails()) {
+            $error = $validator->errors()->all();
+            return response_controller([
+                'status' => 'error',
+                'message' => array_shift($error)
+            ]);
+        }
         try {
             DB::beginTransaction();
             $group = Area::findOrFail($id);
-            $data = $request->all();
             unset($data['token']);
 
             $group->update($data);

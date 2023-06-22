@@ -170,7 +170,7 @@
     "confirm_logout":"Bạn vẫn muốn tiếp tục đăng xuất khỏi hệ thống?",
     "logout":"Đăng xuất",
     "profile":"Thông tin cá nhân",
-    "can_not_delete":"Không thể xóa do có phát sinh dữ liệu",
+    "can_not_delete":"Không thể xóa do có phát sinh dữ liệu!",
     "can_not_delete_lasted_data":"Không cho phép xóa bảng dữ liệu mới nhất!",
     "exist_admin":"Tồn tại quản trị viên",
     "not_exist_admin":"Không tồn tại quản trị viên",
@@ -179,5 +179,8 @@
     "description":"Nô tả",
     "created_at":"Ngày tạo",
     "photo":"Hình ảnh",
-    "create_new_data":"Tạo mới dữ liệu"
+    "create_new_data":"Tạo mới dữ liệu",
+    "exist_customer":"Tồn tại khách hàng",
+    "not_exist_customer":"Không tồn tại khách hàng",
+    "total_customer":"Tổng số KH"
 }

@@ -196,7 +196,7 @@ class AdminCustomer extends Model
         if (is_array($area_id)) {
             return $query->whereIntegerInRaw('area_id', $area_id);
         }
-        return $query->where('service_id', $area_id);
+        return $query->where('area_id', $area_id);
     }
 
     public function scopeServiceId($query, $service_id)

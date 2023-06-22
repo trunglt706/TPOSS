@@ -76,7 +76,7 @@ class AdminGroupController extends Controller
         return [
             'status' => true,
             'total' => number_format($data->total()),
-            'data' => view('admins::admins.pages.admins.tables.admin_groups', compact('data'))->render()
+            'data' => view('admins::admins.pages.admins.groups.table', compact('data'))->render()
         ];
     }
 

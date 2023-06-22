@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            @if ($sub_menu->count() > 0)
+            @if (!is_null($sub_menu))
                 <div class="content-header-right text-md-end col-md-6 col-12 d-md-block d-none">
                     <div class="mb-1 breadcrumb-right">
                         <div class="d-flex gap-50 justify-content-end sub-nav-list">
@@ -103,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive table-content">
-                                @include('admins::admins.pages.admins.tables.admin_groups')
+                                @include('admins::admins.pages.admins.groups.table')
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
         </div>
 
         {{-- Modal confirm delete --}}
-        @include('admins::admins.pages.admins.modals.confirm')
+        @include('admins::admins.pages.modals.confirm')
         {{-- End Modal delete --}}
 
         {{-- create new data --}}
@@ -144,11 +144,8 @@
             $('.btn-submit-delete').addClass('disabled');
             show_loading($(".modalDelete"));
             var deleted_id = $('.deleted_id').val();
-            var assigned_id = $('.assigned_id').val();
             var url = "{{ route('admin.admin_groups.destroy', ':id') }}";
-            $.post(url.replace(':id', deleted_id), {
-                assigned_id: assigned_id
-            }, function(data) {
+            $.post(url.replace(':id', deleted_id), function(data) {
                 if (data['status'] == 'success') {
                     $('#tr-' + deleted_id).remove();
                     $('.total-rows').text(data['total']);
