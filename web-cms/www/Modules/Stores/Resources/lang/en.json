@@ -1,0 +1,11 @@
+{
+    "status_1": "Activated",
+    "status_2": "Locked",
+    "currency_vnd": "VND",
+    "currency_usd": "USD",
+    "work_type_0": "By shift",
+    "work_type_1": "Time in works",
+    "permission_permissions": "Permisisons",
+    "permission_roles": "Roles",
+    "permission_stores": "Stores"
+}

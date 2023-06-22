@@ -1,0 +1,14 @@
+{
+    "permission_partner": "System partner",
+    "permission_partner_list": "Partners",
+    "permission_partner_domains": "Domains",
+    "permission_partner_histories": "License history",
+    "permission_partner_notifies": "Notifications",
+    "permission_partner_licenses": "Licenses",
+    
+    "status_1": "Activated",
+    "status_2": "Locked",
+    "status_3": "Deleted",
+
+    "change_license_by_date": "Copyright fluctuations during the day :date"
+}

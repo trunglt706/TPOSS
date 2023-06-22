@@ -1,0 +1,23 @@
+{
+    "Activities": true,
+    "Admins": true,
+    "Apis": true,
+    "Applications": true,
+    "Bookings": true,
+    "Chats": true,
+    "Customers": true,
+    "Hotels": true,
+    "Invoices": true,
+    "Licenses": true,
+    "Menus": true,
+    "Partners": true,
+    "Payments": true,
+    "Promotions": true,
+    "Sale": true,
+    "Services": true,
+    "Settings": true,
+    "Shifts": true,
+    "Stores": true,
+    "Tables": true,
+    "Units": true
+}
