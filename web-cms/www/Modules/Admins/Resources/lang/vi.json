@@ -139,7 +139,7 @@
     "not_login":"Chưa đăng nhập",
     "delete":"Xóa",
     "edit":"Cập nhật",
-    "confirm_delete_data":"Xác nhận xóa dữ liệu?",
+    "confirm_delete_data":"Xác nhận xóa dữ liệu này?",
     "total_row":"Số dòng hiển thị",
     "all": "Tất cả",
     "not_found_data":"Không tìm thấy dữ liệu!",
@@ -171,5 +171,13 @@
     "logout":"Đăng xuất",
     "profile":"Thông tin cá nhân",
     "can_not_delete":"Không thể xóa do có phát sinh dữ liệu",
-    "can_not_delete_lasted_data":"Không cho phép xóa bảng dữ liệu mới nhất!"
+    "can_not_delete_lasted_data":"Không cho phép xóa bảng dữ liệu mới nhất!",
+    "exist_admin":"Tồn tại quản trị viên",
+    "not_exist_admin":"Không tồn tại quản trị viên",
+    "no_select":"Không chọn",
+    "total_admin":"Tổng số admin",
+    "description":"Nô tả",
+    "created_at":"Ngày tạo",
+    "photo":"Hình ảnh",
+    "create_new_data":"Tạo mới dữ liệu"
 }

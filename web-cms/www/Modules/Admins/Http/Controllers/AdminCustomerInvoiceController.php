@@ -33,7 +33,7 @@ class AdminCustomerInvoiceController extends Controller
         $data = $_status != '' ? $data->status($_status) : $data;
         $data = $_search != '' ? $data->search($_search) : $data;
 
-        $data = $data->orderBy('order', 'desc')->lasted()->paginate($limit);
+        $data = $data->orderBy('order', 'desc')->latest()->paginate($limit);
 
         return view('admins::admins.pages.areas.index', compact('title', 'permission', 'sub_menu', 'status', 'data'));
     }
@@ -48,7 +48,7 @@ class AdminCustomerInvoiceController extends Controller
         $data = $status != '' ? $data->status($status) : $data;
         $data = $search != '' ? $data->search($search) : $data;
 
-        $data = $data->orderBy('order', 'desc')->lasted()->paginate($limit);
+        $data = $data->orderBy('order', 'desc')->latest()->paginate($limit);
         return [
             'status' => true,
             'total' => number_format($data->total()),

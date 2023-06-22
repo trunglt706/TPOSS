@@ -44,7 +44,7 @@ class ActivityController extends Controller
         $data = $_permission_id != '' ? $data->permissionId($_permission_id) : $data;
         $data = $_role_id != '' ? $data->roleId($_role_id) : $data;
 
-        $data = $data->lasted()->paginate($limit);
+        $data = $data->latest()->paginate($limit);
 
         return view('admins::admins.pages.areas.index', compact('title', 'permission', 'sub_menu', 'status', 'data'));
     }
@@ -69,7 +69,7 @@ class ActivityController extends Controller
         $data = $_permission_id != '' ? $data->permissionId($_permission_id) : $data;
         $data = $_role_id != '' ? $data->roleId($_role_id) : $data;
 
-        $data = $data->lasted()->paginate($limit);
+        $data = $data->latest()->paginate($limit);
         return [
             'status' => true,
             'total' => number_format($data->total()),

@@ -42,7 +42,7 @@ class BackupController extends Controller
         $data = $_status != '' ? $data->status($_status) : $data;
         $data = $_search != '' ? $data->search($_search) : $data;
 
-        $data = $data->lasted()->paginate($limit);
+        $data = $data->latest()->paginate($limit);
 
         return view('admins::admins.pages.backup.index', compact('title', 'permission', 'sub_menu', 'status', 'data'));
     }
@@ -59,7 +59,7 @@ class BackupController extends Controller
         $data = $status != '' ? $data->status($status) : $data;
         $data = $search != '' ? $data->search($search) : $data;
 
-        $data = $data->lasted()->paginate($limit);
+        $data = $data->latest()->paginate($limit);
         return [
             'status' => true,
             'total' => number_format($data->total()),

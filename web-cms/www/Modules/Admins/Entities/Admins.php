@@ -218,7 +218,7 @@ class Admins extends Authenticatable
 
     public function activities()
     {
-        return $this->hasMany(AdminActivity::class, 'admin_id', 'id')->lasted();
+        return $this->hasMany(AdminActivity::class, 'admin_id', 'id')->latest();
     }
 
     public function notifications()
