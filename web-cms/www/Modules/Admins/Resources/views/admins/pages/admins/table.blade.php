@@ -21,7 +21,7 @@
                 <tr id="tr-{{ $item->id }}">
                     <td scope="col" class="text-nowrap">
                         <a href="{{ route('admin.admins.detail', ['id' => $item->id]) }}"
-                            class="btn btn-icon btn-outline-primary">
+                            class="btn btn-sm btn-icon btn-outline-primary">
                             <i class="fa-solid fa-eye"></i>
                         </a>
                         @if (admin_menu_check_role('admins|delete') &&
@@ -29,7 +29,7 @@
                                     auth()->guard('admin')->user()->id &&
                                 !$item->root)
                             <button onclick="deleteData('{{ $item->id }}')" type="button"
-                                class="btn btn-icon btn-outline-danger">
+                                class="btn btn-sm btn-icon btn-outline-danger">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         @endif
@@ -39,12 +39,13 @@
                             data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up my-0"
                             title="{{ $item->name }}">
                             <img src="{{ get_avatar($item->avatar, $item->name) }}" alt="{{ $item->name }}"
-                                height="40" width="40" />
+                                height="36" width="36" />
                         </a>
                         <div class="ms-1">
                             <span class="fw-bold {{ $item->root ? 'text-danger' : '' }}">
                                 {{ $item->name }}<br />
-                                {{ $item->code }} @if ($item->supper)
+                                <small>{{ $item->code }}</small>
+                                @if ($item->supper)
                                     <i class="fa-solid fa-check-double ms-1 text-success" data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="@lang('account_supper_1')"></i>
                                 @endif

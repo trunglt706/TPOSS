@@ -21,12 +21,12 @@
                 <tr id="tr-{{ $item->id }}">
                     <td scope="col" class="text-nowrap">
                         <a href="{{ route('admin.admin_groups.detail', ['id' => $item->id]) }}"
-                            class="btn btn-icon btn-outline-primary">
+                            class="btn btn-sm btn-icon btn-outline-primary">
                             <i class="fa-solid fa-eye"></i>
                         </a>
                         @if (admin_menu_check_role('admin_groups|delete'))
                             <button onclick="deleteData('{{ $item->id }}')" type="button"
-                                class="btn btn-icon btn-outline-danger">
+                                class="btn btn-sm btn-icon btn-outline-danger">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         @endif

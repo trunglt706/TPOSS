@@ -25,7 +25,7 @@
                         <div class="d-flex gap-50 justify-content-end sub-nav-list">
                             @foreach ($sub_menu as $item)
                                 <a href="{{ $item->extension == $permission->extension ? '#' : $item->route }}"
-                                    class="btn {{ $item->extension == $permission->extension ? 'btn-primary' : 'btn-outline-primary' }} waves-effect waves-float waves-light">
+                                    class="btn btn-sm {{ $item->extension == $permission->extension ? 'btn-primary' : 'btn-outline-primary' }}">
                                     {!! $item->icon !!} {{ __($item->name) }}
                                 </a>
                             @endforeach
@@ -46,17 +46,17 @@
                             <div class="heading-elements">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     @if (allows($permission->extension . '|insert'))
-                                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
                                             data-bs-target="#modalCreate">
                                             <i class="fa-solid fa-user-plus"></i>
                                         </button>
                                     @endif
-                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse"
+                                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse"
                                         href="#collapseFilter" role="button" aria-expanded="false"
                                         aria-controls="collapseFilter">
                                         <i class="fa-solid fa-filter"></i>
                                     </button>
-                                    <button type="button" onclick="filterTable()" class="btn btn-outline-primary">
+                                    <button type="button" onclick="filterTable()" class="btn btn-sm btn-outline-primary">
                                         <i class="fa-solid fa-rotate"></i>
                                     </button>
                                 </div>
